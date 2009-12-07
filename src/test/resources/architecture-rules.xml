@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architecture>
+
+    <configuration>
+        <sources no-packages="exception">
+            <source not-found="exception">target/classes</source>
+        </sources>
+        <cyclicalDependency test="true"/>
+    </configuration>
+
+    <rules>
+
+        <!-- swing on steroïds rules -->
+
+        <rule id="sos-infrastructure-layer">
+            <comment>SOS Infrastructure code shall not use any above layer</comment>
+            <packages>
+                <package>org.codeartisans.java.sos.forking</package>
+                <package>org.codeartisans.java.sos.forking..*</package>
+                <package>org.codeartisans.java.sos.messagebus</package>
+                <package>org.codeartisans.java.sos.messagebus..*</package>
+                <package>org.codeartisans.java.sos.threading</package>
+                <package>org.codeartisans.java.sos.threading..*</package>
+            </packages>
+            <violations>
+                <violation>org.codeartisans.java.sos.presenters</violation>
+                <violation>org.codeartisans.java.sos.presenters..*</violation>
+                <violation>org.codeartisans.java.sos.views</violation>
+                <violation>org.codeartisans.java.sos.views..*</violation>
+            </violations>
+        </rule>
+
+        <rule id="sos-no-swing-in-presenters">
+            <comment>SOS Presenters shall not use any AWT or Swing code</comment>
+            <packages>
+                <package>org.codeartisans.java.sos.presenters</package>
+                <package>org.codeartisans.java.sos.presenters..*</package>
+            </packages>
+            <violations>
+                <violation>java.awt</violation>
+                <violation>java.awt..*</violation>
+                <violation>javax.swing</violation>
+                <violation>javax.swing..*</violation>
+            </violations>
+        </rule>
+
+        <rule id="sos-no-presenters-in-views">
+            <comment>SOS Views shall not use Presenters</comment>
+            <packages>
+                <package>org.codeartisans.java.sos.views</package>
+                <package>org.codeartisans.java.sos.views..*</package>
+            </packages>
+            <violations>
+                <violation>org.codeartisans.java.sos.presenters</violation>
+                <violation>org.codeartisans.java.sos.presenters..*</violation>
+            </violations>
+        </rule>
+
+    </rules>
+
+</architecture>
