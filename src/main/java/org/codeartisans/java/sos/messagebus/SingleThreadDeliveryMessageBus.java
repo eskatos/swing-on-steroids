@@ -17,17 +17,21 @@ public class SingleThreadDeliveryMessageBus
         this.workQueue = workQueue;
     }
 
+    @Override
     public <S extends Subscriber> void publish(final Message<S> message)
     {
         workQueue.execute(new Runnable()
         {
 
+            @Override
             public void run()
             {
                 for (S eachSubscriber : get(message.getMessageType())) {
                     message.deliver(eachSubscriber);
                 }
             }
+
         });
     }
+
 }

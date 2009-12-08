@@ -1,5 +1,6 @@
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -7,9 +8,8 @@
     <artifactId>swing-on-steroids</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 
-    <packaging>jar</packaging>
-
     <name>${artifactId}</name>
+    <packaging>jar</packaging>
     <url>http://codeartisans.org</url>
 
     <properties>
@@ -66,22 +66,13 @@
             <version>2.1.1</version>
             <scope>test</scope>
         </dependency>
-        <!-- see http://github.com/gudmundur/atunit -->
-        <dependency>
-            <groupId>com.google.code.atunit</groupId>
-            <artifactId>atunit</artifactId>
-            <version>1.0.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.atunit</groupId>
-            <artifactId>atunit-guice</artifactId>
-            <version>1.0.1</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <repositories>
+        <repository>
+            <id>codeartisans-public</id>
+            <url>https://codebox.codeartisans.org/nexus/content/groups/public</url>
+        </repository>
         <repository>
             <id>architect-rules-repo</id>
             <name>architecture-rules repository</name>
@@ -95,4 +86,16 @@
             </snapshots>
         </repository>
     </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>codeartisans-public-releases</id>
+            <url>https://codebox.codeartisans.org/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>codeartisans-public-snapshots</id>
+            <url>https://codebox.codeartisans.org/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+    
 </project>

@@ -1,50 +1,51 @@
 package org.codeartisans.java.sos.messagebus;
 
-import org.codeartisans.java.sos.messagebus.MessageBus;
-import org.codeartisans.java.sos.messagebus.MessageType;
-import org.codeartisans.java.sos.messagebus.Subscriber;
-import org.codeartisans.java.sos.messagebus.SingleThreadDeliveryMessageBus;
-import org.codeartisans.java.sos.messagebus.Subscribtion;
-import org.codeartisans.java.sos.messagebus.Message;
-import atunit.AtUnit;
-import atunit.Container;
-import atunit.Unit;
-import atunit.guice.GuiceContainer;
-import com.google.inject.Binder;
-import com.google.inject.Inject;
-import com.google.inject.Module;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.threading.DefaultWorkQueue;
+import org.codeartisans.java.sos.threading.WorkQueue;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-@RunWith(AtUnit.class)
-@Container(GuiceContainer.class)
 public class MessageBusTest
-        implements Module
 {
 
-    @Override
-    public void configure(Binder binder)
+    private class MessageBusTestModule extends AbstractModule
     {
-        binder.bind(String.class).annotatedWith(Names.named(WorkQueue.NAME)).toInstance("BusTest");
-        binder.bind(Integer.class).annotatedWith(Names.named(WorkQueue.SIZE)).toInstance(2);
-        binder.bind(WorkQueue.class).to(DefaultWorkQueue.class).in(Singleton.class);
-        binder.bind(MessageBus.class).to(SingleThreadDeliveryMessageBus.class);
+
+        @Override
+        protected void configure()
+        {
+            bind(String.class).annotatedWith(Names.named(WorkQueue.NAME)).toInstance("MessageBusTest");
+            bind(Integer.class).annotatedWith(Names.named(WorkQueue.SIZE)).toInstance(2);
+            bind(WorkQueue.class).to(DefaultWorkQueue.class).in(Singleton.class);
+            bind(MessageBus.class).to(SingleThreadDeliveryMessageBus.class);
+        }
+
     }
 
-    @Inject
-    @Unit
     private MessageBus msgBus;
 
-    @Test
-    public void prout()
-            throws InterruptedException
+    @Before
+    public void setUp()
     {
+        msgBus = Guice.createInjector(new MessageBusTestModule()).getInstance(MessageBus.class);
 
+    }
+
+    @After
+    public void tearDown()
+    {
+        msgBus = null;
+    }
+
+    @Test
+    public void test() throws InterruptedException
+    {
         TestProutMessageHandler sub1 = new TestProutMessageHandler();
         TestProutMessageHandler sub2 = new TestProutMessageHandler();
 

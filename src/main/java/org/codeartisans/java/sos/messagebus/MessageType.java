@@ -29,4 +29,5 @@ public class MessageType<S extends Subscriber>
         // We override hash code to make it as efficient as possible.
         return index;
     }
+
 }

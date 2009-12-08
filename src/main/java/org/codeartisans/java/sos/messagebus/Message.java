@@ -16,4 +16,5 @@ public abstract class Message<S extends Subscriber>
      * @param subscriber Subscriber
      */
     protected abstract void deliver(S subscriber);
+
 }

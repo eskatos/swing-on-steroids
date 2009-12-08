@@ -6,7 +6,7 @@ import com.google.inject.name.Named;
 import java.util.LinkedList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.codeartisans.java.toolbox.StringUtils;
+import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
 
 @Singleton
 public final class DefaultWorkQueue
@@ -19,11 +19,11 @@ public final class DefaultWorkQueue
     private final ThreadGroup threadGroup;
 
     @Inject
-    DefaultWorkQueue(@Named(WorkQueue.NAME) String name, @Named(WorkQueue.SIZE) Integer size)
+    DefaultWorkQueue(@Named(NAME) String name, @Named(SIZE) Integer size)
     {
-        if (StringUtils.isEmpty(name)) {
-            name = "Default";
-        }
+        NullArgumentException.ensureNotEmpty(NAME, true, name);
+        NullArgumentException.ensureNotZero(SIZE, size);
+        name = name.trim();
         queue = new LinkedList<Runnable>();
         threads = new PooledWorker[size];
         threadGroup = new ThreadGroup(name + "WorkQueue");
