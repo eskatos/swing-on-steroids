@@ -17,7 +17,7 @@ public abstract class BasePresenter<V extends View>
     protected final V view;
     protected final MessageBus msgBus;
 
-    public BasePresenter(V view, MessageBus msgBus)
+    protected BasePresenter(V view, MessageBus msgBus)
     {
         this.view = view;
         this.msgBus = msgBus;

@@ -4,15 +4,13 @@ import com.google.inject.Inject;
 import org.codeartisans.java.sos.threading.WorkQueue;
 
 public class MultiThreadDeliveryMessageBus
-        extends BaseMessageBus
+        extends BaseThreadedMessageBus
 {
-
-    private final WorkQueue workQueue;
 
     @Inject
     public MultiThreadDeliveryMessageBus(WorkQueue workQueue)
     {
-        this.workQueue = workQueue;
+        super(workQueue);
     }
 
     @Override

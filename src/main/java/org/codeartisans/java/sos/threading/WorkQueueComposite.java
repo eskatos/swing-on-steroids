@@ -1,0 +1,68 @@
+/*
+ * Copyright (c) 2009 Paul Merlin <paul@nosphere.org>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.codeartisans.java.sos.threading;
+
+import java.util.UUID;
+import org.qi4j.api.configuration.Configuration;
+import org.qi4j.api.injection.scope.This;
+import org.qi4j.api.mixin.Mixins;
+import org.qi4j.api.service.ServiceComposite;
+
+/**
+ * @author Paul Merlin <paul@nosphere.org>
+ */
+@Mixins(WorkQueueComposite.Mixin.class)
+public interface WorkQueueComposite
+        extends WorkQueue, ServiceComposite
+{
+
+    abstract class Mixin
+            implements WorkQueueComposite
+    {
+
+        @This
+        private Configuration<WorkQueueConfigurationComposite> config;
+        private DefaultWorkQueue delegate;
+
+        @Override
+        public void execute(Runnable runnable)
+        {
+            ensureDelegate().execute(runnable);
+        }
+
+        private WorkQueue ensureDelegate()
+        {
+            if (delegate == null) {
+                if (false) {
+                    // FIXME : DO NOT WORK !! :-(
+                    WorkQueueConfigurationComposite cfg = config.configuration();
+                    delegate = new DefaultWorkQueue(cfg.name().get(), cfg.size().get());
+                } else {
+                    delegate = new DefaultWorkQueue(UUID.randomUUID().toString(), 4);
+                }
+            }
+            return delegate;
+        }
+
+    }
+
+}

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
 
 @Singleton
-public final class DefaultWorkQueue
+public class DefaultWorkQueue
         implements WorkQueue
 {
 
@@ -19,7 +19,7 @@ public final class DefaultWorkQueue
     private final ThreadGroup threadGroup;
 
     @Inject
-    DefaultWorkQueue(@Named(NAME) String name, @Named(SIZE) Integer size)
+    public DefaultWorkQueue(@Named(NAME) String name, @Named(SIZE) Integer size)
     {
         NullArgumentException.ensureNotEmpty(NAME, true, name);
         NullArgumentException.ensureNotZero(SIZE, size);
