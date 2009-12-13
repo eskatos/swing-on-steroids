@@ -6,13 +6,15 @@ import org.codeartisans.java.sos.threading.WorkQueue;
 
 @Singleton
 public class SingleThreadDeliveryMessageBus
-        extends BaseThreadedMessageBus
+        extends BaseMessageBus
 {
+
+    private final WorkQueue workQueue;
 
     @Inject
     public SingleThreadDeliveryMessageBus(WorkQueue workQueue)
     {
-        super(workQueue);
+        this.workQueue = workQueue;
     }
 
     @Override

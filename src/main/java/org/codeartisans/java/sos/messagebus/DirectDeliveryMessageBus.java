@@ -3,7 +3,7 @@ package org.codeartisans.java.sos.messagebus;
 import com.google.inject.Singleton;
 
 @Singleton
-public class SynchronizedMessageBus
+public class DirectDeliveryMessageBus
         extends BaseMessageBus
 {
 
@@ -14,4 +14,5 @@ public class SynchronizedMessageBus
             message.deliver(eachSubscriber);
         }
     }
+
 }

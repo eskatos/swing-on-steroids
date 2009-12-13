@@ -21,24 +21,20 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
-import org.codeartisans.java.sos.threading.WorkQueue;
-
 /**
  * @author Paul Merlin <paul@nosphere.org>
  */
-public abstract class BaseThreadedMessageBus
+public abstract class DirectDeliveryMixin
         extends BaseMessageBus
+        implements MessageBusComposite
 {
 
-    protected WorkQueue workQueue;
-
-    BaseThreadedMessageBus()
+    @Override
+    public <S extends Subscriber> void publish(final Message<S> message)
     {
-    }
-
-    public BaseThreadedMessageBus(WorkQueue workQueue)
-    {
-        this.workQueue = workQueue;
+        for (S eachSubscriber : get(message.getMessageType())) {
+            message.deliver(eachSubscriber);
+        }
     }
 
 }
