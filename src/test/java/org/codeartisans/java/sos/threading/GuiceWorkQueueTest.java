@@ -66,7 +66,7 @@ public class GuiceWorkQueueTest
     @Test
     public void test() throws InterruptedException
     {
-        Prout.Util.testWorkQueue(workQueue);
+        UseCase.Util.testWorkQueue(workQueue);
     }
 
 }

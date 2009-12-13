@@ -2,7 +2,6 @@ package org.codeartisans.java.sos.presenters;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.codeartisans.java.sos.messagebus.MessageBus;
 import org.codeartisans.java.sos.messagebus.Subscribtion;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 import org.codeartisans.java.sos.views.View;
@@ -15,12 +14,10 @@ public abstract class BasePresenter<V extends View>
     private Set<HandlerRegistration> viewHandlerRegistrations = new HashSet<HandlerRegistration>();
     private Set<Subscribtion> messageSubscribtions = new HashSet<Subscribtion>();
     protected final V view;
-    protected final MessageBus msgBus;
 
-    protected BasePresenter(V view, MessageBus msgBus)
+    protected BasePresenter(V view)
     {
         this.view = view;
-        this.msgBus = msgBus;
     }
 
     @Override

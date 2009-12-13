@@ -32,7 +32,8 @@ import org.qi4j.test.AbstractQi4jTest;
 /**
  * @author Paul Merlin <paul@nosphere.org>
  */
-public class Qi4jWorkQueueTest extends AbstractQi4jTest
+public class Qi4jWorkQueueTest
+        extends AbstractQi4jTest
 {
 
     @Override
@@ -53,7 +54,7 @@ public class Qi4jWorkQueueTest extends AbstractQi4jTest
         ServiceReference<WorkQueueComposite> ref = serviceLocator.findService(WorkQueueComposite.class);
         WorkQueue workQueue = ref.get();
 
-        Prout.Util.testWorkQueue(workQueue);
+        UseCase.Util.testWorkQueue(workQueue);
     }
 
 }

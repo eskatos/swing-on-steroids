@@ -28,7 +28,7 @@ import org.junit.Assert;
 /**
  * @author Paul Merlin <paul@nosphere.org>
  */
-public interface Prout
+public interface UseCase
 {
 
     static class Util

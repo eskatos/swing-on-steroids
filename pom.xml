@@ -16,6 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
+        <qi4j.version>1.0-RC3-SNAPSHOT</qi4j.version>
     </properties>
 
     <build>
@@ -30,7 +31,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.codeartisans.java</groupId>
@@ -47,13 +48,13 @@
         <dependency>
             <groupId>org.qi4j.core</groupId>
             <artifactId>qi4j-core-api</artifactId>
-            <version>1.0-RC3-SNAPSHOT</version>
+            <version>${qi4j.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.qi4j.library</groupId>
             <artifactId>qi4j-lib-constraints</artifactId>
-            <version>1.0-RC3-SNAPSHOT</version>
+            <version>${qi4j.version}</version>
             <optional>true</optional>
         </dependency>
 
@@ -87,25 +88,25 @@
         <dependency>
             <groupId>org.qi4j.core</groupId>
             <artifactId>qi4j-core-runtime</artifactId>
-            <version>1.0-RC3-SNAPSHOT</version>
+            <version>${qi4j.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.qi4j.library</groupId>
             <artifactId>qi4j-lib-rdf</artifactId>
-            <version>1.0-RC3-SNAPSHOT</version>
+            <version>${qi4j.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.qi4j.extension</groupId>
             <artifactId>qi4j-indexing-rdf</artifactId>
-            <version>1.0-RC3-SNAPSHOT</version>
+            <version>${qi4j.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.qi4j.core</groupId>
             <artifactId>qi4j-core-testsupport</artifactId>
-            <version>1.0-RC3-SNAPSHOT</version>
+            <version>${qi4j.version}</version>
             <scope>test</scope>
         </dependency>
 

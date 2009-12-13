@@ -19,36 +19,57 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.messagebus;
+package org.codeartisans.java.sos.presenters;
 
-import org.codeartisans.java.sos.threading.WorkQueueComposite;
+import org.codeartisans.java.sos.presenters.UseCase.HelloPresenter;
+import org.codeartisans.java.sos.presenters.UseCase.HelloViewImpl;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.qi4j.api.service.ServiceReference;
 import org.qi4j.bootstrap.AssemblyException;
 import org.qi4j.bootstrap.ModuleAssembly;
 import org.qi4j.test.AbstractQi4jTest;
 
 /**
- * @author Paul Merlin <p.merlin@nosphere.org>
+ * @author Paul Merlin <paul@nosphere.org>
  */
-public class Qi4jMessageBusTest
+public class Qi4jHelloPresenterTest
         extends AbstractQi4jTest
 {
 
     @Override
     public void assemble(ModuleAssembly module) throws AssemblyException
     {
-        module.addServices(WorkQueueComposite.class);
-        module.addServices(MessageBusComposite.class).withMixins(MultiThreadDeliveryMixin.class);
+        module.addObjects(HelloViewImpl.class);
+        module.addObjects(HelloPresenter.class);
+    }
+
+    private HelloPresenter presenter;
+
+    @Before
+    @Override
+    public void setUp()
+            throws Exception
+    {
+        super.setUp();
+        presenter = objectBuilderFactory.newObject(HelloPresenter.class);
+        presenter.bind();
+    }
+
+    @After
+    @Override
+    public void tearDown()
+            throws Exception
+    {
+        presenter.unbind();
+        presenter = null;
+        super.tearDown();
     }
 
     @Test
-    public void testMessageBus() throws InterruptedException
+    public void testHelloPresenter()
     {
-        ServiceReference<MessageBusComposite> ref = serviceLocator.findService(MessageBusComposite.class);
-        MessageBus messageBus = ref.get();
-
-        UseCase.Util.testMessageBus(messageBus);
+        UseCase.Util.testHelloPresenter(presenter);
     }
 
 }

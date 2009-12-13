@@ -23,15 +23,10 @@ package org.codeartisans.java.sos.presenters;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import org.codeartisans.java.sos.views.View;
+import org.codeartisans.java.sos.presenters.UseCase.HelloPresenter;
+import org.codeartisans.java.sos.presenters.UseCase.HelloView;
+import org.codeartisans.java.sos.presenters.UseCase.HelloViewImpl;
 import org.codeartisans.java.sos.views.mock.notifications.MockHasClickHandler;
-import org.codeartisans.java.sos.views.mock.notifications.StringHasStringValue;
-import org.codeartisans.java.sos.views.notifications.ClickHandler;
-import org.codeartisans.java.sos.views.notifications.ClickNotification;
-import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
-import org.codeartisans.java.sos.views.values.HasValue;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -78,111 +73,6 @@ public class GuiceHelloPresenterTest
         presenter.view.input().setValue("Sneak");
         ((MockHasClickHandler) presenter.view.sayHelloButton()).click();
         Assert.assertEquals("Hello Sneak", presenter.view.output().getValue());
-    }
-
-    static class HelloPresenter
-            extends BasePresenter<HelloView>
-            implements Presenter
-    {
-
-        @Inject
-        public HelloPresenter(HelloView view)
-        {
-            super(view, null);
-        }
-
-        @Override
-        public View view()
-        {
-            return view;
-        }
-
-        @Override
-        public void onBind()
-        {
-            recordViewRegistration(view.sayHelloButton().addClickHandler(new ClickHandler()
-            {
-
-                @Override
-                public void onClick(ClickNotification notification)
-                {
-                    System.out.println("                                    plop!");
-                    view.output().setValue("Hello " + view.input().getValue());
-                }
-
-            }));
-        }
-
-        @Override
-        public void onUnbind()
-        {
-        }
-
-    }
-
-    interface HelloView extends View
-    {
-
-        HasValue<String> input();
-
-        HasClickHandlers sayHelloButton();
-
-        HasValue<String> output();
-
-    }
-
-    static class HelloViewImpl implements HelloView
-    {
-
-        private final HasValue<String> input;
-        private final HasValue<String> output;
-        private final MockHasClickHandler sayHelloButton;
-
-        public HelloViewImpl()
-        {
-            input = new StringHasStringValue();
-            sayHelloButton = new MockHasClickHandler();
-            output = new StringHasStringValue();
-        }
-
-        @Override
-        public HasValue<String> input()
-        {
-            return input;
-        }
-
-        @Override
-        public HasClickHandlers sayHelloButton()
-        {
-            return sayHelloButton;
-        }
-
-        @Override
-        public HasValue<String> output()
-        {
-            return output;
-        }
-
-        @Override
-        public void reveal()
-        {
-        }
-
-        @Override
-        public void hide()
-        {
-        }
-
-        @Override
-        public void busy()
-        {
-        }
-
-        @Override
-        public void done()
-        {
-        }
-
     }
 
 }

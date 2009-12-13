@@ -45,7 +45,7 @@ public class GuiceMessageBusTest
     @Test
     public void test() throws InterruptedException
     {
-        Prout.Util.testMessageBus(msgBus);
+        UseCase.Util.testMessageBus(msgBus);
     }
 
 }
