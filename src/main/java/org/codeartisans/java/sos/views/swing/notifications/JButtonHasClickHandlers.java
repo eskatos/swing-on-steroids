@@ -19,25 +19,31 @@ public final class JButtonHasClickHandlers
         this.button = button;
     }
 
+    @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler)
     {
         final ActionListener listener = new ActionListener()
         {
 
+            @Override
             public void actionPerformed(ActionEvent e)
             {
                 handler.onClick(new ClickNotification());
             }
+
         };
         button.addActionListener(listener);
         return new HandlerRegistration()
         {
 
+            @Override
             public void removeHandler()
             {
                 button.removeActionListener(listener);
             }
+
         };
 
     }
+
 }

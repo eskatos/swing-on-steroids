@@ -4,4 +4,5 @@ public interface HasClickHandlers
 {
 
     HandlerRegistration addClickHandler(ClickHandler handler);
+
 }
