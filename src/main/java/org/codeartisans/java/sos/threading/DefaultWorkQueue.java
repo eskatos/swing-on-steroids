@@ -1,14 +1,12 @@
 package org.codeartisans.java.sos.threading;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import java.util.LinkedList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
 
-@Singleton
 public class DefaultWorkQueue
         implements WorkQueue
 {
