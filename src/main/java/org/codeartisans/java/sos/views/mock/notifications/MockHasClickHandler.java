@@ -28,9 +28,6 @@ import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
 
-/**
- * @author Paul Merlin <paul@nosphere.org>
- */
 public class MockHasClickHandler implements HasClickHandlers
 {
 

@@ -23,9 +23,6 @@ package org.codeartisans.java.sos.views.mock.notifications;
 
 import org.codeartisans.java.sos.views.values.HasValue;
 
-/**
- * @author Paul Merlin <paul@nosphere.org>
- */
 public class StringHasStringValue implements HasValue<String>
 {
 

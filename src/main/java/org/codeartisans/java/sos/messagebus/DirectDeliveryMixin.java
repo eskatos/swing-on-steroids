@@ -21,9 +21,6 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
-/**
- * @author Paul Merlin <paul@nosphere.org>
- */
 public abstract class DirectDeliveryMixin
         extends BaseMessageBus
         implements MessageBusComposite

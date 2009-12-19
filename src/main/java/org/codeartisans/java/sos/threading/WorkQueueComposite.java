@@ -27,9 +27,6 @@ import org.qi4j.api.injection.scope.This;
 import org.qi4j.api.mixin.Mixins;
 import org.qi4j.api.service.ServiceComposite;
 
-/**
- * @author Paul Merlin <paul@nosphere.org>
- */
 @Mixins(WorkQueueComposite.Mixin.class)
 public interface WorkQueueComposite
         extends WorkQueue, ServiceComposite

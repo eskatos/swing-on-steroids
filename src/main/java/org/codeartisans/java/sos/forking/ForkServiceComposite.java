@@ -24,9 +24,6 @@ package org.codeartisans.java.sos.forking;
 import org.qi4j.api.mixin.Mixins;
 import org.qi4j.api.service.ServiceComposite;
 
-/**
- * @author Paul Merlin <paul@nosphere.org>
- */
 @Mixins(DefaultForkService.class)
 public interface ForkServiceComposite extends
         ForkService, ServiceComposite

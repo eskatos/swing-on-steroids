@@ -28,9 +28,6 @@ import org.qi4j.api.unitofwork.UnitOfWork;
 import org.qi4j.api.unitofwork.UnitOfWorkCompletionException;
 import org.qi4j.api.unitofwork.UnitOfWorkFactory;
 
-/**
- * @author Paul Merlin <paul@nosphere.org>
- */
 public abstract class MultiThreadDeliveryMixin
         extends BaseMessageBus
         implements MessageBusComposite
