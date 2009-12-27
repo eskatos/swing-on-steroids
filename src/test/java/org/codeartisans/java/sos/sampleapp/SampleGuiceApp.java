@@ -19,25 +19,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.sampleapp.presentation.views;
+package org.codeartisans.java.sos.sampleapp;
 
-import org.codeartisans.java.sos.views.View;
-import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
-import org.codeartisans.java.sos.views.values.HasValue;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.codeartisans.java.sos.sampleapp.presentation.presenters.GreetingsPresenter;
+import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
+import org.codeartisans.java.sos.sampleapp.presentation.views.swing.SwingGreetingsView;
+import org.codeartisans.java.toolbox.guice.GuiceHelper;
 
 /**
  * @author Paul Merlin <paul@nosphere.org>
  */
-public interface GreetingsView
-        extends View
+public final class SampleGuiceApp
 {
 
-    HasValue<String> nameInput();
+    public static void main(String[] args)
+    {
+        GuiceHelper.enableDebugOutput();
+        Injector injector = Guice.createInjector(new AbstractModule()
+        {
 
-    HasClickHandlers greetButton();
+            @Override
+            protected void configure()
+            {
+                bind(GreetingsView.class).to(SwingGreetingsView.class);
+                bind(GreetingsPresenter.class);
+            }
 
-    HasValue<String> messageDisplay();
+        });
+        GreetingsPresenter presenter = injector.getInstance(GreetingsPresenter.class);
+        presenter.bind();
+        presenter.view().reveal();
 
-    HasClickHandlers closeButton();
+    }
 
 }

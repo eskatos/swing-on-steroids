@@ -19,25 +19,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.sampleapp.presentation.views;
+package org.codeartisans.java.sos.views.swing.notifications;
 
-import org.codeartisans.java.sos.views.View;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import javax.swing.JFrame;
+import org.codeartisans.java.sos.views.notifications.ClickHandler;
+import org.codeartisans.java.sos.views.notifications.ClickNotification;
+import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
-import org.codeartisans.java.sos.views.values.HasValue;
 
 /**
  * @author Paul Merlin <paul@nosphere.org>
  */
-public interface GreetingsView
-        extends View
+public class JFrameHasCloseClickHandlers
+        implements HasClickHandlers
 {
 
-    HasValue<String> nameInput();
+    private final JFrame frame;
 
-    HasClickHandlers greetButton();
+    public JFrameHasCloseClickHandlers(JFrame frame)
+    {
+        this.frame = frame;
+    }
 
-    HasValue<String> messageDisplay();
+    @Override
+    public HandlerRegistration addClickHandler(final ClickHandler handler)
+    {
+        final WindowListener listener = new WindowAdapter()
+        {
 
-    HasClickHandlers closeButton();
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                handler.onClick(new ClickNotification());
+            }
+
+        };
+        frame.addWindowListener(listener);
+        return new HandlerRegistration()
+        {
+
+            @Override
+            public void removeHandler()
+            {
+                frame.removeWindowListener(listener);
+            }
+
+        };
+    }
 
 }

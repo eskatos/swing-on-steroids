@@ -27,7 +27,8 @@ import org.codeartisans.java.toolbox.async.AsyncCallback;
 /**
  * @author Paul Merlin <paul@nosphere.org>
  */
-public class DefaultGreetService implements GreetService
+public class DefaultGreetService
+        implements GreetService
 {
 
     @Override

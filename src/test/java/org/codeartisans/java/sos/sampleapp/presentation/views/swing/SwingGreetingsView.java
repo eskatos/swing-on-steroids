@@ -22,9 +22,11 @@
 package org.codeartisans.java.sos.sampleapp.presentation.views.swing;
 
 import java.awt.EventQueue;
+import javax.swing.JFrame;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JButtonHasClickHandlers;
+import org.codeartisans.java.sos.views.swing.notifications.JFrameHasCloseClickHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JLabelHasStringValue;
 import org.codeartisans.java.sos.views.swing.notifications.JTextComponentHasStringValue;
 import org.codeartisans.java.sos.views.values.HasValue;
@@ -32,7 +34,8 @@ import org.codeartisans.java.sos.views.values.HasValue;
 /**
  * @author Paul Merlin <paul@nosphere.org>
  */
-public class SwingGreetingsView implements GreetingsView
+public class SwingGreetingsView
+        implements GreetingsView
 {
 
     private GreetingsFrame delegate;
@@ -46,6 +49,7 @@ public class SwingGreetingsView implements GreetingsView
             public void run()
             {
                 delegate = new GreetingsFrame();
+                delegate.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             }
 
         });
@@ -68,6 +72,12 @@ public class SwingGreetingsView implements GreetingsView
     public HasValue<String> messageDisplay()
     {
         return new JLabelHasStringValue(delegate.getMessage());
+    }
+
+    @Override
+    public HasClickHandlers closeButton()
+    {
+        return new JFrameHasCloseClickHandlers(delegate);
     }
 
     @Override
@@ -94,7 +104,7 @@ public class SwingGreetingsView implements GreetingsView
             @Override
             public void run()
             {
-                delegate.setVisible(false);
+                delegate.dispose();
             }
 
         });

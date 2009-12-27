@@ -21,6 +21,7 @@
  */
 package org.codeartisans.java.sos.sampleapp.presentation.presenters;
 
+import com.google.inject.Inject;
 import org.codeartisans.java.sos.presenters.BasePresenter;
 import org.codeartisans.java.sos.presenters.Presenter;
 import org.codeartisans.java.sos.sampleapp.domain.GreetService;
@@ -39,6 +40,7 @@ public class GreetingsPresenter
 
     private final GreetService greetService;
 
+    @Inject
     public GreetingsPresenter(GreetingsView view, GreetService greetService)
     {
         super(view);
@@ -74,6 +76,16 @@ public class GreetingsPresenter
                     }
 
                 });
+            }
+
+        }));
+        recordViewRegistration(view.closeButton().addClickHandler(new ClickHandler()
+        {
+
+            @Override
+            public void onClick(ClickNotification notification)
+            {
+                view.hide();
             }
 
         }));
