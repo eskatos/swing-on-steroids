@@ -40,11 +40,7 @@ public class Qi4jWorkQueueTest
     public void assemble(ModuleAssembly module) throws AssemblyException
     {
         module.addServices(MemoryEntityStoreService.class, UuidIdentityGeneratorService.class);
-//        module.addServices(MemoryEntityStoreService.class, UuidIdentityGeneratorService.class, RdfQueryService.class).instantiateOnStartup();
-//        module.addObjects(EntityStateSerializer.class, EntityTypeSerializer.class);
-//        module.addServices(RdfFactoryService.class);
-//        module.addServices(MemoryRepositoryService.class).instantiateOnStartup().identifiedBy("workqueue-rdf-repository");
-        module.addEntities(WorkQueueConfigurationComposite.class);
+        module.addEntities(WorkQueueConfiguration.class);
         module.addServices(WorkQueueComposite.class);
     }
 

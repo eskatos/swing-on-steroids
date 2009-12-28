@@ -37,7 +37,7 @@ public interface WorkQueueComposite
     {
 
         @This
-        private Configuration<WorkQueueConfigurationComposite> config;
+        private Configuration<WorkQueueConfiguration> config;
         private DefaultWorkQueue delegate;
 
         @Override
@@ -49,9 +49,9 @@ public interface WorkQueueComposite
         private WorkQueue ensureDelegate()
         {
             if (delegate == null) {
-                if (false) {
+                if (true) {
                     // FIXME : DO NOT WORK !! :-(
-                    WorkQueueConfigurationComposite cfg = config.configuration();
+                    WorkQueueConfiguration cfg = config.configuration();
                     delegate = new DefaultWorkQueue(cfg.name().get(), cfg.size().get());
                 } else {
                     delegate = new DefaultWorkQueue(UUID.randomUUID().toString(), 4);

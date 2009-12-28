@@ -22,10 +22,13 @@
 package org.codeartisans.java.sos.messagebus;
 
 import org.codeartisans.java.sos.threading.WorkQueueComposite;
+import org.codeartisans.java.sos.threading.WorkQueueConfiguration;
 import org.junit.Test;
 import org.qi4j.api.service.ServiceReference;
 import org.qi4j.bootstrap.AssemblyException;
 import org.qi4j.bootstrap.ModuleAssembly;
+import org.qi4j.entitystore.memory.MemoryEntityStoreService;
+import org.qi4j.spi.uuid.UuidIdentityGeneratorService;
 import org.qi4j.test.AbstractQi4jTest;
 
 /**
@@ -38,6 +41,8 @@ public class Qi4jMessageBusTest
     @Override
     public void assemble(ModuleAssembly module) throws AssemblyException
     {
+        module.addServices(MemoryEntityStoreService.class, UuidIdentityGeneratorService.class);
+        module.addEntities(WorkQueueConfiguration.class);
         module.addServices(WorkQueueComposite.class);
         module.addServices(MessageBusComposite.class).withMixins(MultiThreadDeliveryMixin.class);
     }

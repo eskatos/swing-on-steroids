@@ -24,7 +24,7 @@ package org.codeartisans.java.sos.threading;
 import org.qi4j.api.entity.EntityComposite;
 import org.qi4j.api.property.Property;
 
-public interface WorkQueueConfigurationComposite
+public interface WorkQueueConfiguration
         extends EntityComposite
 {
 
