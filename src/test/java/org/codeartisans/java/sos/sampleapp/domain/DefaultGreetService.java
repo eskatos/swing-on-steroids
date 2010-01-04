@@ -22,7 +22,7 @@
 package org.codeartisans.java.sos.sampleapp.domain;
 
 import org.codeartisans.java.toolbox.StringUtils;
-import org.codeartisans.java.toolbox.async.AsyncCallback;
+import org.codeartisans.java.toolbox.async.Callback;
 
 /**
  * @author Paul Merlin <paul@nosphere.org>
@@ -32,7 +32,7 @@ public class DefaultGreetService
 {
 
     @Override
-    public void greet(String name, AsyncCallback<String> callback)
+    public void greet(String name, Callback<String> callback)
     {
         if (StringUtils.isEmpty(name)) {
             callback.onError("name was empty", new IllegalArgumentException("name was empty"));

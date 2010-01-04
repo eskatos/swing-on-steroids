@@ -78,7 +78,6 @@ public interface UseCase
                 @Override
                 public void onClick(ClickNotification notification)
                 {
-                    System.out.println("                                    plop!");
                     view.output().setValue("Hello " + view.input().getValue());
                 }
 

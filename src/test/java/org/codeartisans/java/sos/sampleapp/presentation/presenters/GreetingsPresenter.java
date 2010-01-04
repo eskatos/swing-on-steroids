@@ -28,7 +28,7 @@ import org.codeartisans.java.sos.sampleapp.domain.GreetService;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.sos.views.notifications.ClickHandler;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
-import org.codeartisans.java.toolbox.async.AsyncCallback;
+import org.codeartisans.java.toolbox.async.Callback;
 
 /**
  * @author Paul Merlin <paul@nosphere.org>
@@ -57,7 +57,7 @@ public class GreetingsPresenter
             public void onClick(ClickNotification notification)
             {
                 view.busy();
-                greetService.greet(view.nameInput().getValue(), new AsyncCallback<String>()
+                greetService.greet(view.nameInput().getValue(), new Callback<String>()
                 {
 
                     @Override
