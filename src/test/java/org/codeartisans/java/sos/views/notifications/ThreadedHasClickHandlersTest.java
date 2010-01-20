@@ -24,11 +24,16 @@ package org.codeartisans.java.sos.views.notifications;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
+import com.google.inject.name.Names;
 import org.junit.Test;
 import org.junit.Assert;
 import org.codeartisans.java.sos.sampleapp.domain.DefaultGreetService;
 import org.codeartisans.java.sos.sampleapp.domain.GreetService;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
+import org.codeartisans.java.sos.threading.DefaultWorkQueue;
+import org.codeartisans.java.sos.threading.WorkQueue;
+import org.codeartisans.java.sos.views.swing.notifications.SwingNotificationsFactory;
 import org.codeartisans.java.toolbox.guice.GuiceHelper;
 import org.junit.After;
 import org.junit.Before;
@@ -60,6 +65,10 @@ public class ThreadedHasClickHandlersTest {
             bind(GreetingsView.class).to(MockUnBlockingJButtonedGreetingsView.class);
             bind(BlockingGreetingsPresenter.class);
             bind(GreetService.class).to(DefaultGreetService.class);
+            bind(SwingNotificationsFactory.class);
+            bind(String.class).annotatedWith(Names.named(WorkQueue.NAME)).toInstance("ThreadedJButtonTest");
+            bind(Integer.class).annotatedWith(Names.named(WorkQueue.SIZE)).toInstance(2);
+            bind(WorkQueue.class).to(DefaultWorkQueue.class).in(Singleton.class);
         }
 
     }

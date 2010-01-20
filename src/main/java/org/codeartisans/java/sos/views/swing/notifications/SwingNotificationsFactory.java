@@ -19,44 +19,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.views.notifications;
+package org.codeartisans.java.sos.views.swing.notifications;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import com.google.inject.Inject;
 import javax.swing.JButton;
+import org.codeartisans.java.sos.threading.WorkQueue;
+import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
 
-class ThreadedJButtonHasClickHandlers implements HasClickHandlers {
+public class SwingNotificationsFactory {
 
-    private final JButton button;
+    private final WorkQueue workQueue;
 
-    public ThreadedJButtonHasClickHandlers(JButton button) {
-        this.button = button;
+    @Inject
+    public SwingNotificationsFactory(WorkQueue workQueue) {
+        this.workQueue = workQueue;
     }
 
-    @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        final ActionListener listener = new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        handler.onClick(new ClickNotification());
-                    }
-                }).start();
-            }
-        };
-        button.addActionListener(listener);
-        return new HandlerRegistration() {
-
-            @Override
-            public void removeHandler() {
-                button.removeActionListener(listener);
-            }
-        };
-
+    public HasClickHandlers createJButtonHasClickHandler(JButton jButton) {
+        return new ThreadedJButtonHasClickHandlers(workQueue, jButton);
     }
+
 }
-

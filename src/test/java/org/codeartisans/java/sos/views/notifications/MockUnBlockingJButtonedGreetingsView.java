@@ -21,19 +21,27 @@
  */
 package org.codeartisans.java.sos.views.notifications;
 
+import com.google.inject.Inject;
 import javax.swing.JButton;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.sos.views.mock.notifications.MockHasClickHandler;
 import org.codeartisans.java.sos.views.mock.notifications.StringHasStringValue;
+import org.codeartisans.java.sos.views.swing.notifications.SwingNotificationsFactory;
 import org.codeartisans.java.sos.views.values.HasValue;
 
 class MockUnBlockingJButtonedGreetingsView implements GreetingsView {
 
+    private final SwingNotificationsFactory swingNotifsFactory;
     final StringHasStringValue name = new StringHasStringValue();
     final MockHasClickHandler greet = new MockHasClickHandler();
     final StringHasStringValue message = new StringHasStringValue();
     final MockHasClickHandler close = new MockHasClickHandler();
     final JButton button = new JButton();
+
+    @Inject
+    public MockUnBlockingJButtonedGreetingsView(SwingNotificationsFactory swingNotifsFactory) {
+        this.swingNotifsFactory = swingNotifsFactory;
+    }
 
     @Override
     public HasValue<String> nameInput() {
@@ -42,7 +50,7 @@ class MockUnBlockingJButtonedGreetingsView implements GreetingsView {
 
     @Override
     public HasClickHandlers greetButton() {
-        return new ThreadedJButtonHasClickHandlers(button);
+        return swingNotifsFactory.createJButtonHasClickHandler(button);
     }
 
     @Override
