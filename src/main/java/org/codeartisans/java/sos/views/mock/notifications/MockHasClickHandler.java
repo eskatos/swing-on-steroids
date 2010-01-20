@@ -43,6 +43,7 @@ public class MockHasClickHandler implements HasClickHandlers
             @Override
             public void removeHandler()
             {
+
                 handlers.remove(handler);
             }
 

@@ -49,6 +49,7 @@ public final class JButtonHasClickHandlers
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                // HERE
                 handler.onClick(new ClickNotification());
             }
 
