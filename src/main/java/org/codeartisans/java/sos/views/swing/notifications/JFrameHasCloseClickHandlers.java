@@ -25,22 +25,22 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JFrame;
+import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.notifications.ClickHandler;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
 
-/**
- * @author Paul Merlin <paul@nosphere.org>
- */
 public class JFrameHasCloseClickHandlers
         implements HasClickHandlers
 {
 
+    private final WorkQueue workQueue;
     private final JFrame frame;
 
-    public JFrameHasCloseClickHandlers(JFrame frame)
+    public JFrameHasCloseClickHandlers(WorkQueue workQueue, JFrame frame)
     {
+        this.workQueue = workQueue;
         this.frame = frame;
     }
 
@@ -53,7 +53,15 @@ public class JFrameHasCloseClickHandlers
             @Override
             public void windowClosing(WindowEvent e)
             {
-                handler.onClick(new ClickNotification());
+                workQueue.execute(new Runnable()
+                {
+
+                    @Override
+                    public void run()
+                    {
+                        handler.onClick(new ClickNotification());
+                    }
+                });
             }
 
         };

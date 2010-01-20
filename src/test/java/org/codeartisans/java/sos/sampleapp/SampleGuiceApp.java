@@ -24,14 +24,16 @@ package org.codeartisans.java.sos.sampleapp;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
+import com.google.inject.name.Names;
 import org.codeartisans.java.sos.sampleapp.presentation.presenters.GreetingsPresenter;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.sos.sampleapp.presentation.views.swing.SwingGreetingsView;
+import org.codeartisans.java.sos.threading.DefaultWorkQueue;
+import org.codeartisans.java.sos.threading.WorkQueue;
+import org.codeartisans.java.sos.views.swing.SwingWrappersFactory;
 import org.codeartisans.java.toolbox.guice.GuiceHelper;
 
-/**
- * @author Paul Merlin <paul@nosphere.org>
- */
 public final class SampleGuiceApp
 {
 
@@ -44,6 +46,10 @@ public final class SampleGuiceApp
             @Override
             protected void configure()
             {
+                bind(String.class).annotatedWith(Names.named(WorkQueue.NAME)).toInstance("SamplePresentationWorkQueue");
+                bind(Integer.class).annotatedWith(Names.named(WorkQueue.SIZE)).toInstance(2);
+                bind(WorkQueue.class).to(DefaultWorkQueue.class).in(Singleton.class);
+                bind(SwingWrappersFactory.class);
                 bind(GreetingsView.class).to(SwingGreetingsView.class);
                 bind(GreetingsPresenter.class);
             }

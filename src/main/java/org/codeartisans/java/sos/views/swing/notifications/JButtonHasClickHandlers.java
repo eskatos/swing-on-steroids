@@ -24,6 +24,7 @@ package org.codeartisans.java.sos.views.swing.notifications;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.notifications.ClickHandler;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
@@ -33,10 +34,12 @@ public final class JButtonHasClickHandlers
         implements HasClickHandlers
 {
 
+    private final WorkQueue workQueue;
     private final JButton button;
 
-    public JButtonHasClickHandlers(JButton button)
+    public JButtonHasClickHandlers(WorkQueue workQueue, JButton button)
     {
+        this.workQueue = workQueue;
         this.button = button;
     }
 
@@ -49,8 +52,15 @@ public final class JButtonHasClickHandlers
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                // HERE
-                handler.onClick(new ClickNotification());
+                workQueue.execute(new Runnable()
+                {
+
+                    @Override
+                    public void run()
+                    {
+                        handler.onClick(new ClickNotification());
+                    }
+                });
             }
 
         };

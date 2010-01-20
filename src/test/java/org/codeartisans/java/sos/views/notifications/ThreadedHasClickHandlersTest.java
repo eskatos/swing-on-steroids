@@ -33,27 +33,10 @@ import org.codeartisans.java.sos.sampleapp.domain.GreetService;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.sos.threading.DefaultWorkQueue;
 import org.codeartisans.java.sos.threading.WorkQueue;
-import org.codeartisans.java.sos.views.swing.notifications.SwingNotificationsFactory;
-import org.codeartisans.java.toolbox.guice.GuiceHelper;
+import org.codeartisans.java.sos.views.swing.SwingWrappersFactory;
 import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
 
 public class ThreadedHasClickHandlersTest {
-
-     private static class UnThreadedGreetingsPresenterTestGuiceModule
-            extends AbstractModule
-    {
-
-        @Override
-        protected void configure()
-        {
-            bind(GreetingsView.class).to(MockBlockingJButtonedGreetingsView.class);
-            bind(BlockingGreetingsPresenter.class);
-            bind(GreetService.class).to(DefaultGreetService.class);
-        }
-
-    }
 
      private static class ThreadedGreetingsPresenterTestGuiceModule
             extends AbstractModule
@@ -65,7 +48,7 @@ public class ThreadedHasClickHandlersTest {
             bind(GreetingsView.class).to(MockUnBlockingJButtonedGreetingsView.class);
             bind(BlockingGreetingsPresenter.class);
             bind(GreetService.class).to(DefaultGreetService.class);
-            bind(SwingNotificationsFactory.class);
+            bind(SwingWrappersFactory.class);
             bind(String.class).annotatedWith(Names.named(WorkQueue.NAME)).toInstance("ThreadedJButtonTest");
             bind(Integer.class).annotatedWith(Names.named(WorkQueue.SIZE)).toInstance(2);
             bind(WorkQueue.class).to(DefaultWorkQueue.class).in(Singleton.class);
@@ -75,40 +58,7 @@ public class ThreadedHasClickHandlersTest {
 
     private static Injector injector;
     private BlockingGreetingsPresenter presenter;
-    private MockBlockingJButtonedGreetingsView blockingView;
     private MockUnBlockingJButtonedGreetingsView unblockingView;
-
-    @BeforeClass
-    public static void beforeClass()
-    {
-        GuiceHelper.enableDebugOutput();
-        injector = Guice.createInjector(new UnThreadedGreetingsPresenterTestGuiceModule());
-    }
-
-    @Before
-    public void before()
-    {
-    }
-
-    @Test
-    public void testBlockingGreetingsPresenter()
-    {
-
-        injector = Guice.createInjector(new UnThreadedGreetingsPresenterTestGuiceModule());
-        presenter = injector.getInstance(BlockingGreetingsPresenter.class);
-        blockingView = (MockBlockingJButtonedGreetingsView) presenter.view();
-
-        presenter.bind();
-        presenter.view().reveal();
-
-
-        blockingView.name.setValue("Bob");
-        blockingView.getButton().doClick();
-        Assert.assertEquals("Hello Bob!", blockingView.message.getValue());
-
-        blockingView.close.click();
-        presenter.unbind();
-    }
 
     @Test
     public void testNoBlockingGreetingsPresenter() throws InterruptedException

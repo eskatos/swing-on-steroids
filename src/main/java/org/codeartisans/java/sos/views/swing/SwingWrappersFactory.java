@@ -19,24 +19,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.views.swing.notifications;
+package org.codeartisans.java.sos.views.swing;
 
 import com.google.inject.Inject;
+import java.awt.Window;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
+import org.codeartisans.java.sos.views.notifications.HasFocusHandlers;
+import org.codeartisans.java.sos.views.swing.notifications.JButtonHasClickHandlers;
+import org.codeartisans.java.sos.views.swing.notifications.JFrameHasCloseClickHandlers;
+import org.codeartisans.java.sos.views.swing.notifications.WindowHasFocusHandlers;
 
-public class SwingNotificationsFactory {
+public class SwingWrappersFactory {
 
     private final WorkQueue workQueue;
 
     @Inject
-    public SwingNotificationsFactory(WorkQueue workQueue) {
+    public SwingWrappersFactory(WorkQueue workQueue) {
         this.workQueue = workQueue;
     }
 
-    public HasClickHandlers createJButtonHasClickHandler(JButton jButton) {
-        return new ThreadedJButtonHasClickHandlers(workQueue, jButton);
+    public HasClickHandlers createJButtonHasClickHandler(JButton button) {
+        return new JButtonHasClickHandlers(workQueue, button);
+    }
+
+    public HasClickHandlers createJFrameHasCloseClickHandlers(JFrame frame) {
+        return new JFrameHasCloseClickHandlers(workQueue, frame);
+    }
+
+    public HasFocusHandlers createWindowHasFocusHandlers(Window window) {
+        return new WindowHasFocusHandlers(workQueue, window);
     }
 
 }

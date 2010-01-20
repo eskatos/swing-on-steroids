@@ -26,12 +26,12 @@ import javax.swing.JButton;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.sos.views.mock.notifications.MockHasClickHandler;
 import org.codeartisans.java.sos.views.mock.notifications.StringHasStringValue;
-import org.codeartisans.java.sos.views.swing.notifications.SwingNotificationsFactory;
+import org.codeartisans.java.sos.views.swing.SwingWrappersFactory;
 import org.codeartisans.java.sos.views.values.HasValue;
 
 class MockUnBlockingJButtonedGreetingsView implements GreetingsView {
 
-    private final SwingNotificationsFactory swingNotifsFactory;
+    private final SwingWrappersFactory swingWrappersFactory;
     final StringHasStringValue name = new StringHasStringValue();
     final MockHasClickHandler greet = new MockHasClickHandler();
     final StringHasStringValue message = new StringHasStringValue();
@@ -39,8 +39,8 @@ class MockUnBlockingJButtonedGreetingsView implements GreetingsView {
     final JButton button = new JButton();
 
     @Inject
-    public MockUnBlockingJButtonedGreetingsView(SwingNotificationsFactory swingNotifsFactory) {
-        this.swingNotifsFactory = swingNotifsFactory;
+    public MockUnBlockingJButtonedGreetingsView(SwingWrappersFactory swingWrappersFactory) {
+        this.swingWrappersFactory = swingWrappersFactory;
     }
 
     @Override
@@ -50,7 +50,7 @@ class MockUnBlockingJButtonedGreetingsView implements GreetingsView {
 
     @Override
     public HasClickHandlers greetButton() {
-        return swingNotifsFactory.createJButtonHasClickHandler(button);
+        return swingWrappersFactory.createJButtonHasClickHandler(button);
     }
 
     @Override

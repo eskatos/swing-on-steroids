@@ -21,27 +21,30 @@
  */
 package org.codeartisans.java.sos.sampleapp.presentation.views.swing;
 
+import com.google.inject.Inject;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
-import org.codeartisans.java.sos.views.swing.notifications.JButtonHasClickHandlers;
+import org.codeartisans.java.sos.views.swing.SwingWrappersFactory;
 import org.codeartisans.java.sos.views.swing.notifications.JFrameHasCloseClickHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JLabelHasStringValue;
 import org.codeartisans.java.sos.views.swing.notifications.JTextComponentHasStringValue;
 import org.codeartisans.java.sos.views.values.HasValue;
 
-/**
- * @author Paul Merlin <paul@nosphere.org>
- */
 public class SwingGreetingsView
         implements GreetingsView
 {
 
+    private final SwingWrappersFactory swingWrappersFactory;
     private GreetingsFrame delegate;
+    private HasClickHandlers greetButton;
+    private HasClickHandlers closeButton;
 
-    public SwingGreetingsView()
+    @Inject
+    public SwingGreetingsView(SwingWrappersFactory swingWrapFactory)
     {
+        swingWrappersFactory = swingWrapFactory;
         EventQueue.invokeLater(new Runnable()
         {
 
@@ -50,6 +53,8 @@ public class SwingGreetingsView
             {
                 delegate = new GreetingsFrame();
                 delegate.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                greetButton = swingWrappersFactory.createJButtonHasClickHandler(delegate.getButton());
+                closeButton = swingWrappersFactory.createJFrameHasCloseClickHandlers(delegate);
             }
 
         });
@@ -65,7 +70,7 @@ public class SwingGreetingsView
     @Override
     public HasClickHandlers greetButton()
     {
-        return new JButtonHasClickHandlers(delegate.getButton());
+        return greetButton;
     }
 
     @Override
@@ -77,7 +82,7 @@ public class SwingGreetingsView
     @Override
     public HasClickHandlers closeButton()
     {
-        return new JFrameHasCloseClickHandlers(delegate);
+        return closeButton;
     }
 
     @Override

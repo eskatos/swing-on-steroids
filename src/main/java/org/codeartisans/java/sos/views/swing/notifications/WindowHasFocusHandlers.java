@@ -24,6 +24,7 @@ package org.codeartisans.java.sos.views.swing.notifications;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.notifications.FocusHandler;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 import org.codeartisans.java.sos.views.notifications.HasFocusHandlers;
@@ -33,31 +34,53 @@ public class WindowHasFocusHandlers
 {
 
     private final Window window;
+    private final WorkQueue workQueue;
 
-    public WindowHasFocusHandlers(Window window)
+    public WindowHasFocusHandlers(WorkQueue workQueue, Window window)
     {
+        this.workQueue = workQueue;
         this.window = window;
     }
 
+    @Override
     public HandlerRegistration addFocusHandler(final FocusHandler handler)
     {
         final WindowFocusListener listener = new WindowFocusListener()
         {
 
+            @Override
             public void windowGainedFocus(WindowEvent e)
             {
-                handler.onFocusGained();
+                workQueue.execute(new Runnable()
+                {
+
+                    @Override
+                    public void run()
+                    {
+                        handler.onFocusGained();
+                    }
+                });
             }
 
+            @Override
             public void windowLostFocus(WindowEvent e)
             {
-                handler.onFocusLost();
+                workQueue.execute(new Runnable()
+                {
+
+                    @Override
+                    public void run()
+                    {
+                        handler.onFocusLost();
+                    }
+                });
             }
         };
         window.addWindowFocusListener(listener);
         return new HandlerRegistration()
         {
 
+            @Override
             public void removeHandler()
             {
                 window.removeWindowFocusListener(listener);
