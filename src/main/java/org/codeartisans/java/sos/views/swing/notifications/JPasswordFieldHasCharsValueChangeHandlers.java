@@ -24,6 +24,7 @@ package org.codeartisans.java.sos.views.swing.notifications;
 import javax.swing.JPasswordField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
 import org.codeartisans.java.sos.views.values.ValueChangeHandler;
@@ -34,26 +35,33 @@ public final class JPasswordFieldHasCharsValueChangeHandlers
         implements HasValueChangeHandlers<char[]>
 {
 
-    public JPasswordFieldHasCharsValueChangeHandlers(JPasswordField passwordField)
+    private final WorkQueue workQueue;
+
+    public JPasswordFieldHasCharsValueChangeHandlers(WorkQueue workQueue, JPasswordField passwordField)
     {
         super(passwordField);
+        this.workQueue = workQueue;
     }
 
+    @Override
     public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<char[]> handler)
     {
         final DocumentListener docListener = new DocumentListener()
         {
 
+            @Override
             public void insertUpdate(DocumentEvent e)
             {
                 onValueChange();
             }
 
+            @Override
             public void removeUpdate(DocumentEvent e)
             {
                 onValueChange();
             }
 
+            @Override
             public void changedUpdate(DocumentEvent e)
             {
                 onValueChange();
@@ -61,13 +69,22 @@ public final class JPasswordFieldHasCharsValueChangeHandlers
 
             private void onValueChange()
             {
-                handler.onValueChange(new ValueChangeNotification<char[]>(passwordField.getPassword()));
+                workQueue.execute(new Runnable()
+                {
+
+                    @Override
+                    public void run()
+                    {
+                        handler.onValueChange(new ValueChangeNotification<char[]>(passwordField.getPassword()));
+                    }
+                });
             }
         };
         passwordField.getDocument().addDocumentListener(docListener);
         return new HandlerRegistration()
         {
 
+            @Override
             public void removeHandler()
             {
                 passwordField.getDocument().removeDocumentListener(docListener);

@@ -25,6 +25,7 @@ import java.awt.TrayIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.notifications.ClickHandler;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
@@ -34,13 +35,16 @@ public final class TrayIconHasClickHandlers
         implements HasClickHandlers
 {
 
+    private final WorkQueue workQueue;
     private final TrayIcon trayIcon;
 
-    public TrayIconHasClickHandlers(TrayIcon trayIcon)
+    public TrayIconHasClickHandlers(WorkQueue workQueue, TrayIcon trayIcon)
     {
+        this.workQueue = workQueue;
         this.trayIcon = trayIcon;
     }
 
+    @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler)
     {
         final MouseListener listener = new MouseAdapter()
@@ -49,13 +53,22 @@ public final class TrayIconHasClickHandlers
             @Override
             public void mouseReleased(MouseEvent e)
             {
-                handler.onClick(new ClickNotification());
+                workQueue.execute(new Runnable()
+                {
+
+                    @Override
+                    public void run()
+                    {
+                        handler.onClick(new ClickNotification());
+                    }
+                });
             }
         };
         trayIcon.addMouseListener(listener);
         return new HandlerRegistration()
         {
 
+            @Override
             public void removeHandler()
             {
                 trayIcon.removeMouseListener(listener);

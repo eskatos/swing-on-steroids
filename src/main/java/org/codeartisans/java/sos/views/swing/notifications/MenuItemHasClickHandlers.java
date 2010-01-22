@@ -24,6 +24,7 @@ package org.codeartisans.java.sos.views.swing.notifications;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.notifications.ClickHandler;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
@@ -33,27 +34,40 @@ public final class MenuItemHasClickHandlers
         implements HasClickHandlers
 {
 
+    private final WorkQueue workQueue;
     private final MenuItem menuItem;
 
-    public MenuItemHasClickHandlers(MenuItem menuItem)
+    public MenuItemHasClickHandlers(WorkQueue workQueue, MenuItem menuItem)
     {
+        this.workQueue = workQueue;
         this.menuItem = menuItem;
     }
 
+    @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler)
     {
         final ActionListener listener = new ActionListener()
         {
 
+            @Override
             public void actionPerformed(ActionEvent e)
             {
-                handler.onClick(new ClickNotification());
+                workQueue.execute(new Runnable()
+                {
+
+                    @Override
+                    public void run()
+                    {
+                        handler.onClick(new ClickNotification());
+                    }
+                });
             }
         };
         menuItem.addActionListener(listener);
         return new HandlerRegistration()
         {
 
+            @Override
             public void removeHandler()
             {
                 menuItem.removeActionListener(listener);
