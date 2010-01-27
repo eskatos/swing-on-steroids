@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
-        <qi4j.version>1.0-RC3-SNAPSHOT</qi4j.version>
+        <qi4j.version>1.0</qi4j.version>
     </properties>
 
     <build>
