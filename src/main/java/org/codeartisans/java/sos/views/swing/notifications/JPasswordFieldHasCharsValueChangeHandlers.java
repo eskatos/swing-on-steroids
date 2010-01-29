@@ -25,10 +25,10 @@ import javax.swing.JPasswordField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import org.codeartisans.java.sos.threading.WorkQueue;
-import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
-import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
 import org.codeartisans.java.sos.views.values.ValueChangeHandler;
+import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
 import org.codeartisans.java.sos.views.values.ValueChangeNotification;
+import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 
 public final class JPasswordFieldHasCharsValueChangeHandlers
         extends JPasswordFieldHasCharsValue
@@ -69,7 +69,7 @@ public final class JPasswordFieldHasCharsValueChangeHandlers
 
             private void onValueChange()
             {
-                workQueue.execute(new Runnable()
+                workQueue.enqueue(new Runnable()
                 {
 
                     @Override

@@ -71,9 +71,9 @@ public abstract class BasePresenter<V extends View>
         }
     }
 
-    public abstract void onBind();
+    protected abstract void onBind();
 
-    public abstract void onUnbind();
+    protected abstract void onUnbind();
 
     /**
      * HandlerRegistration recorded with this method will automatically be removed on unbind.

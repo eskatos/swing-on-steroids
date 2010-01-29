@@ -24,9 +24,8 @@ package org.codeartisans.java.sos.threading;
 public interface WorkQueue
 {
 
-    static final String NAME = "WorkQueueName";
-    static final String SIZE = "WorkQueueSize";
+    static final String NAME = "WorkQueue:name";
+    static final String SIZE = "WorkQueue:size";
 
-    void execute(Runnable runnable);
-
+    void enqueue(Runnable runnable);
 }

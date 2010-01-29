@@ -39,14 +39,14 @@ public class MultiThreadDeliveryMessageBus
     @Override
     public <S extends Subscriber> void publish(final Message<S> message)
     {
-        workQueue.execute(new Runnable()
+        workQueue.enqueue(new Runnable()
         {
 
             @Override
             public void run()
             {
                 for (final S eachSubscriber : get(message.getMessageType())) {
-                    workQueue.execute(new Runnable()
+                    workQueue.enqueue(new Runnable()
                     {
 
                         @Override

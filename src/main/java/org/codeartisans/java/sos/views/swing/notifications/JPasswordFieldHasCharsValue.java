@@ -30,6 +30,7 @@ public class JPasswordFieldHasCharsValue
 
     protected final JPasswordField passwordField;
 
+
     public JPasswordFieldHasCharsValue(JPasswordField passwordField)
     {
         this.passwordField = passwordField;

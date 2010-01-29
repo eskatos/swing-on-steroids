@@ -41,9 +41,9 @@ public interface WorkQueueComposite
         private DefaultWorkQueue delegate;
 
         @Override
-        public void execute(Runnable runnable)
+        public void enqueue(Runnable runnable)
         {
-            ensureDelegate().execute(runnable);
+            ensureDelegate().enqueue(runnable);
         }
 
         private WorkQueue ensureDelegate()

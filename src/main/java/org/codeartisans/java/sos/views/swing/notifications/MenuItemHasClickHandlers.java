@@ -52,7 +52,7 @@ public final class MenuItemHasClickHandlers
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                workQueue.execute(new Runnable()
+                workQueue.enqueue(new Runnable()
                 {
 
                     @Override

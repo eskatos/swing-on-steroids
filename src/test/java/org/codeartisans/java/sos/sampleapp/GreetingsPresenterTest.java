@@ -80,6 +80,10 @@ public final class GreetingsPresenterTest
     {
         view.name.setValue("Bob");
         view.greet.click();
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException ex) {
+        }
         Assert.assertEquals("Hello Bob!", view.message.getValue());
     }
 

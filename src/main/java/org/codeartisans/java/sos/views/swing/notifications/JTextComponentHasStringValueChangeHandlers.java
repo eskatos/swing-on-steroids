@@ -69,7 +69,7 @@ public final class JTextComponentHasStringValueChangeHandlers
 
             private void onValueChange()
             {
-                workQueue.execute(new Runnable()
+                workQueue.enqueue(new Runnable()
                 {
 
                     @Override

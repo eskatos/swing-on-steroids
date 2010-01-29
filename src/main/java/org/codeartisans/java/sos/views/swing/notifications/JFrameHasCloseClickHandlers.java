@@ -53,7 +53,7 @@ public class JFrameHasCloseClickHandlers
             @Override
             public void windowClosing(WindowEvent e)
             {
-                workQueue.execute(new Runnable()
+                workQueue.enqueue(new Runnable()
                 {
 
                     @Override
@@ -76,6 +76,10 @@ public class JFrameHasCloseClickHandlers
             }
 
         };
+    }
+
+    public JFrame getJFrame() {
+        return frame;
     }
 
 }

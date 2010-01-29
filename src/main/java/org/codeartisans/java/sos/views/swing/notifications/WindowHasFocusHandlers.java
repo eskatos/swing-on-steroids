@@ -51,7 +51,7 @@ public class WindowHasFocusHandlers
             @Override
             public void windowGainedFocus(WindowEvent e)
             {
-                workQueue.execute(new Runnable()
+                workQueue.enqueue(new Runnable()
                 {
 
                     @Override
@@ -65,7 +65,7 @@ public class WindowHasFocusHandlers
             @Override
             public void windowLostFocus(WindowEvent e)
             {
-                workQueue.execute(new Runnable()
+                workQueue.enqueue(new Runnable()
                 {
 
                     @Override

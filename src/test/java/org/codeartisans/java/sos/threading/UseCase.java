@@ -41,14 +41,14 @@ public interface UseCase
             DoneableRunnable work1 = new DoneableRunnable(250);
             DoneableRunnable work2 = new DoneableRunnable(250);
 
-            workQueue.execute(work1);
+            workQueue.enqueue(work1);
             Assert.assertFalse(work1.done);
             Thread.sleep(300);
             Assert.assertTrue(work1.done);
             work1.done = false;
 
-            workQueue.execute(work1);
-            workQueue.execute(work2);
+            workQueue.enqueue(work1);
+            workQueue.enqueue(work2);
 
             Assert.assertFalse(work1.done);
             Assert.assertFalse(work2.done);

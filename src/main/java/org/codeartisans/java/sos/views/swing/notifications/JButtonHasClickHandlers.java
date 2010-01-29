@@ -37,45 +37,47 @@ public final class JButtonHasClickHandlers
     private final WorkQueue workQueue;
     private final JButton button;
 
-    public JButtonHasClickHandlers(WorkQueue workQueue, JButton button)
+    public JButtonHasClickHandlers( WorkQueue workQueue, JButton button )
     {
         this.workQueue = workQueue;
         this.button = button;
     }
 
     @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler)
+    public HandlerRegistration addClickHandler( final ClickHandler handler )
     {
         final ActionListener listener = new ActionListener()
         {
 
             @Override
-            public void actionPerformed(ActionEvent e)
+            public void actionPerformed( ActionEvent e )
             {
-                workQueue.execute(new Runnable()
+                workQueue.enqueue( new Runnable()
                 {
 
                     @Override
                     public void run()
                     {
-                        handler.onClick(new ClickNotification());
+                        handler.onClick( new ClickNotification() );
                     }
-                });
+                } );
             }
-
         };
-        button.addActionListener(listener);
+        button.addActionListener( listener );
         return new HandlerRegistration()
         {
 
             @Override
             public void removeHandler()
             {
-                button.removeActionListener(listener);
+                button.removeActionListener( listener );
             }
-
         };
 
     }
 
+    public JButton getJButton()
+    {
+        return button;
+    }
 }

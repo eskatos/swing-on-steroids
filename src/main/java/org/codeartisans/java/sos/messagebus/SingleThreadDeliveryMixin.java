@@ -41,7 +41,7 @@ public abstract class SingleThreadDeliveryMixin
     @Override
     public <S extends Subscriber> void publish(final Message<S> message)
     {
-        workQueue.execute(new Runnable()
+        workQueue.enqueue(new Runnable()
         {
 
             @Override

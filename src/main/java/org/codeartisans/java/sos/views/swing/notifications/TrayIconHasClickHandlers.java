@@ -53,7 +53,7 @@ public final class TrayIconHasClickHandlers
             @Override
             public void mouseReleased(MouseEvent e)
             {
-                workQueue.execute(new Runnable()
+                workQueue.enqueue(new Runnable()
                 {
 
                     @Override

@@ -53,7 +53,7 @@ public class DefaultWorkQueue
     }
 
     @Override
-    public void execute(Runnable r)
+    public void enqueue(Runnable r)
     {
         synchronized (queue) {
             queue.addLast(r);
