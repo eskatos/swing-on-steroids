@@ -32,7 +32,7 @@ public class JLabelHasStringValue implements HasValue<String>
 
     private final JLabel label;
 
-    public JLabelHasStringValue(JLabel label)
+    public JLabelHasStringValue( JLabel label )
     {
         this.label = label;
     }
@@ -44,9 +44,13 @@ public class JLabelHasStringValue implements HasValue<String>
     }
 
     @Override
-    public void setValue(String value)
+    public void setValue( String value )
     {
-        label.setText(value);
+        label.setText( value );
     }
 
+    public JLabel getLabel()
+    {
+        return label;
+    }
 }

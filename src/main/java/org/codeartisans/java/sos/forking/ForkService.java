@@ -21,8 +21,6 @@
  */
 package org.codeartisans.java.sos.forking;
 
-import java.io.File;
-import java.util.List;
 import org.codeartisans.java.toolbox.async.AsyncCallbackWithE;
 
 public interface ForkService
@@ -34,12 +32,7 @@ public interface ForkService
         KILL, LET_LIVE
     }
 
-    void fork(List<String> command, ShutdownAction shutdownAction);
+    void fork( Forkable forkable, ShutdownAction shutdownAction );
 
-    void fork(List<String> command, File workingDirectory, ShutdownAction shutdownAction);
-
-    void fork(List<String> command, AsyncCallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction);
-
-    void fork(List<String> command, File workingDirectory, AsyncCallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction);
-
+    void fork( Forkable forkable, AsyncCallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction );
 }

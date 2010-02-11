@@ -74,4 +74,9 @@ public final class MenuItemHasClickHandlers
             }
         };
     }
+
+    public MenuItem getMenuItem()
+    {
+        return menuItem;
+    }
 }

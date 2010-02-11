@@ -30,8 +30,7 @@ public class JPasswordFieldHasCharsValue
 
     protected final JPasswordField passwordField;
 
-
-    public JPasswordFieldHasCharsValue(JPasswordField passwordField)
+    public JPasswordFieldHasCharsValue( JPasswordField passwordField )
     {
         this.passwordField = passwordField;
     }
@@ -43,9 +42,13 @@ public class JPasswordFieldHasCharsValue
     }
 
     @Override
-    public final void setValue(char[] value)
+    public final void setValue( char[] value )
     {
-        passwordField.setText(new String(value));
+        passwordField.setText( new String( value ) );
     }
 
+    public JPasswordField getPasswordField()
+    {
+        return passwordField;
+    }
 }

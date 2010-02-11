@@ -30,6 +30,7 @@ public class JTextComponentHasStringValue
 
     protected final JTextComponent textComponent;
 
+
     public JTextComponentHasStringValue(JTextComponent textComponent)
     {
         this.textComponent = textComponent;
@@ -43,5 +44,10 @@ public class JTextComponentHasStringValue
     public final void setValue(String value)
     {
         textComponent.setText(value);
+    }
+
+    public JTextComponent getTextComponent()
+    {
+        return textComponent;
     }
 }

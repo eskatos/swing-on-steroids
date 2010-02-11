@@ -38,41 +38,46 @@ public final class TrayIconHasClickHandlers
     private final WorkQueue workQueue;
     private final TrayIcon trayIcon;
 
-    public TrayIconHasClickHandlers(WorkQueue workQueue, TrayIcon trayIcon)
+    public TrayIconHasClickHandlers( WorkQueue workQueue, TrayIcon trayIcon )
     {
         this.workQueue = workQueue;
         this.trayIcon = trayIcon;
     }
 
     @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler)
+    public HandlerRegistration addClickHandler( final ClickHandler handler )
     {
         final MouseListener listener = new MouseAdapter()
         {
 
             @Override
-            public void mouseReleased(MouseEvent e)
+            public void mouseReleased( MouseEvent e )
             {
-                workQueue.enqueue(new Runnable()
+                workQueue.enqueue( new Runnable()
                 {
 
                     @Override
                     public void run()
                     {
-                        handler.onClick(new ClickNotification());
+                        handler.onClick( new ClickNotification() );
                     }
-                });
+                } );
             }
         };
-        trayIcon.addMouseListener(listener);
+        trayIcon.addMouseListener( listener );
         return new HandlerRegistration()
         {
 
             @Override
             public void removeHandler()
             {
-                trayIcon.removeMouseListener(listener);
+                trayIcon.removeMouseListener( listener );
             }
         };
+    }
+
+    public TrayIcon getTrayIcon()
+    {
+        return trayIcon;
     }
 }
