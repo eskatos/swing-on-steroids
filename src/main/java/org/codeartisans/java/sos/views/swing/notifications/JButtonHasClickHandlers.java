@@ -46,6 +46,7 @@ public final class JButtonHasClickHandlers
     @Override
     public HandlerRegistration addClickHandler( final ClickHandler handler )
     {
+
         final ActionListener listener = new ActionListener()
         {
 

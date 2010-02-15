@@ -37,7 +37,7 @@ public final class DefaultForkService
     private boolean shutdownHookAdded = false;
     private final ThreadGroup threadGroup;
 
-    DefaultForkService()
+    public DefaultForkService()
     {
         threadGroup = new ThreadGroup( "ForkServiceThreads" );
     }
