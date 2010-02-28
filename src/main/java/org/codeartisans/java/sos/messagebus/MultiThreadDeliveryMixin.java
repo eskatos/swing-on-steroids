@@ -39,16 +39,16 @@ public abstract class MultiThreadDeliveryMixin
     private WorkQueueComposite workQueue;
 
     @Override
-    public <S extends Subscriber> void publish(final Message<S> message)
+    public <S extends Subscriber> void publish( final Message<S> message )
     {
-        workQueue.enqueue(new Runnable()
+        workQueue.enqueue( new Runnable()
         {
 
             @Override
             public void run()
             {
-                for (final S eachSubscriber : get(message.getMessageType())) {
-                    workQueue.enqueue(new Runnable()
+                for ( final S eachSubscriber : get( message.getMessageType() ) ) {
+                    workQueue.enqueue( new Runnable()
                     {
 
                         @Override
@@ -56,22 +56,18 @@ public abstract class MultiThreadDeliveryMixin
                         {
                             final UnitOfWork uow = uowf.newUnitOfWork();
                             try {
-                                message.deliver(eachSubscriber);
+                                message.deliver( eachSubscriber );
                                 uow.complete();
-                            } catch (UnitOfWorkCompletionException ex) {
-                                System.err.println("Error during: " + ex.getMessage());
+                            } catch ( UnitOfWorkCompletionException ex ) {
                                 ex.printStackTrace();
                                 uow.discard();
-                                throw new RuntimeException("Error during: " + ex.getMessage());
+                                throw new InternalError( "Error during: " + ex.getMessage() );
                             }
                         }
-
-                    });
+                    } );
                 }
             }
-
-        });
+        } );
 
     }
-
 }

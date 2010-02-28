@@ -36,22 +36,25 @@ public class SOSTrayIconUtil
         TOP_LEFT, TOP_RIGHT,
         BOTTOM_LEFT, BOTTOM_RIGHT
     }
-
     private static int trayIconScreen = 0;
     private static TrayIconLocation trayIconLocation = TrayIconLocation.BOTTOM_RIGHT;
 
-    public static void updateTrayIconLocation(int trayX, int trayY)
+    private SOSTrayIconUtil()
+    {
+    }
+
+    public static void updateTrayIconLocation( int trayX, int trayY )
     {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
         DisplayMode dm = gs[trayIconScreen].getDisplayMode();
         int screenWidth = dm.getWidth();
         int screenHeight = dm.getHeight();
-        if (trayX < screenWidth / 2 && trayY < screenHeight / 2) {
+        if ( trayX < screenWidth / 2 && trayY < screenHeight / 2 ) {
             trayIconLocation = TrayIconLocation.TOP_LEFT;
-        } else if (trayX >= screenWidth / 2 && trayY < screenHeight / 2) {
+        } else if ( trayX >= screenWidth / 2 && trayY < screenHeight / 2 ) {
             trayIconLocation = TrayIconLocation.TOP_RIGHT;
-        } else if (trayX < screenWidth / 2 && trayY >= screenHeight / 2) {
+        } else if ( trayX < screenWidth / 2 && trayY >= screenHeight / 2 ) {
             trayIconLocation = TrayIconLocation.BOTTOM_LEFT;
         } else {
             trayIconLocation = TrayIconLocation.BOTTOM_RIGHT;
@@ -59,7 +62,7 @@ public class SOSTrayIconUtil
         //LOGGER.debug("updateTrayIconLocation: " + trayX + "," + trayY + " " + trayIconLocation);
     }
 
-    public static void moveFrameNextToTrayIcon(JFrame frame)
+    public static void moveFrameNextToTrayIcon( JFrame frame )
     {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
@@ -71,7 +74,7 @@ public class SOSTrayIconUtil
         int frameX = frame.getX();
         int frameY = frame.getY();
         //LOGGER.debug("BEFORE moveFrameNextToTrayIcon: " + frameWidth + "," + frameHeight + "  " + frameX + "," + frameY + " in screen: " + screenWidth + "," + screenHeight);
-        switch (trayIconLocation) {
+        switch ( trayIconLocation ) {
             case TOP_LEFT:
                 frameX = 0;
                 frameY = 0;
@@ -90,6 +93,6 @@ public class SOSTrayIconUtil
                 break;
         }
         //LOGGER.debug("AFTER moveFrameNextToTrayIcon: " + frameX + "," + frameY + " in screen: " + screenWidth + "," + screenHeight);
-        frame.setLocation(frameX, frameY);
+        frame.setLocation( frameX, frameY );
     }
 }

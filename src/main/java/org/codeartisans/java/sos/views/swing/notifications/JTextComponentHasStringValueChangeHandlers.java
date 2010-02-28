@@ -37,57 +37,57 @@ public final class JTextComponentHasStringValueChangeHandlers
 
     private final WorkQueue workQueue;
 
-    public JTextComponentHasStringValueChangeHandlers(WorkQueue workQueue, JTextComponent textComponent)
+    public JTextComponentHasStringValueChangeHandlers( WorkQueue workQueue, JTextComponent textComponent )
     {
-        super(textComponent);
+        super( textComponent );
         this.workQueue = workQueue;
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<String> handler)
+    public HandlerRegistration addValueChangeHandler( final ValueChangeHandler<String> handler )
     {
         final DocumentListener docListener = new DocumentListener()
         {
 
             @Override
-            public void insertUpdate(DocumentEvent e)
+            public void insertUpdate( DocumentEvent e )
             {
                 onValueChange();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e)
+            public void removeUpdate( DocumentEvent e )
             {
                 onValueChange();
             }
 
             @Override
-            public void changedUpdate(DocumentEvent e)
+            public void changedUpdate( DocumentEvent e )
             {
                 onValueChange();
             }
 
             private void onValueChange()
             {
-                workQueue.enqueue(new Runnable()
+                workQueue.enqueue( new Runnable()
                 {
 
                     @Override
                     public void run()
                     {
-                        handler.onValueChange(new ValueChangeNotification<String>(textComponent.getText()));
+                        handler.onValueChange( new ValueChangeNotification<String>( textComponent.getText() ) );
                     }
-                });
+                } );
             }
         };
-        textComponent.getDocument().addDocumentListener(docListener);
+        textComponent.getDocument().addDocumentListener( docListener );
         return new HandlerRegistration()
         {
 
             @Override
             public void removeHandler()
             {
-                textComponent.getDocument().removeDocumentListener(docListener);
+                textComponent.getDocument().removeDocumentListener( docListener );
             }
         };
 

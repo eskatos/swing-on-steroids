@@ -19,11 +19,11 @@ import javax.swing.JFrame;
  *
  * @author paul
  */
-public class TestJFrameDispose extends javax.swing.JFrame
+public class JFrameDisposeSample extends javax.swing.JFrame
 {
 
     /** Creates new form TestJFrameDispose */
-    public TestJFrameDispose()
+    public JFrameDisposeSample()
     {
         initComponents();
     }
@@ -74,7 +74,7 @@ public class TestJFrameDispose extends javax.swing.JFrame
             @Override
             public void run()
             {
-                final JFrame frame = new TestJFrameDispose();
+                final JFrame frame = new JFrameDisposeSample();
                 frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 frame.setVisible(true);
                 frame.addWindowListener(new WindowAdapter()

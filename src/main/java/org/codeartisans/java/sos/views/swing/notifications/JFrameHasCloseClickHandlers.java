@@ -31,55 +31,53 @@ import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
 
-public class JFrameHasCloseClickHandlers
+public final class JFrameHasCloseClickHandlers
         implements HasClickHandlers
 {
 
     private final WorkQueue workQueue;
     private final JFrame frame;
 
-    public JFrameHasCloseClickHandlers(WorkQueue workQueue, JFrame frame)
+    public JFrameHasCloseClickHandlers( WorkQueue workQueue, JFrame frame )
     {
         this.workQueue = workQueue;
         this.frame = frame;
     }
 
     @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler)
+    public HandlerRegistration addClickHandler( final ClickHandler handler )
     {
         final WindowListener listener = new WindowAdapter()
         {
 
             @Override
-            public void windowClosing(WindowEvent e)
+            public void windowClosing( WindowEvent e )
             {
-                workQueue.enqueue(new Runnable()
+                workQueue.enqueue( new Runnable()
                 {
 
                     @Override
                     public void run()
                     {
-                        handler.onClick(new ClickNotification());
+                        handler.onClick( new ClickNotification() );
                     }
-                });
+                } );
             }
-
         };
-        frame.addWindowListener(listener);
+        frame.addWindowListener( listener );
         return new HandlerRegistration()
         {
 
             @Override
             public void removeHandler()
             {
-                frame.removeWindowListener(listener);
+                frame.removeWindowListener( listener );
             }
-
         };
     }
 
-    public JFrame getJFrame() {
+    public JFrame getJFrame()
+    {
         return frame;
     }
-
 }

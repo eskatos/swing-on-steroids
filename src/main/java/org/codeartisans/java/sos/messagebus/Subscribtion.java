@@ -24,7 +24,7 @@ package org.codeartisans.java.sos.messagebus;
 /**
  * Subscribtion reference holder for a MessageType on a MessageBus.
  */
-public class Subscribtion
+public final class Subscribtion
 {
 
     private final MessageBus messageBus;
@@ -39,7 +39,7 @@ public class Subscribtion
      * @param messageType   Subscribtion's MessageType
      * @param subscriber    Subscriber
      */
-    protected <S extends Subscriber> Subscribtion(MessageBus messageBus, MessageType<S> messageType, S subscriber)
+    /* package */ <S extends Subscriber> Subscribtion( MessageBus messageBus, MessageType<S> messageType, S subscriber )
     {
         this.messageBus = messageBus;
         this.subscriber = subscriber;
@@ -52,10 +52,9 @@ public class Subscribtion
      * Unsubscription can be done on the MessageBus without reference to this Subscribtion,
      * you'd better stick to one way per application layer to avoid spaghetti code.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings( "unchecked" )
     public void unsubscribe()
     {
-        messageBus.unsubscribe((MessageType<Subscriber>) messageType, subscriber);
+        messageBus.unsubscribe( ( MessageType<Subscriber> ) messageType, subscriber );
     }
-
 }

@@ -43,20 +43,18 @@ public class GuiceMessageBusTest
         @Override
         protected void configure()
         {
-            bind(String.class).annotatedWith(Names.named(WorkQueue.NAME)).toInstance("MessageBusTest");
-            bind(Integer.class).annotatedWith(Names.named(WorkQueue.SIZE)).toInstance(2);
-            bind(WorkQueue.class).to(DefaultWorkQueue.class).in(Singleton.class);
-            bind(MessageBus.class).to(SingleThreadDeliveryMessageBus.class);
+            bind( String.class ).annotatedWith( Names.named( WorkQueue.NAME ) ).toInstance( "MessageBusTest" );
+            bind( Integer.class ).annotatedWith( Names.named( WorkQueue.SIZE ) ).toInstance( 2 );
+            bind( WorkQueue.class ).to( DefaultWorkQueue.class ).in( Singleton.class );
+            bind( MessageBus.class ).to( SingleThreadDeliveryMessageBus.class ).in( Singleton.class );
         }
-
     }
-
     private MessageBus msgBus;
 
     @Before
     public void setUp()
     {
-        msgBus = Guice.createInjector(new MessageBusTestModule()).getInstance(MessageBus.class);
+        msgBus = Guice.createInjector( new MessageBusTestModule() ).getInstance( MessageBus.class );
 
     }
 
@@ -69,7 +67,6 @@ public class GuiceMessageBusTest
     @Test
     public void test() throws InterruptedException
     {
-        UseCase.Util.testMessageBus(msgBus);
+        UseCase.Util.testMessageBus( msgBus );
     }
-
 }

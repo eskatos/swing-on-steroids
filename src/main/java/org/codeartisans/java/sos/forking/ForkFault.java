@@ -27,9 +27,8 @@ public final class ForkFault
 
     private static final long serialVersionUID = 1L;
 
-    public ForkFault(String msg)
+    public ForkFault( String msg, Throwable cause )
     {
-        super(msg);
+        super( msg, cause );
     }
-
 }

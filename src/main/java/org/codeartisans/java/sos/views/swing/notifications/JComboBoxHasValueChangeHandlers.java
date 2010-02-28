@@ -31,16 +31,15 @@ import org.codeartisans.java.sos.views.values.ValueChangeNotification;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 
 /**
- *
  * @param <V>
  * @author jean-Michel Tonneau <barsifedron@gmail.com>
  */
-public class JComboBoxHasValueChangeHandlers<V>
+public final class JComboBoxHasValueChangeHandlers<V>
         extends JComboBoxHasValue<V>
         implements HasValueChangeHandlers<V>
 {
 
-    WorkQueue workQueue;
+    private WorkQueue workQueue;
 
     public JComboBoxHasValueChangeHandlers( WorkQueue workQueue, JComboBox jComboBox )
     {

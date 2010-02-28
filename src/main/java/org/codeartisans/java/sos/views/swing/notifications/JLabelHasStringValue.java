@@ -27,7 +27,7 @@ import org.codeartisans.java.sos.views.values.HasValue;
 /**
  * @author Paul Merlin <paul@nosphere.org>
  */
-public class JLabelHasStringValue implements HasValue<String>
+public final class JLabelHasStringValue implements HasValue<String>
 {
 
     private final JLabel label;

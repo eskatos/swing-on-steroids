@@ -43,7 +43,7 @@ public final class SwingHelper
      */
     public static void initSafeSwing()
     {
-        RepaintManager.setCurrentManager(new CheckThreadViolationRepaintManager());
+        RepaintManager.setCurrentManager( new CheckThreadViolationRepaintManager() );
         EventDispatchThreadHangMonitor.initMonitoring();
     }
 
@@ -52,35 +52,36 @@ public final class SwingHelper
      */
     public static void initExceptionHandling()
     {
-        Thread.setDefaultUncaughtExceptionHandler(new SteroidUncaughtExceptionHandler());
-        System.setProperty("sun.awt.exception.handler", SteroidAwtHandler.class.getName());
+        Thread.setDefaultUncaughtExceptionHandler( new SteroidUncaughtExceptionHandler() );
+        System.setProperty( "sun.awt.exception.handler", SteroidAwtHandler.class.getName() );
     }
 
     /**
      * Init given Look And Feel.
      * @param className LAF class name
      */
-    public static void initLookAndFeel(final String className)
+    public static void initLookAndFeel( final String className )
     {
         try {
-            SwingUtilities.invokeAndWait(new Runnable()
+            SwingUtilities.invokeAndWait( new Runnable()
             {
 
+                @Override
                 public void run()
                 {
                     try {
-                        JFrame.setDefaultLookAndFeelDecorated(true);
-                        JDialog.setDefaultLookAndFeelDecorated(true);
-                        UIManager.setLookAndFeel(className);
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex.getMessage(), ex);
+                        JFrame.setDefaultLookAndFeelDecorated( true );
+                        JDialog.setDefaultLookAndFeelDecorated( true );
+                        UIManager.setLookAndFeel( className );
+                    } catch ( Exception ex ) {
+                        throw new RuntimeException( ex.getMessage(), ex );
                     }
                 }
-            });
-        } catch (InterruptedException ex) {
-            throw new RuntimeException(ex.getMessage(), ex);
-        } catch (InvocationTargetException ex) {
-            throw new RuntimeException(ex.getMessage(), ex);
+            } );
+        } catch ( InterruptedException ex ) {
+            throw new RuntimeException( ex.getMessage(), ex );
+        } catch ( InvocationTargetException ex ) {
+            throw new RuntimeException( ex.getMessage(), ex );
         }
     }
 }

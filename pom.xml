@@ -8,7 +8,7 @@
     <artifactId>swing-on-steroids</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 
-    <name>${artifactId}</name>
+    <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <url>http://codeartisans.org</url>
 

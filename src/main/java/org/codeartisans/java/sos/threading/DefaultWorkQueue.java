@@ -28,58 +28,55 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
 
-public class DefaultWorkQueue
+public final class DefaultWorkQueue
         implements WorkQueue
 {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultWorkQueue.class);
-    private final PooledWorker[] threads;
+    private static final Logger LOGGER = LoggerFactory.getLogger( DefaultWorkQueue.class );
     private final LinkedList<Runnable> queue;
-    private final ThreadGroup threadGroup;
 
     @Inject
-    public DefaultWorkQueue(@Named(NAME) String name, @Named(SIZE) Integer size)
+    public DefaultWorkQueue( @Named( NAME ) String name, @Named( SIZE ) Integer size )
     {
-        NullArgumentException.ensureNotEmpty(NAME, true, name);
-        NullArgumentException.ensureNotZero(SIZE, size);
-        name = name.trim();
+        NullArgumentException.ensureNotEmpty( NAME, true, name );
+        NullArgumentException.ensureNotZero( SIZE, size );
         queue = new LinkedList<Runnable>();
-        threads = new PooledWorker[size];
-        threadGroup = new ThreadGroup(name + "WorkQueue");
-        for (int i = 0; i < size; i++) {
-            threads[i] = new PooledWorker(threadGroup, name + "Worker-" + i);
+        PooledWorker[] threads = new PooledWorker[ size ];
+        ThreadGroup threadGroup = new ThreadGroup( name + "WorkQueue" );
+        for ( int i = 0; i < size; i++ ) {
+            threads[i] = new PooledWorker( threadGroup, name + "Worker-" + i );
             threads[i].start();
         }
     }
 
     @Override
-    public void enqueue(Runnable r)
+    public void enqueue( Runnable r )
     {
-        synchronized (queue) {
-            queue.addLast(r);
-            queue.notify();
+        synchronized ( queue ) {
+            queue.addLast( r );
+            queue.notifyAll();
         }
     }
 
-    private class PooledWorker
+    private final class PooledWorker
             extends Thread
     {
 
-        private PooledWorker(ThreadGroup threadGroup, String threadName)
+        private PooledWorker( ThreadGroup threadGroup, String threadName )
         {
-            super(threadGroup, threadName);
+            super( threadGroup, threadName );
         }
 
         @Override
         public void run()
         {
             Runnable r;
-            while (true) {
-                synchronized (queue) {
-                    while (queue.isEmpty()) {
+            while ( true ) {
+                synchronized ( queue ) {
+                    while ( queue.isEmpty() ) {
                         try {
                             queue.wait();
-                        } catch (InterruptedException ignored) {
+                        } catch ( InterruptedException ignored ) {
                         }
                     }
                     r = queue.removeFirst();
@@ -87,12 +84,10 @@ public class DefaultWorkQueue
                 // If we don't catch RuntimeException, the pool could leak threads
                 try {
                     r.run();
-                } catch (RuntimeException ex) {
-                    LOGGER.warn(ex.getMessage(), ex);
+                } catch ( RuntimeException ex ) {
+                    LOGGER.warn( ex.getMessage(), ex );
                 }
             }
         }
-
     }
-
 }

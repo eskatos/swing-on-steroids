@@ -57,10 +57,8 @@ public final class DefaultForkService
             final ProcessBuilder builder = new ProcessBuilder( forkable.command() );
             builder.directory( forkable.workingDirectory() );
             final Process proc = builder.start();
-            final StreamGobbler stderr = new StreamGobbler( proc.getErrorStream(), threadGroup,
-                    forkUuid + "-STDERR-Gobbler" );
-            final StreamGobbler stdout = new StreamGobbler( proc.getInputStream(), threadGroup,
-                    forkUuid + "-STDOUT-Gobbler" );
+            final StreamGobbler stderr = new StreamGobbler( proc.getErrorStream(), threadGroup, forkUuid + "-STDERR-Gobbler" );
+            final StreamGobbler stdout = new StreamGobbler( proc.getInputStream(), threadGroup, forkUuid + "-STDOUT-Gobbler" );
             stderr.setDaemon( true );
             stdout.setDaemon( true );
             stderr.start();
@@ -96,7 +94,7 @@ public final class DefaultForkService
                         this.interrupt();
                     } catch ( InterruptedException ex ) {
                         if ( exitCallback != null ) {
-                            exitCallback.onError( "Fork Watcher " + forkUuid + "interrupted!", new ForkFault( ex.getMessage() ) );
+                            exitCallback.onError( "Fork Watcher " + forkUuid + "interrupted!", new ForkFault( ex.getMessage(), ex ) );
                         }
                     }
                 }
@@ -104,8 +102,7 @@ public final class DefaultForkService
             watcher.setDaemon( true );
             watcher.start();
         } catch ( IOException ex ) {
-            LOGGER.error( ex.getMessage(), ex );
-            throw new ForkFault( "Unable to fork: " + ex.getMessage() );
+            throw new ForkFault( "Unable to fork: " + ex.getMessage(), ex );
         }
     }
 

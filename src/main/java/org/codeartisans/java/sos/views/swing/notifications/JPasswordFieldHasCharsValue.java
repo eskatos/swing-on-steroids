@@ -47,7 +47,7 @@ public class JPasswordFieldHasCharsValue
         passwordField.setText( new String( value ) );
     }
 
-    public JPasswordField getPasswordField()
+    public final JPasswordField getPasswordField()
     {
         return passwordField;
     }

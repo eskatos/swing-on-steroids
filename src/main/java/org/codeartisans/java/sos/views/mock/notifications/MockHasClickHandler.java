@@ -28,15 +28,15 @@ import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
 
-public class MockHasClickHandler implements HasClickHandlers
+public final class MockHasClickHandler implements HasClickHandlers
 {
 
     private final List<ClickHandler> handlers = new ArrayList<ClickHandler>();
 
     @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler)
+    public HandlerRegistration addClickHandler( final ClickHandler handler )
     {
-        handlers.add(handler);
+        handlers.add( handler );
         return new HandlerRegistration()
         {
 
@@ -44,17 +44,15 @@ public class MockHasClickHandler implements HasClickHandlers
             public void removeHandler()
             {
 
-                handlers.remove(handler);
+                handlers.remove( handler );
             }
-
         };
     }
 
     public void click()
     {
-        for (ClickHandler eachHandler : handlers) {
-            eachHandler.onClick(new ClickNotification());
+        for ( ClickHandler eachHandler : handlers ) {
+            eachHandler.onClick( new ClickNotification() );
         }
     }
-
 }

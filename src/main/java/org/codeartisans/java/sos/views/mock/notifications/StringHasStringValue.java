@@ -23,7 +23,7 @@ package org.codeartisans.java.sos.views.mock.notifications;
 
 import org.codeartisans.java.sos.views.values.HasValue;
 
-public class StringHasStringValue implements HasValue<String>
+public final class StringHasStringValue implements HasValue<String>
 {
 
     private String value;
@@ -35,9 +35,8 @@ public class StringHasStringValue implements HasValue<String>
     }
 
     @Override
-    public void setValue(String value)
+    public void setValue( String value )
     {
         this.value = value;
     }
-
 }

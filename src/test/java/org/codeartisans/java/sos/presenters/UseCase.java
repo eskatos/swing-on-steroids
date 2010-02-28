@@ -41,15 +41,14 @@ public interface UseCase
     static class Util
     {
 
-        static void testHelloPresenter(HelloPresenter presenter)
+        static void testHelloPresenter( HelloPresenter presenter )
         {
             presenter.bind();
-            presenter.view.input().setValue("Sneak");
-            ((MockHasClickHandler) presenter.view.sayHelloButton()).click();
-            Assert.assertEquals("Hello Sneak", presenter.view.output().getValue());
+            presenter.view.input().setValue( "Sneak" );
+            ( ( MockHasClickHandler ) presenter.view.sayHelloButton() ).click();
+            Assert.assertEquals( "Hello Sneak", presenter.view.output().getValue() );
 
         }
-
     }
 
     static class HelloPresenter
@@ -58,37 +57,29 @@ public interface UseCase
     {
 
         @Inject
-        public HelloPresenter(@Uses HelloView view)
+        public HelloPresenter( @Uses HelloView view )
         {
-            super(view);
-        }
-
-        @Override
-        public View view()
-        {
-            return view;
+            super( view );
         }
 
         @Override
         public void onBind()
         {
-            recordViewRegistration(view.sayHelloButton().addClickHandler(new ClickHandler()
+            recordViewRegistration( view.sayHelloButton().addClickHandler( new ClickHandler()
             {
 
                 @Override
-                public void onClick(ClickNotification notification)
+                public void onClick( ClickNotification notification )
                 {
-                    view.output().setValue("Hello " + view.input().getValue());
+                    view.output().setValue( "Hello " + view.input().getValue() );
                 }
-
-            }));
+            } ) );
         }
 
         @Override
         public void onUnbind()
         {
         }
-
     }
 
     interface HelloView extends View
@@ -99,7 +90,6 @@ public interface UseCase
         HasClickHandlers sayHelloButton();
 
         HasValue<String> output();
-
     }
 
     static class HelloViewImpl implements HelloView
@@ -153,7 +143,5 @@ public interface UseCase
         public void done()
         {
         }
-
     }
-
 }

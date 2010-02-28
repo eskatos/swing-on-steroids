@@ -29,29 +29,29 @@ import org.codeartisans.java.sos.views.notifications.FocusHandler;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 import org.codeartisans.java.sos.views.notifications.HasFocusHandlers;
 
-public class WindowHasFocusHandlers
+public final class WindowHasFocusHandlers
         implements HasFocusHandlers
 {
 
     private final Window window;
     private final WorkQueue workQueue;
 
-    public WindowHasFocusHandlers(WorkQueue workQueue, Window window)
+    public WindowHasFocusHandlers( WorkQueue workQueue, Window window )
     {
         this.workQueue = workQueue;
         this.window = window;
     }
 
     @Override
-    public HandlerRegistration addFocusHandler(final FocusHandler handler)
+    public HandlerRegistration addFocusHandler( final FocusHandler handler )
     {
         final WindowFocusListener listener = new WindowFocusListener()
         {
 
             @Override
-            public void windowGainedFocus(WindowEvent e)
+            public void windowGainedFocus( WindowEvent e )
             {
-                workQueue.enqueue(new Runnable()
+                workQueue.enqueue( new Runnable()
                 {
 
                     @Override
@@ -59,13 +59,13 @@ public class WindowHasFocusHandlers
                     {
                         handler.onFocusGained();
                     }
-                });
+                } );
             }
 
             @Override
-            public void windowLostFocus(WindowEvent e)
+            public void windowLostFocus( WindowEvent e )
             {
-                workQueue.enqueue(new Runnable()
+                workQueue.enqueue( new Runnable()
                 {
 
                     @Override
@@ -73,17 +73,17 @@ public class WindowHasFocusHandlers
                     {
                         handler.onFocusLost();
                     }
-                });
+                } );
             }
         };
-        window.addWindowFocusListener(listener);
+        window.addWindowFocusListener( listener );
         return new HandlerRegistration()
         {
 
             @Override
             public void removeHandler()
             {
-                window.removeWindowFocusListener(listener);
+                window.removeWindowFocusListener( listener );
             }
         };
     }

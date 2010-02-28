@@ -41,41 +41,49 @@ import org.codeartisans.java.sos.views.swing.notifications.TrayIconHasClickHandl
 import org.codeartisans.java.sos.views.swing.notifications.WindowHasFocusHandlers;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
 
-public class SwingWrappersFactory {
+public final class SwingWrappersFactory
+{
 
     private final WorkQueue workQueue;
 
     @Inject
-    public SwingWrappersFactory(WorkQueue workQueue) {
+    public SwingWrappersFactory( WorkQueue workQueue )
+    {
         this.workQueue = workQueue;
     }
 
-    public HasClickHandlers createJButtonHasClickHandler(JButton button) {
-        return new JButtonHasClickHandlers(workQueue, button);
+    public HasClickHandlers createJButtonHasClickHandler( JButton button )
+    {
+        return new JButtonHasClickHandlers( workQueue, button );
     }
 
-    public HasClickHandlers createJFrameHasCloseClickHandlers(JFrame frame) {
-        return new JFrameHasCloseClickHandlers(workQueue, frame);
+    public HasClickHandlers createJFrameHasCloseClickHandlers( JFrame frame )
+    {
+        return new JFrameHasCloseClickHandlers( workQueue, frame );
     }
 
-    public HasFocusHandlers createWindowHasFocusHandlers(Window window) {
-        return new WindowHasFocusHandlers(workQueue, window);
+    public HasFocusHandlers createWindowHasFocusHandlers( Window window )
+    {
+        return new WindowHasFocusHandlers( workQueue, window );
     }
 
-    public HasValueChangeHandlers<String> createJTextComponentHasStringValueChangeHandlers(JTextField textField) {
-        return new JTextComponentHasStringValueChangeHandlers(workQueue, textField);
+    public HasValueChangeHandlers<String> createJTextComponentHasStringValueChangeHandlers( JTextField textField )
+    {
+        return new JTextComponentHasStringValueChangeHandlers( workQueue, textField );
     }
 
-    public HasValueChangeHandlers<char[]> createJPasswordFieldHasCharsValueChangeHandlers(JPasswordField passwordField) {
-        return new JPasswordFieldHasCharsValueChangeHandlers(workQueue, passwordField);
+    public HasValueChangeHandlers<char[]> createJPasswordFieldHasCharsValueChangeHandlers( JPasswordField passwordField )
+    {
+        return new JPasswordFieldHasCharsValueChangeHandlers( workQueue, passwordField );
     }
 
-    public HasClickHandlers createTrayIconHasClickHandlers(TrayIcon trayIcon) {
-        return new TrayIconHasClickHandlers(workQueue, trayIcon);
+    public HasClickHandlers createTrayIconHasClickHandlers( TrayIcon trayIcon )
+    {
+        return new TrayIconHasClickHandlers( workQueue, trayIcon );
     }
 
-    public HasClickHandlers createMenuItemHasClickHandlers(MenuItem menuItem) {
-        return new MenuItemHasClickHandlers(workQueue, menuItem);
+    public HasClickHandlers createMenuItemHasClickHandlers( MenuItem menuItem )
+    {
+        return new MenuItemHasClickHandlers( workQueue, menuItem );
     }
-
 }

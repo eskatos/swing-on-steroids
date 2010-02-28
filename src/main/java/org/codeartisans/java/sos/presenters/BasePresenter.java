@@ -36,13 +36,13 @@ public abstract class BasePresenter<V extends View>
     private Set<Subscribtion> messageSubscribtions = new HashSet<Subscribtion>();
     protected final V view;
 
-    protected BasePresenter(V view)
+    protected BasePresenter( V view )
     {
         this.view = view;
     }
 
     @Override
-    public View view()
+    public final View view()
     {
         return view;
     }
@@ -50,7 +50,7 @@ public abstract class BasePresenter<V extends View>
     @Override
     public final void bind()
     {
-        if (!bound) {
+        if ( !bound ) {
             onBind();
             bound = true;
         }
@@ -59,12 +59,12 @@ public abstract class BasePresenter<V extends View>
     @Override
     public final void unbind()
     {
-        if (bound) {
+        if ( bound ) {
             onUnbind();
-            for (HandlerRegistration eachViewRegistration : viewHandlerRegistrations) {
+            for ( HandlerRegistration eachViewRegistration : viewHandlerRegistrations ) {
                 eachViewRegistration.removeHandler();
             }
-            for (Subscribtion subscribtion : messageSubscribtions) {
+            for ( Subscribtion subscribtion : messageSubscribtions ) {
                 subscribtion.unsubscribe();
             }
             bound = false;
@@ -79,18 +79,17 @@ public abstract class BasePresenter<V extends View>
      * HandlerRegistration recorded with this method will automatically be removed on unbind.
      * @param viewRegistration HandlerRegistration to be recorded.
      */
-    protected void recordViewRegistration(HandlerRegistration viewRegistration)
+    protected final void recordViewRegistration( HandlerRegistration viewRegistration )
     {
-        viewHandlerRegistrations.add(viewRegistration);
+        viewHandlerRegistrations.add( viewRegistration );
     }
 
     /**
      * Subscribtion recorded with this method will automatically be unsubscribed on unbind.
      * @param subscribtion Subscribtion
      */
-    protected void recordMessageSubscribtion(Subscribtion subscribtion)
+    protected final void recordMessageSubscribtion( Subscribtion subscribtion )
     {
-        messageSubscribtions.add(subscribtion);
+        messageSubscribtions.add( subscribtion );
     }
-
 }

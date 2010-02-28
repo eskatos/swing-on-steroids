@@ -25,7 +25,6 @@ import javax.swing.JComboBox;
 import org.codeartisans.java.sos.views.values.HasValue;
 
 /**
- * 
  * @param <V> 
  * @author jean-Michel Tonneau <barsifedron@gmail.com>
  */
@@ -40,19 +39,19 @@ public class JComboBoxHasValue<V>
         this.jComboBox = jComboBox;
     }
 
-    public JComboBox getJComboBox()
+    public final JComboBox getJComboBox()
     {
         return jComboBox;
     }
 
     @Override
-    public V getValue()
+    public final V getValue()
     {
         return ( V ) jComboBox.getSelectedItem();
     }
 
     @Override
-    public void setValue( V value )
+    public final void setValue( V value )
     {
         jComboBox.setSelectedItem( value );
     }

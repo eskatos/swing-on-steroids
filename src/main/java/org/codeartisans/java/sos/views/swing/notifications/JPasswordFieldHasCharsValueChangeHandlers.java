@@ -37,57 +37,57 @@ public final class JPasswordFieldHasCharsValueChangeHandlers
 
     private final WorkQueue workQueue;
 
-    public JPasswordFieldHasCharsValueChangeHandlers(WorkQueue workQueue, JPasswordField passwordField)
+    public JPasswordFieldHasCharsValueChangeHandlers( WorkQueue workQueue, JPasswordField passwordField )
     {
-        super(passwordField);
+        super( passwordField );
         this.workQueue = workQueue;
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<char[]> handler)
+    public HandlerRegistration addValueChangeHandler( final ValueChangeHandler<char[]> handler )
     {
         final DocumentListener docListener = new DocumentListener()
         {
 
             @Override
-            public void insertUpdate(DocumentEvent e)
+            public void insertUpdate( DocumentEvent e )
             {
                 onValueChange();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e)
+            public void removeUpdate( DocumentEvent e )
             {
                 onValueChange();
             }
 
             @Override
-            public void changedUpdate(DocumentEvent e)
+            public void changedUpdate( DocumentEvent e )
             {
                 onValueChange();
             }
 
             private void onValueChange()
             {
-                workQueue.enqueue(new Runnable()
+                workQueue.enqueue( new Runnable()
                 {
 
                     @Override
                     public void run()
                     {
-                        handler.onValueChange(new ValueChangeNotification<char[]>(passwordField.getPassword()));
+                        handler.onValueChange( new ValueChangeNotification<char[]>( passwordField.getPassword() ) );
                     }
-                });
+                } );
             }
         };
-        passwordField.getDocument().addDocumentListener(docListener);
+        passwordField.getDocument().addDocumentListener( docListener );
         return new HandlerRegistration()
         {
 
             @Override
             public void removeHandler()
             {
-                passwordField.getDocument().removeDocumentListener(docListener);
+                passwordField.getDocument().removeDocumentListener( docListener );
             }
         };
     }

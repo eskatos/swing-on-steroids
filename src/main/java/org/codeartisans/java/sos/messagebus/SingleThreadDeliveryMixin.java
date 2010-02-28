@@ -39,9 +39,9 @@ public abstract class SingleThreadDeliveryMixin
     private WorkQueueComposite workQueue;
 
     @Override
-    public <S extends Subscriber> void publish(final Message<S> message)
+    public <S extends Subscriber> void publish( final Message<S> message )
     {
-        workQueue.enqueue(new Runnable()
+        workQueue.enqueue( new Runnable()
         {
 
             @Override
@@ -50,19 +50,16 @@ public abstract class SingleThreadDeliveryMixin
 
                 final UnitOfWork uow = uowf.newUnitOfWork();
                 try {
-                    for (S eachSubscriber : get(message.getMessageType())) {
-                        message.deliver(eachSubscriber);
+                    for ( S eachSubscriber : get( message.getMessageType() ) ) {
+                        message.deliver( eachSubscriber );
                     }
                     uow.complete();
-                } catch (UnitOfWorkCompletionException ex) {
-                    System.err.println("Error during: " + ex.getMessage());
+                } catch ( UnitOfWorkCompletionException ex ) {
                     ex.printStackTrace();
                     uow.discard();
-                    throw new RuntimeException("Error during: " + ex.getMessage());
+                    throw new InternalError( "Error during: " + ex.getMessage() );
                 }
             }
-
-        });
+        } );
     }
-
 }

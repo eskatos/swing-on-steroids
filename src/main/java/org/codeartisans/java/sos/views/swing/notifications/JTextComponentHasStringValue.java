@@ -30,23 +30,24 @@ public class JTextComponentHasStringValue
 
     protected final JTextComponent textComponent;
 
-
-    public JTextComponentHasStringValue(JTextComponent textComponent)
+    public JTextComponentHasStringValue( JTextComponent textComponent )
     {
         this.textComponent = textComponent;
     }
 
+    @Override
     public final String getValue()
     {
         return textComponent.getText();
     }
 
-    public final void setValue(String value)
+    @Override
+    public final void setValue( String value )
     {
-        textComponent.setText(value);
+        textComponent.setText( value );
     }
 
-    public JTextComponent getTextComponent()
+    public final JTextComponent getTextComponent()
     {
         return textComponent;
     }
