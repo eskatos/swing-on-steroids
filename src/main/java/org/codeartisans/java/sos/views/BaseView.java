@@ -21,7 +21,11 @@
  */
 package org.codeartisans.java.sos.views;
 
-public abstract class BaseView implements QueryableView
+/**
+ * Base class for Views that want to be QueryableView giving the common code for state accessors.
+ */
+public abstract class BaseView
+        implements QueryableView
 {
 
     private boolean revealed;
@@ -67,11 +71,23 @@ public abstract class BaseView implements QueryableView
         return busy;
     }
 
+    /**
+     * Called when the View has to be revealed. Descending types must implement this.
+     */
     protected abstract void onReveal();
 
+    /**
+     * Called when the View has to be hiden. Descending types must implement this.
+     */
     protected abstract void onHide();
 
+    /**
+     * Called when the View has to switch to busy state. Descending types must implement this.
+     */
     protected abstract void onBusy();
 
+    /**
+     * Called when the View has to switch back to normal state from busy state. Descending types must implement this.
+     */
     protected abstract void onDone();
 }

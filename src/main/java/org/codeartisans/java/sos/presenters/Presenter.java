@@ -23,13 +23,24 @@ package org.codeartisans.java.sos.presenters;
 
 import org.codeartisans.java.sos.views.View;
 
+/**
+ * Base interface for Presenters.
+ */
 public interface Presenter
 {
 
+    /**
+     * @return The View bound to the Presenter.
+     */
     View view();
 
+    /**
+     * Tell the Presenter to bind itself to it's View.
+     */
     void bind();
 
+    /**
+     * Tell the Presenter to unbind itself to it's View.
+     */
     void unbind();
-
 }

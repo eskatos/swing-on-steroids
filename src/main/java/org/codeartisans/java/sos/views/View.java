@@ -21,15 +21,29 @@
  */
 package org.codeartisans.java.sos.views;
 
+/**
+ * Base interface that all Views must implement.
+ */
 public interface View
 {
 
+    /**
+     * Tell the View to reveal itself in the current display.
+     */
     void reveal();
 
+    /**
+     * Tell the View to hide from the current display.
+     */
     void hide();
 
+    /**
+     * Tell the view to switch to busy state.
+     */
     void busy();
 
+    /**
+     * Tell the view to switch back to normal state from busy state.
+     */
     void done();
-
 }

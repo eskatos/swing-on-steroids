@@ -32,7 +32,20 @@ public interface ForkService
         KILL, LET_LIVE
     }
 
+    /**
+     * Run a Forkable as a background process with a given ShutdownAction.
+     * 
+     * @param forkable          External process command definition
+     * @param shutdownAction    What should the ForkService do when the JVM shuts down
+     */
     void fork( Forkable forkable, ShutdownAction shutdownAction );
 
+    /**
+     * Run a Forkable as a background process with given callback and ShutdownAction.
+     *
+     * @param forkable          External process command definition
+     * @param exitCallback      A callback triggered when the external process exit
+     * @param shutdownAction    What should the ForkService do when the JVM shuts down
+     */
     void fork( Forkable forkable, AsyncCallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction );
 }

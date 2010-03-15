@@ -27,6 +27,11 @@ import org.codeartisans.java.sos.messagebus.Subscribtion;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 import org.codeartisans.java.sos.views.View;
 
+/**
+ * Base class to implement Presenters that provide common code, mostly Handler & Subscription related.
+ *
+ * @param <V> View type required by this Presenter.
+ */
 public abstract class BasePresenter<V extends View>
         implements Presenter
 {
