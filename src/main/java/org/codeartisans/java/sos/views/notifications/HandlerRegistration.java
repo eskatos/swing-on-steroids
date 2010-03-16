@@ -21,9 +21,13 @@
  */
 package org.codeartisans.java.sos.views.notifications;
 
+/**
+ * Represent a Handler registration.
+ * Implementations provides a pointer to the Handler registrar so that it can be removed/unregistered.
+ */
 public interface HandlerRegistration
 {
 
     void removeHandler();
-
+    
 }

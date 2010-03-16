@@ -35,4 +35,5 @@ public final class ValueChangeNotification<T>
     {
         return newValue;
     }
+    
 }
