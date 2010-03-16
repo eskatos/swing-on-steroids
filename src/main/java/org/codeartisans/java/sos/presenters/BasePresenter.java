@@ -76,8 +76,14 @@ public abstract class BasePresenter<V extends View>
         }
     }
 
+    /**
+     * Called when the Presenter has to be bound to its views and other participants. Subtypes must implement this.
+     */
     protected abstract void onBind();
 
+    /**
+     * Called when the Presenter has to be unbound from its views and other participants. Subtypes must implement this.
+     */
     protected abstract void onUnbind();
 
     /**

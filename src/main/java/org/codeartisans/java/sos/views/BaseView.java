@@ -72,22 +72,22 @@ public abstract class BaseView
     }
 
     /**
-     * Called when the View has to be revealed. Descending types must implement this.
+     * Called when the View has to be revealed. Subtypes must implement this.
      */
     protected abstract void onReveal();
 
     /**
-     * Called when the View has to be hiden. Descending types must implement this.
+     * Called when the View has to be hiden. Subtypes must implement this.
      */
     protected abstract void onHide();
 
     /**
-     * Called when the View has to switch to busy state. Descending types must implement this.
+     * Called when the View has to switch to busy state. Subtypes must implement this.
      */
     protected abstract void onBusy();
 
     /**
-     * Called when the View has to switch back to normal state from busy state. Descending types must implement this.
+     * Called when the View has to switch back to normal state from busy state. Subtypes must implement this.
      */
     protected abstract void onDone();
 }
