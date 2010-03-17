@@ -30,29 +30,31 @@ public final class SteroidUncaughtExceptionHandler
         implements Thread.UncaughtExceptionHandler
 {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SteroidUncaughtExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger( SteroidUncaughtExceptionHandler.class );
 
-    public void uncaughtException(final Thread t, final Throwable ex)
+    @Override
+    public void uncaughtException( final Thread t, final Throwable ex )
     {
-        if (SwingUtilities.isEventDispatchThread()) {
-            showException(ex);
+        if ( SwingUtilities.isEventDispatchThread() ) {
+            showException( ex );
         } else {
-            SwingUtilities.invokeLater(new Runnable()
+            SwingUtilities.invokeLater( new Runnable()
             {
 
+                @Override
                 public void run()
                 {
-                    showException(ex);
+                    showException( ex );
                 }
-            });
+            } );
         }
 
 
     }
 
-    private void showException(Throwable ex)
+    private void showException( Throwable ex )
     {
-        LOGGER.error("UncaughtException handled: " + ex.getMessage(), ex);
-        ExceptionDialog.showException(ex);
+        LOGGER.error( "UncaughtException handled: " + ex.getMessage(), ex );
+        ExceptionDialog.showException( ex );
     }
 }

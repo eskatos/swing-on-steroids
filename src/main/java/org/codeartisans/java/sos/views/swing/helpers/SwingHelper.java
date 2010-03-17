@@ -27,6 +27,8 @@ import javax.swing.JFrame;
 import javax.swing.RepaintManager;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import org.jdesktop.swinghelper.debug.CheckThreadViolationRepaintManager;
+import org.jdesktop.swinghelper.debug.EventDispatchThreadHangMonitor;
 
 /**
  * Collection of static methods dealing with Swing application init.
@@ -74,14 +76,14 @@ public final class SwingHelper
                         JDialog.setDefaultLookAndFeelDecorated( true );
                         UIManager.setLookAndFeel( className );
                     } catch ( Exception ex ) {
-                        throw new RuntimeException( ex.getMessage(), ex );
+                        throw new SwingFault( ex.getMessage(), ex );
                     }
                 }
             } );
         } catch ( InterruptedException ex ) {
-            throw new RuntimeException( ex.getMessage(), ex );
+            throw new SwingFault( ex.getMessage(), ex );
         } catch ( InvocationTargetException ex ) {
-            throw new RuntimeException( ex.getMessage(), ex );
+            throw new SwingFault( ex.getMessage(), ex );
         }
     }
 }

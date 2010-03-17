@@ -25,11 +25,14 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SOSTrayIconUtil
 {
 
-    //private static final Logger LOGGER = LoggerFactory.getLogger(SOSTrayIconUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger( SOSTrayIconUtil.class );
+
     public enum TrayIconLocation
     {
 
@@ -59,7 +62,7 @@ public class SOSTrayIconUtil
         } else {
             trayIconLocation = TrayIconLocation.BOTTOM_RIGHT;
         }
-        //LOGGER.debug("updateTrayIconLocation: " + trayX + "," + trayY + " " + trayIconLocation);
+        LOGGER.debug( "updateTrayIconLocation: {}, {}, {}", new Object[]{ trayX, trayY, trayIconLocation } );
     }
 
     public static void moveFrameNextToTrayIcon( JFrame frame )
@@ -73,7 +76,7 @@ public class SOSTrayIconUtil
         int frameHeight = frame.getHeight();
         int frameX = frame.getX();
         int frameY = frame.getY();
-        //LOGGER.debug("BEFORE moveFrameNextToTrayIcon: " + frameWidth + "," + frameHeight + "  " + frameX + "," + frameY + " in screen: " + screenWidth + "," + screenHeight);
+        LOGGER.trace( "BEFORE moveFrameNextToTrayIcon: " + frameWidth + "," + frameHeight + "  " + frameX + "," + frameY + " in screen: " + screenWidth + "," + screenHeight );
         switch ( trayIconLocation ) {
             case TOP_LEFT:
                 frameX = 0;
@@ -92,7 +95,7 @@ public class SOSTrayIconUtil
                 frameY = screenHeight - frameHeight;
                 break;
         }
-        //LOGGER.debug("AFTER moveFrameNextToTrayIcon: " + frameX + "," + frameY + " in screen: " + screenWidth + "," + screenHeight);
+        LOGGER.trace( "AFTER moveFrameNextToTrayIcon: " + frameX + "," + frameY + " in screen: " + screenWidth + "," + screenHeight );
         frame.setLocation( frameX, frameY );
     }
 }

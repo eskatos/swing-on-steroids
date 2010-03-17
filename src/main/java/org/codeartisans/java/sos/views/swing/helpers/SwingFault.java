@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 Paul Merlin <paul@nosphere.org>
+ * Copyright (c) 2010 Paul Merlin <paul@nosphere.org>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,11 +21,20 @@
  */
 package org.codeartisans.java.sos.views.swing.helpers;
 
-public final class SteroidAwtHandler
+/**
+ * @author Paul Merlin <paul@nosphere.org>
+ */
+public class SwingFault
+        extends RuntimeException
 {
 
-    public void handle( Throwable t )
+    public SwingFault( String msg )
     {
-        new SteroidUncaughtExceptionHandler().uncaughtException( Thread.currentThread(), t );
+        super( msg );
+    }
+
+    public SwingFault( String msg, Throwable cause )
+    {
+        super( msg, cause );
     }
 }
