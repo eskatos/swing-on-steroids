@@ -27,5 +27,6 @@ public interface HasValueChangeHandlers<T>
         extends HasValue<T>
 {
 
-    HandlerRegistration addValueChangeHandler(ValueChangeHandler<T> handler);
+    HandlerRegistration addValueChangeHandler( ValueChangeHandler<T> handler );
+
 }

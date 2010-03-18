@@ -47,7 +47,9 @@ public class MessageType<S extends Subscriber>
     @Override
     public final int hashCode()
     {
-        // We override hash code to make it as efficient as possible.
+        // We override hash code to make it as efficient as possible
+        // WARN equals is not implemented on purpose !
         return index;
     }
+
 }

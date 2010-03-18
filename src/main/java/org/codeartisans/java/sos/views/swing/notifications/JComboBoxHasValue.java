@@ -25,7 +25,7 @@ import javax.swing.JComboBox;
 import org.codeartisans.java.sos.views.values.HasValue;
 
 /**
- * @param <V> 
+ * @param <V> Value type
  * @author jean-Michel Tonneau <barsifedron@gmail.com>
  */
 public class JComboBoxHasValue<V>
@@ -55,4 +55,5 @@ public class JComboBoxHasValue<V>
     {
         jComboBox.setSelectedItem( value );
     }
+
 }

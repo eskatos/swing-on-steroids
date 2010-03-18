@@ -24,6 +24,10 @@ package org.codeartisans.java.sos.views.notifications;
 public interface ClickHandler
 {
 
-    void onClick(ClickNotification notification);
+    /**
+     * Tell the ClickHandler the subject has been clicked
+     * @param notification  ClickNotification
+     */
+    void onClick( ClickNotification notification );
 
 }

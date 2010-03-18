@@ -21,6 +21,9 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
+/**
+ * MessageBus Implementation that deliver Messages to Subscribers sequentially in the current thread.
+ */
 public final class DirectDeliveryMessageBus
         extends BaseMessageBus
 {

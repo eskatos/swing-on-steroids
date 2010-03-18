@@ -103,4 +103,5 @@ public abstract class BasePresenter<V extends View>
     {
         messageSubscribtions.add( subscribtion );
     }
+
 }

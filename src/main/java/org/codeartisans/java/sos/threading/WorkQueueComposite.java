@@ -27,7 +27,7 @@ import org.qi4j.api.injection.scope.This;
 import org.qi4j.api.mixin.Mixins;
 import org.qi4j.api.service.ServiceComposite;
 
-@Mixins(WorkQueueComposite.Mixin.class)
+@Mixins( WorkQueueComposite.Mixin.class )
 public interface WorkQueueComposite
         extends WorkQueue, ServiceComposite
 {
@@ -41,20 +41,20 @@ public interface WorkQueueComposite
         private DefaultWorkQueue delegate;
 
         @Override
-        public void enqueue(Runnable runnable)
+        public void enqueue( Runnable runnable )
         {
-            ensureDelegate().enqueue(runnable);
+            ensureDelegate().enqueue( runnable );
         }
 
         private WorkQueue ensureDelegate()
         {
-            if (delegate == null) {
-                if (true) {
+            if ( delegate == null ) {
+                if ( true ) {
                     // FIXME : DO NOT WORK !! :-(
                     WorkQueueConfiguration cfg = config.configuration();
-                    delegate = new DefaultWorkQueue(cfg.name().get(), cfg.size().get());
+                    delegate = new DefaultWorkQueue( cfg.name().get(), cfg.size().get() );
                 } else {
-                    delegate = new DefaultWorkQueue(UUID.randomUUID().toString(), 4);
+                    delegate = new DefaultWorkQueue( UUID.randomUUID().toString(), 4 );
                 }
             }
             return delegate;

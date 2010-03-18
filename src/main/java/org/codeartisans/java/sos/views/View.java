@@ -46,4 +46,5 @@ public interface View
      * Tell the view to switch back to normal state from busy state.
      */
     void done();
+
 }

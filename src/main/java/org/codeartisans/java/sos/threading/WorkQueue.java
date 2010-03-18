@@ -27,5 +27,9 @@ public interface WorkQueue
     String NAME = "WorkQueue:name";
     String SIZE = "WorkQueue:size";
 
+    /**
+     * @param runnable Runnable to be run by on of the WorkQueue thread as soon as one is available.
+     */
     void enqueue( Runnable runnable );
+
 }

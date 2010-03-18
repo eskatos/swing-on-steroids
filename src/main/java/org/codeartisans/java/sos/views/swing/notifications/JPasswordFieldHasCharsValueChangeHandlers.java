@@ -77,8 +77,10 @@ public final class JPasswordFieldHasCharsValueChangeHandlers
                     {
                         handler.onValueChange( new ValueChangeNotification<char[]>( passwordField.getPassword() ) );
                     }
+
                 } );
             }
+
         };
         passwordField.getDocument().addDocumentListener( docListener );
         return new HandlerRegistration()
@@ -89,6 +91,8 @@ public final class JPasswordFieldHasCharsValueChangeHandlers
             {
                 passwordField.getDocument().removeDocumentListener( docListener );
             }
+
         };
     }
+
 }

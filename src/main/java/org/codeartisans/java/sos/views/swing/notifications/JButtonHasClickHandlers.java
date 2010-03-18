@@ -61,8 +61,10 @@ public final class JButtonHasClickHandlers
                     {
                         handler.onClick( new ClickNotification() );
                     }
+
                 } );
             }
+
         };
         button.addActionListener( listener );
         return new HandlerRegistration()
@@ -73,6 +75,7 @@ public final class JButtonHasClickHandlers
             {
                 button.removeActionListener( listener );
             }
+
         };
 
     }
@@ -81,4 +84,5 @@ public final class JButtonHasClickHandlers
     {
         return button;
     }
+
 }

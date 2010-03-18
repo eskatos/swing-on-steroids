@@ -25,6 +25,13 @@ public interface MessageBus
 {
 
     /**
+     * Publish given message to all instances of Subscriber.
+     * @param <S>           Subscriber mark type, for type safety
+     * @param message       Message
+     */
+    <S extends Subscriber> void publish( Message<S> message );
+
+    /**
      * @param <S>           Subscriber mark type, for type safety
      * @param messageType   MessageType
      * @param subscriber    Subscriber
@@ -45,11 +52,24 @@ public interface MessageBus
     <S extends Subscriber> void unsubscribe( MessageType<S> messageType, S subscriber );
 
     /**
-     * Publish given message to all instances of Subscriber.
      * @param <S>           Subscriber mark type, for type safety
-     * @param message       Message
+     * @param type          MessageType
+     * @param veto          Veto
+     * @return              VetoRegistration
      */
-    <S extends Subscriber> void publish( Message<S> message );
+    <S extends Subscriber> VetoRegistration registerVeto( MessageType<S> type, Veto veto );
+
+    /**
+     * Unregister Veto's VetoRegistration for a MessageType.
+     *
+     * Unsubscription can be done by VetoRegistration instances themselves too, you'd better stick
+     * to one way per application layer to avoid spaghetti code.
+     *
+     * @param <S>           Subscriber mark type, for type safety
+     * @param type          MessageType
+     * @param veto          Veto
+     */
+    <S extends Subscriber> void unregisterVeto( MessageType<S> type, Veto veto );
 
     /**
      * @param <S>           Subscriber mark type, for type safety
@@ -72,9 +92,5 @@ public interface MessageBus
      * @return              How many Subscriber instances the MessageBus has for the given MessageType
      */
     <S extends Subscriber> int countSubscribers( MessageType<S> type );
-
-    <S extends Subscriber> VetoRegistration registerVeto( MessageType<S> type, Veto veto );
-
-    <S extends Subscriber> void unregisterVeto( MessageType<S> type, Veto veto );
 
 }

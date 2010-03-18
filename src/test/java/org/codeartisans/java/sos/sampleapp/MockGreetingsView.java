@@ -1,8 +1,8 @@
 package org.codeartisans.java.sos.sampleapp;
 
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
-import org.codeartisans.java.sos.views.mock.notifications.MockHasClickHandler;
-import org.codeartisans.java.sos.views.mock.notifications.StringHasStringValue;
+import org.codeartisans.java.sos.views.notifications.MockHasClickHandler;
+import org.codeartisans.java.sos.views.values.StringHasStringValue;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
 import org.codeartisans.java.sos.views.values.HasValue;
 

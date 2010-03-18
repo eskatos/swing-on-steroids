@@ -21,6 +21,9 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
+/**
+ * MessageBus Mixin that deliver Messages to Subscribers sequentially in the current thread.
+ */
 public abstract class DirectDeliveryMixin
         extends BaseMessageBus
         implements MessageBusComposite

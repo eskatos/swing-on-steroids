@@ -28,6 +28,9 @@ package org.codeartisans.java.sos.views.notifications;
 public interface HandlerRegistration
 {
 
+    /**
+     * Remove underlying handler from the Has*Handler it was registered on
+     */
     void removeHandler();
-    
+
 }

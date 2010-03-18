@@ -21,9 +21,16 @@
  */
 package org.codeartisans.java.sos.views.notifications;
 
+/**
+ * Type that owns FocusHandler instances.
+ */
 public interface HasFocusHandlers
 {
 
-    HandlerRegistration addFocusHandler(FocusHandler handler);
+    /**
+     * @param handler   FocusHandler to register
+     * @return          HandlerRegistration allowing to unregister the FocusHandler
+     */
+    HandlerRegistration addFocusHandler( FocusHandler handler );
 
 }

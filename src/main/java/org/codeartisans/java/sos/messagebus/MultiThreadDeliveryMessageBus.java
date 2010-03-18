@@ -24,6 +24,10 @@ package org.codeartisans.java.sos.messagebus;
 import com.google.inject.Inject;
 import org.codeartisans.java.sos.threading.WorkQueue;
 
+/**
+ * MessageBus Implementation that use a thread to iterate over Subscribers and a thread per Message delivery.
+ * The publish method returns immediatly.
+ */
 public final class MultiThreadDeliveryMessageBus
         extends BaseMessageBus
 {

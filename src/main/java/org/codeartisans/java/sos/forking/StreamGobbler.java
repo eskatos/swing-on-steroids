@@ -28,6 +28,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
+/**
+ * StreamGobbler is used by ForkService implementations to consume the forked processes standard/error output.
+ */
 public final class StreamGobbler
         extends Thread
 {
@@ -35,15 +38,15 @@ public final class StreamGobbler
     private InputStream is;
     private OutputStream redirect;
 
-    public StreamGobbler(InputStream is, ThreadGroup threadGroup, String name)
+    public StreamGobbler( InputStream is, ThreadGroup threadGroup, String name )
     {
-        super(threadGroup, name);
+        super( threadGroup, name );
         this.is = is;
     }
 
-    public StreamGobbler(InputStream is, ThreadGroup threadGroup, String name, OutputStream redirect)
+    public StreamGobbler( InputStream is, ThreadGroup threadGroup, String name, OutputStream redirect )
     {
-        this(is, threadGroup, name);
+        this( is, threadGroup, name );
         this.redirect = redirect;
     }
 
@@ -52,21 +55,21 @@ public final class StreamGobbler
     {
         try {
             PrintWriter pw = null;
-            if (redirect != null) {
-                pw = new PrintWriter(redirect);
+            if ( redirect != null ) {
+                pw = new PrintWriter( redirect );
             }
-            final BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            final BufferedReader br = new BufferedReader( new InputStreamReader( is ) );
             String line = null;
-            while ((line = br.readLine()) != null) {
-                if (pw != null) {
-                    pw.println(line);
+            while ( ( line = br.readLine() ) != null ) {
+                if ( pw != null ) {
+                    pw.println( line );
                 }
             }
-            if (pw != null) {
+            if ( pw != null ) {
                 pw.flush();
             }
             br.close();
-        } catch (IOException ioe) {
+        } catch ( IOException ioe ) {
             ioe.printStackTrace();
         }
     }

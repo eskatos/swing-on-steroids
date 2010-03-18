@@ -77,8 +77,10 @@ public final class JTextComponentHasStringValueChangeHandlers
                     {
                         handler.onValueChange( new ValueChangeNotification<String>( textComponent.getText() ) );
                     }
+
                 } );
             }
+
         };
         textComponent.getDocument().addDocumentListener( docListener );
         return new HandlerRegistration()
@@ -89,7 +91,9 @@ public final class JTextComponentHasStringValueChangeHandlers
             {
                 textComponent.getDocument().removeDocumentListener( docListener );
             }
+
         };
 
     }
+
 }

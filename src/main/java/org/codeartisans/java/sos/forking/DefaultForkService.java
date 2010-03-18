@@ -87,8 +87,7 @@ public final class DefaultForkService
                             }
                         } else {
                             if ( exitCallback != null ) {
-                                exitCallback.onError( "Fork " + forkUuid + " exited with error, status was: " + status,
-                                        null );
+                                exitCallback.onError( "Fork " + forkUuid + " exited with error, status was: " + status, null );
                             }
                         }
                         this.interrupt();
@@ -98,6 +97,7 @@ public final class DefaultForkService
                         }
                     }
                 }
+
             };
             watcher.setDaemon( true );
             watcher.start();
@@ -137,8 +137,10 @@ public final class DefaultForkService
                         }
                     }
                 }
+
             }, "ShutdownHook" ) );
             shutdownHookAdded = true;
         }
     }
+
 }

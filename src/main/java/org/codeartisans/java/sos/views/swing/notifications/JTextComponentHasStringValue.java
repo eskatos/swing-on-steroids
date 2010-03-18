@@ -51,4 +51,5 @@ public class JTextComponentHasStringValue
     {
         return textComponent;
     }
+
 }

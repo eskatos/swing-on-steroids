@@ -115,42 +115,42 @@ public class ButtonPanel
         init();
     }
 
-    public ButtonPanel(LayoutManager layout)
+    public ButtonPanel( LayoutManager layout )
     {
-        super(layout);
+        super( layout );
         init();
     }
 
-    public ButtonPanel(boolean isDoubleBuffered)
+    public ButtonPanel( boolean isDoubleBuffered )
     {
-        super(isDoubleBuffered);
+        super( isDoubleBuffered );
         init();
     }
 
-    public ButtonPanel(LayoutManager layout, boolean isDoubleBuffered)
+    public ButtonPanel( LayoutManager layout, boolean isDoubleBuffered )
     {
-        super(layout, isDoubleBuffered);
+        super( layout, isDoubleBuffered );
         init();
     }
 
     private void init()
     {
-        setFocusTraversalPolicyProvider(true);
-        setFocusTraversalPolicy(new JXButtonPanelFocusTraversalPolicy());
+        setFocusTraversalPolicyProvider( true );
+        setFocusTraversalPolicy( new JXButtonPanelFocusTraversalPolicy() );
         ActionListener actionHandler = new ActionHandler();
-        registerKeyboardAction(actionHandler, ActionHandler.FORWARD,
-                KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0),
-                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        registerKeyboardAction(actionHandler, ActionHandler.FORWARD,
-                KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0),
-                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        registerKeyboardAction(actionHandler, ActionHandler.BACKWARD,
-                KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0),
-                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        registerKeyboardAction(actionHandler, ActionHandler.BACKWARD,
-                KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0),
-                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        setGroupSelectionFollowFocus(true);
+        registerKeyboardAction( actionHandler, ActionHandler.FORWARD,
+                KeyStroke.getKeyStroke( KeyEvent.VK_RIGHT, 0 ),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
+        registerKeyboardAction( actionHandler, ActionHandler.FORWARD,
+                KeyStroke.getKeyStroke( KeyEvent.VK_DOWN, 0 ),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
+        registerKeyboardAction( actionHandler, ActionHandler.BACKWARD,
+                KeyStroke.getKeyStroke( KeyEvent.VK_LEFT, 0 ),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
+        registerKeyboardAction( actionHandler, ActionHandler.BACKWARD,
+                KeyStroke.getKeyStroke( KeyEvent.VK_UP, 0 ),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
+        setGroupSelectionFollowFocus( true );
     }
 
     /**
@@ -166,7 +166,7 @@ public class ButtonPanel
      * Sets whether arrow keys should support
      * cyclic focus traversal ordering for this JXButtonPanel.
      */
-    public void setCyclic(boolean isCyclic)
+    public void setCyclic( boolean isCyclic )
     {
         this.isCyclic = isCyclic;
     }
@@ -188,16 +188,16 @@ public class ButtonPanel
      * 
      * Note: this property affects buttons which are added to a ButtonGroup 
      */
-    public void setGroupSelectionFollowFocus(boolean groupSelectionFollowFocus)
+    public void setGroupSelectionFollowFocus( boolean groupSelectionFollowFocus )
     {
         isGroupSelectionFollowFocus = groupSelectionFollowFocus;
     }
 
-    private static ButtonGroup getButtonGroup(AbstractButton button)
+    private static ButtonGroup getButtonGroup( AbstractButton button )
     {
         ButtonModel model = button.getModel();
-        if (model instanceof DefaultButtonModel) {
-            return ((DefaultButtonModel) model).getGroup();
+        if ( model instanceof DefaultButtonModel ) {
+            return ( ( DefaultButtonModel ) model ).getGroup();
         }
         return null;
     }
@@ -209,50 +209,51 @@ public class ButtonPanel
         private static final String FORWARD = "moveSelectionForward";
         private static final String BACKWARD = "moveSelectionBackward";
 
-        public void actionPerformed(ActionEvent e)
+        public void actionPerformed( ActionEvent e )
         {
             FocusTraversalPolicy ftp = ButtonPanel.this.getFocusTraversalPolicy();
 
-            if (ftp instanceof JXButtonPanelFocusTraversalPolicy) {
+            if ( ftp instanceof JXButtonPanelFocusTraversalPolicy ) {
                 JXButtonPanelFocusTraversalPolicy xftp =
-                                                  (JXButtonPanelFocusTraversalPolicy) ftp;
+                        ( JXButtonPanelFocusTraversalPolicy ) ftp;
 
                 String actionCommand = e.getActionCommand();
                 Component fo =
-                          KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+                        KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
                 Component next;
 
-                xftp.setAlternativeFocusMode(true);
+                xftp.setAlternativeFocusMode( true );
 
-                if (FORWARD.equals(actionCommand)) {
-                    next = xftp.getComponentAfter(ButtonPanel.this, fo);
-                } else if (BACKWARD.equals(actionCommand)) {
-                    next = xftp.getComponentBefore(ButtonPanel.this, fo);
+                if ( FORWARD.equals( actionCommand ) ) {
+                    next = xftp.getComponentAfter( ButtonPanel.this, fo );
+                } else if ( BACKWARD.equals( actionCommand ) ) {
+                    next = xftp.getComponentBefore( ButtonPanel.this, fo );
                 } else {
-                    throw new AssertionError("Unexpected action command: " + actionCommand);
+                    throw new AssertionError( "Unexpected action command: " + actionCommand );
                 }
 
-                xftp.setAlternativeFocusMode(false);
+                xftp.setAlternativeFocusMode( false );
 
-                if (fo instanceof AbstractButton) {
-                    AbstractButton b = (AbstractButton) fo;
-                    b.getModel().setPressed(false);
+                if ( fo instanceof AbstractButton ) {
+                    AbstractButton b = ( AbstractButton ) fo;
+                    b.getModel().setPressed( false );
                 }
-                if (next != null) {
-                    if (fo instanceof AbstractButton && next instanceof AbstractButton) {
-                        ButtonGroup group = getButtonGroup((AbstractButton) fo);
-                        AbstractButton nextButton = (AbstractButton) next;
-                        if (group != getButtonGroup(nextButton)) {
+                if ( next != null ) {
+                    if ( fo instanceof AbstractButton && next instanceof AbstractButton ) {
+                        ButtonGroup group = getButtonGroup( ( AbstractButton ) fo );
+                        AbstractButton nextButton = ( AbstractButton ) next;
+                        if ( group != getButtonGroup( nextButton ) ) {
                             return;
                         }
-                        if (isGroupSelectionFollowFocus() && group != null && group.getSelection() != null && !nextButton.isSelected()) {
-                            nextButton.setSelected(true);
+                        if ( isGroupSelectionFollowFocus() && group != null && group.getSelection() != null && !nextButton.isSelected() ) {
+                            nextButton.setSelected( true );
                         }
                         next.requestFocusInWindow();
                     }
                 }
             }
         }
+
     }
 
     private class JXButtonPanelFocusTraversalPolicy
@@ -266,54 +267,55 @@ public class ButtonPanel
             return isAlternativeFocusMode;
         }
 
-        public void setAlternativeFocusMode(boolean alternativeFocusMode)
+        public void setAlternativeFocusMode( boolean alternativeFocusMode )
         {
             isAlternativeFocusMode = alternativeFocusMode;
         }
 
-        protected boolean accept(Component c)
+        protected boolean accept( Component c )
         {
-            if (!isAlternativeFocusMode() && c instanceof AbstractButton) {
-                AbstractButton button = (AbstractButton) c;
-                ButtonGroup group = ButtonPanel.getButtonGroup(button);
-                if (group != null && group.getSelection() != null && !button.isSelected()) {
+            if ( !isAlternativeFocusMode() && c instanceof AbstractButton ) {
+                AbstractButton button = ( AbstractButton ) c;
+                ButtonGroup group = ButtonPanel.getButtonGroup( button );
+                if ( group != null && group.getSelection() != null && !button.isSelected() ) {
                     return false;
                 }
             }
-            return super.accept(c);
+            return super.accept( c );
         }
 
-        public Component getComponentAfter(Container aContainer, Component aComponent)
+        public Component getComponentAfter( Container aContainer, Component aComponent )
         {
-            Component componentAfter = super.getComponentAfter(aContainer, aComponent);
-            if (!isAlternativeFocusMode()) {
+            Component componentAfter = super.getComponentAfter( aContainer, aComponent );
+            if ( !isAlternativeFocusMode() ) {
                 return componentAfter;
             }
-            if (ButtonPanel.this.isCyclic()) {
+            if ( ButtonPanel.this.isCyclic() ) {
                 return componentAfter == null
-                        ? getFirstComponent(aContainer) : componentAfter;
+                        ? getFirstComponent( aContainer ) : componentAfter;
             }
-            if (aComponent == getLastComponent(aContainer)) {
+            if ( aComponent == getLastComponent( aContainer ) ) {
                 return aComponent;
             }
             return componentAfter;
         }
 
-        public Component getComponentBefore(Container aContainer, Component aComponent)
+        public Component getComponentBefore( Container aContainer, Component aComponent )
         {
-            Component componentBefore = super.getComponentBefore(aContainer, aComponent);
-            if (!isAlternativeFocusMode()) {
+            Component componentBefore = super.getComponentBefore( aContainer, aComponent );
+            if ( !isAlternativeFocusMode() ) {
                 return componentBefore;
             }
-            if (ButtonPanel.this.isCyclic()) {
+            if ( ButtonPanel.this.isCyclic() ) {
                 return componentBefore == null
-                        ? getLastComponent(aContainer) : componentBefore;
+                        ? getLastComponent( aContainer ) : componentBefore;
             }
-            if (aComponent == getFirstComponent(aContainer)) {
+            if ( aComponent == getFirstComponent( aContainer ) ) {
                 return aComponent;
             }
             return componentBefore;
         }
+
     }
 
 }

@@ -36,19 +36,20 @@ public final class ExceptionDialog
     {
     }
 
-    public static void showException(Throwable ex)
+    public static void showException( Throwable ex )
     {
         final StringWriter sw = new StringWriter();
-        ex.printStackTrace(new PrintWriter(sw));
+        ex.printStackTrace( new PrintWriter( sw ) );
         final JTextArea textArea = new JTextArea();
-        textArea.setFont(new Font("SansSerif", Font.PLAIN, 10));
-        textArea.setText(sw.toString());
-        final JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new Dimension(720, 400));
-        JOptionPane.showMessageDialog(null,
+        textArea.setFont( new Font( "SansSerif", Font.PLAIN, 10 ) );
+        textArea.setText( sw.toString() );
+        final JScrollPane scrollPane = new JScrollPane( textArea );
+        scrollPane.setPreferredSize( new Dimension( 720, 400 ) );
+        JOptionPane.showMessageDialog( null,
                 scrollPane,
                 ex.getMessage(),
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.ERROR_MESSAGE );
 
     }
+
 }

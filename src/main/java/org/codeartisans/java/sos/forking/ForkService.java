@@ -48,4 +48,5 @@ public interface ForkService
      * @param shutdownAction    What should the ForkService do when the JVM shuts down
      */
     void fork( Forkable forkable, AsyncCallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction );
+
 }

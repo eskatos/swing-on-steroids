@@ -31,10 +31,11 @@ public final class SplashWindow
         extends JWindow
 {
 
-    public SplashWindow(URL splashURL)
+    public SplashWindow( URL splashURL )
     {
-        JLabel label = new JLabel(new ImageIcon(splashURL));
-        getContentPane().add(label, BorderLayout.CENTER);
-        setSize(label.getPreferredSize());
+        JLabel label = new JLabel( new ImageIcon( splashURL ) );
+        getContentPane().add( label, BorderLayout.CENTER );
+        setSize( label.getPreferredSize() );
     }
+
 }

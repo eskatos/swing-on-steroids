@@ -53,4 +53,5 @@ public final class JLabelHasStringValue implements HasValue<String>
     {
         return label;
     }
+
 }

@@ -50,25 +50,6 @@ public abstract class BaseMessageBus
     }
 
     @Override
-    public <S extends Subscriber> S getSubscriber( MessageType<S> type, int index )
-    {
-        return subscribers( type ).get( index );
-    }
-
-    @Override
-    public <S extends Subscriber> int countSubscribers( MessageType<S> type )
-    {
-        CopyOnWriteArrayList<?> l = subscribers.get( type );
-        return l == null ? 0 : l.size();
-    }
-
-    @Override
-    public <S extends Subscriber> boolean hasSubscribers( MessageType<S> type )
-    {
-        return subscribers.containsKey( type );
-    }
-
-    @Override
     public <S extends Subscriber> void unsubscribe( MessageType<S> type, S subscriber )
     {
         CopyOnWriteArrayList<S> l = subscribers( type );
@@ -97,6 +78,30 @@ public abstract class BaseMessageBus
         assert result : "Tried to remove unknown veto: " + veto + " for " + type;
     }
 
+    @Override
+    public <S extends Subscriber> S getSubscriber( MessageType<S> type, int index )
+    {
+        return subscribers( type ).get( index );
+    }
+
+    @Override
+    public <S extends Subscriber> boolean hasSubscribers( MessageType<S> type )
+    {
+        return subscribers.containsKey( type );
+    }
+
+    @Override
+    public <S extends Subscriber> int countSubscribers( MessageType<S> type )
+    {
+        CopyOnWriteArrayList<?> l = subscribers.get( type );
+        return l == null ? 0 : l.size();
+    }
+
+    /**
+     * @param <S>           Subscriber mark type, for type safety
+     * @param message       Message
+     * @return              True if the Message is vetoed, false otherwise
+     */
     protected final <S extends Subscriber> boolean vetoed( Message<S> message )
     {
         CopyOnWriteArrayList<Veto> msgVetos = vetos( message.getMessageType() );
@@ -108,6 +113,11 @@ public abstract class BaseMessageBus
         return false;
     }
 
+    /**
+     * @param <S>           Subscriber mark type, for type safety
+     * @param type          MessageType
+     * @return              The Subscriber collection for a MessageType
+     */
     @SuppressWarnings( "unchecked" )
     protected final <S extends Subscriber> CopyOnWriteArrayList<S> subscribers( MessageType<S> type )
     {
@@ -116,6 +126,11 @@ public abstract class BaseMessageBus
         return ( CopyOnWriteArrayList<S> ) subscribers.get( type );
     }
 
+    /**
+     * @param <S>           Subscriber mark type, for type safety
+     * @param type          MessageType
+     * @return              The Veto collection for a MessageType
+     */
     @SuppressWarnings( "unchecked" )
     protected final <S extends Subscriber> CopyOnWriteArrayList<Veto> vetos( MessageType<S> type )
     {

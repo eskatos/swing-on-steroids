@@ -28,6 +28,10 @@ import org.qi4j.api.unitofwork.UnitOfWork;
 import org.qi4j.api.unitofwork.UnitOfWorkCompletionException;
 import org.qi4j.api.unitofwork.UnitOfWorkFactory;
 
+/**
+ * MessageBus Mixin that use a thread to deliver Messages to Subscribers sequentially.
+ * The publish method returns immediatly.
+ */
 public abstract class SingleThreadDeliveryMixin
         extends BaseMessageBus
         implements MessageBusComposite

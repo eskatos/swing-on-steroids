@@ -21,9 +21,16 @@
  */
 package org.codeartisans.java.sos.views.notifications;
 
+/**
+ * Type that owns ClickHandler instances.
+ */
 public interface HasClickHandlers
 {
 
-    HandlerRegistration addClickHandler(ClickHandler handler);
+    /**
+     * @param handler   ClickHandler to register
+     * @return          HandlerRegistration allowing to unregister the ClickHandler
+     */
+    HandlerRegistration addClickHandler( ClickHandler handler );
 
 }

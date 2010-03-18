@@ -59,6 +59,7 @@ public final class WindowHasFocusHandlers
                     {
                         handler.onFocusGained();
                     }
+
                 } );
             }
 
@@ -73,8 +74,10 @@ public final class WindowHasFocusHandlers
                     {
                         handler.onFocusLost();
                     }
+
                 } );
             }
+
         };
         window.addWindowFocusListener( listener );
         return new HandlerRegistration()
@@ -85,6 +88,8 @@ public final class WindowHasFocusHandlers
             {
                 window.removeWindowFocusListener( listener );
             }
+
         };
     }
+
 }

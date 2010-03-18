@@ -24,8 +24,14 @@ package org.codeartisans.java.sos.views.notifications;
 public interface FocusHandler
 {
 
+    /**
+     * Tell the FocusHandler the subject got focused
+     */
     void onFocusGained();
 
+    /**
+     * Tell the FocusHandler the subject lost focus
+     */
     void onFocusLost();
 
 }

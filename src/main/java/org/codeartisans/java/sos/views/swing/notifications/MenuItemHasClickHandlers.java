@@ -37,41 +37,44 @@ public final class MenuItemHasClickHandlers
     private final WorkQueue workQueue;
     private final MenuItem menuItem;
 
-    public MenuItemHasClickHandlers(WorkQueue workQueue, MenuItem menuItem)
+    public MenuItemHasClickHandlers( WorkQueue workQueue, MenuItem menuItem )
     {
         this.workQueue = workQueue;
         this.menuItem = menuItem;
     }
 
     @Override
-    public HandlerRegistration addClickHandler(final ClickHandler handler)
+    public HandlerRegistration addClickHandler( final ClickHandler handler )
     {
         final ActionListener listener = new ActionListener()
         {
 
             @Override
-            public void actionPerformed(ActionEvent e)
+            public void actionPerformed( ActionEvent e )
             {
-                workQueue.enqueue(new Runnable()
+                workQueue.enqueue( new Runnable()
                 {
 
                     @Override
                     public void run()
                     {
-                        handler.onClick(new ClickNotification());
+                        handler.onClick( new ClickNotification() );
                     }
-                });
+
+                } );
             }
+
         };
-        menuItem.addActionListener(listener);
+        menuItem.addActionListener( listener );
         return new HandlerRegistration()
         {
 
             @Override
             public void removeHandler()
             {
-                menuItem.removeActionListener(listener);
+                menuItem.removeActionListener( listener );
             }
+
         };
     }
 
@@ -79,4 +82,5 @@ public final class MenuItemHasClickHandlers
     {
         return menuItem;
     }
+
 }

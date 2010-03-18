@@ -24,7 +24,7 @@ package org.codeartisans.java.sos.forking;
 import org.qi4j.api.mixin.Mixins;
 import org.qi4j.api.service.ServiceComposite;
 
-@Mixins(DefaultForkService.class)
+@Mixins( DefaultForkService.class )
 public interface ForkServiceComposite extends
         ForkService, ServiceComposite
 {

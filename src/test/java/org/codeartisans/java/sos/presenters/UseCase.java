@@ -23,8 +23,8 @@ package org.codeartisans.java.sos.presenters;
 
 import com.google.inject.Inject;
 import org.codeartisans.java.sos.views.View;
-import org.codeartisans.java.sos.views.mock.notifications.MockHasClickHandler;
-import org.codeartisans.java.sos.views.mock.notifications.StringHasStringValue;
+import org.codeartisans.java.sos.views.notifications.MockHasClickHandler;
+import org.codeartisans.java.sos.views.values.StringHasStringValue;
 import org.codeartisans.java.sos.views.notifications.ClickHandler;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;

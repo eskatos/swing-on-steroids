@@ -36,4 +36,5 @@ public interface QueryableView extends View
      * @return Trus if the View is in busy state, false otherwise.
      */
     boolean isBusy();
+
 }

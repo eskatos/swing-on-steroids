@@ -51,7 +51,7 @@ public final class VetoRegistration
     /**
      * Unsubscribe from the host MessageBus.
      *
-     * Unsubscription can be done on the MessageBus without reference to this Subscribtion,
+     * Unsubscription can be done on the MessageBus without reference to this VetoRegistration,
      * you'd better stick to one way per application layer to avoid spaghetti code.
      */
     @SuppressWarnings( "unchecked" )

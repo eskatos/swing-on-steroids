@@ -61,8 +61,10 @@ public final class TrayIconHasClickHandlers
                     {
                         handler.onClick( new ClickNotification() );
                     }
+
                 } );
             }
+
         };
         trayIcon.addMouseListener( listener );
         return new HandlerRegistration()
@@ -73,6 +75,7 @@ public final class TrayIconHasClickHandlers
             {
                 trayIcon.removeMouseListener( listener );
             }
+
         };
     }
 
@@ -80,4 +83,5 @@ public final class TrayIconHasClickHandlers
     {
         return trayIcon;
     }
+
 }

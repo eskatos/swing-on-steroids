@@ -31,7 +31,7 @@ import org.codeartisans.java.sos.views.values.ValueChangeNotification;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 
 /**
- * @param <V>
+ * @param <V> Value type
  * @author jean-Michel Tonneau <barsifedron@gmail.com>
  */
 public final class JComboBoxHasValueChangeHandlers<V>
@@ -71,8 +71,10 @@ public final class JComboBoxHasValueChangeHandlers<V>
                     {
                         handler.onValueChange( new ValueChangeNotification<V>( ( V ) jComboBox.getSelectedItem() ) );
                     }
+
                 } );
             }
+
         };
 
 
@@ -86,7 +88,9 @@ public final class JComboBoxHasValueChangeHandlers<V>
             {
                 jComboBox.removeActionListener( actionListener );
             }
+
         };
 
     }
+
 }

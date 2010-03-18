@@ -26,6 +26,6 @@ public interface HasValue<T>
 
     T getValue();
 
-    void setValue(T value);
-    
+    void setValue( T value );
+
 }

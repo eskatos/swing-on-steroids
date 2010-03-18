@@ -61,8 +61,10 @@ public final class JFrameHasCloseClickHandlers
                     {
                         handler.onClick( new ClickNotification() );
                     }
+
                 } );
             }
+
         };
         frame.addWindowListener( listener );
         return new HandlerRegistration()
@@ -73,6 +75,7 @@ public final class JFrameHasCloseClickHandlers
             {
                 frame.removeWindowListener( listener );
             }
+
         };
     }
 
@@ -80,4 +83,5 @@ public final class JFrameHasCloseClickHandlers
     {
         return frame;
     }
+
 }

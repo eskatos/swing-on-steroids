@@ -24,7 +24,7 @@ package org.codeartisans.java.sos.views;
 /**
  * Base class for Views that want to be QueryableView giving the common code for state accessors.
  */
-public abstract class BaseView
+public abstract class BaseQueryableView
         implements QueryableView
 {
 
@@ -90,4 +90,5 @@ public abstract class BaseView
      * Called when the View has to switch back to normal state from busy state. Subtypes must implement this.
      */
     protected abstract void onDone();
+
 }

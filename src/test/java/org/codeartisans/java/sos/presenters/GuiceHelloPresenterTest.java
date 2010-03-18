@@ -26,7 +26,7 @@ import com.google.inject.Guice;
 import org.codeartisans.java.sos.presenters.UseCase.HelloPresenter;
 import org.codeartisans.java.sos.presenters.UseCase.HelloView;
 import org.codeartisans.java.sos.presenters.UseCase.HelloViewImpl;
-import org.codeartisans.java.sos.views.mock.notifications.MockHasClickHandler;
+import org.codeartisans.java.sos.views.notifications.MockHasClickHandler;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

@@ -19,24 +19,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.views.mock.notifications;
+package org.codeartisans.java.sos.views.notifications;
 
-import org.codeartisans.java.sos.views.values.HasValue;
+import java.util.ArrayList;
+import java.util.List;
 
-public final class StringHasStringValue implements HasValue<String>
+public final class MockHasClickHandler implements HasClickHandlers
 {
 
-    private String value;
+    private final List<ClickHandler> handlers = new ArrayList<ClickHandler>();
 
     @Override
-    public String getValue()
+    public HandlerRegistration addClickHandler( final ClickHandler handler )
     {
-        return value;
+        handlers.add( handler );
+        return new HandlerRegistration()
+        {
+
+            @Override
+            public void removeHandler()
+            {
+
+                handlers.remove( handler );
+            }
+
+        };
     }
 
-    @Override
-    public void setValue( String value )
+    public void click()
     {
-        this.value = value;
+        for ( ClickHandler eachHandler : handlers ) {
+            eachHandler.onClick( new ClickNotification() );
+        }
     }
+
 }

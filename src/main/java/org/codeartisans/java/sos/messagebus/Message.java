@@ -23,6 +23,7 @@ package org.codeartisans.java.sos.messagebus;
 
 /**
  * Protected contract (abstract class with no responsibility) of Message instances.
+ * 
  * @param <S> MessageType's Subscriber mark
  */
 public abstract class Message<S extends Subscriber>
@@ -36,6 +37,6 @@ public abstract class Message<S extends Subscriber>
     /**
      * @param subscriber Subscriber
      */
-    protected abstract void deliver(S subscriber);
+    protected abstract void deliver( S subscriber );
 
 }

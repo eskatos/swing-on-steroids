@@ -26,7 +26,7 @@ public final class ValueChangeNotification<T>
 
     private T newValue;
 
-    public ValueChangeNotification(T newValue)
+    public ValueChangeNotification( T newValue )
     {
         this.newValue = newValue;
     }
@@ -35,5 +35,5 @@ public final class ValueChangeNotification<T>
     {
         return newValue;
     }
-    
+
 }
