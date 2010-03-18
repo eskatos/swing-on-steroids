@@ -27,6 +27,7 @@ import java.awt.TrayIcon;
 import java.awt.MenuItem;
 
 import com.google.inject.Inject;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -38,6 +39,8 @@ import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
 import org.codeartisans.java.sos.views.notifications.HasFocusHandlers;
+import org.codeartisans.java.sos.views.swing.components.EnhancedLabel;
+import org.codeartisans.java.sos.views.swing.notifications.EnhancedLabelHasImageValueChangeHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.WindowHasFocusHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JButtonHasClickHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.MenuItemHasClickHandlers;
@@ -86,6 +89,8 @@ public class SwingWrappersFactory {
         return new JPasswordFieldHasCharsValueChangeHandlers(workQueue, passwordField);
     }
 
-
+    public HasValueChangeHandlers<Image> createEnhancedLabelHasImageValueChangeHandlers(EnhancedLabel enhancedLabel) {
+        return new EnhancedLabelHasImageValueChangeHandlers( workQueue, enhancedLabel );
+    }
 
 }
