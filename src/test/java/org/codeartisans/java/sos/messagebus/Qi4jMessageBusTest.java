@@ -39,21 +39,21 @@ public class Qi4jMessageBusTest
 {
 
     @Override
-    public void assemble(ModuleAssembly module) throws AssemblyException
+    public void assemble( ModuleAssembly module ) throws AssemblyException
     {
-        module.addServices(MemoryEntityStoreService.class, UuidIdentityGeneratorService.class);
-        module.addEntities(WorkQueueConfiguration.class);
-        module.addServices(WorkQueueComposite.class);
-        module.addServices(MessageBusComposite.class).withMixins(MultiThreadDeliveryMixin.class);
+        module.addServices( MemoryEntityStoreService.class, UuidIdentityGeneratorService.class );
+        module.addEntities( WorkQueueConfiguration.class );
+        module.addServices( WorkQueueComposite.class );
+        module.addServices( MessageBusComposite.class ).withMixins( MultiThreadDeliveryMixin.class );
     }
 
     @Test
     public void testMessageBus() throws InterruptedException
     {
-        ServiceReference<MessageBusComposite> ref = serviceLocator.findService(MessageBusComposite.class);
+        ServiceReference<MessageBusComposite> ref = serviceLocator.findService( MessageBusComposite.class );
         MessageBus messageBus = ref.get();
 
-        UseCase.Util.testMessageBus(messageBus);
+        UseCase.Util.testMessageBus( messageBus );
     }
 
 }

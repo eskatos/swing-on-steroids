@@ -21,18 +21,43 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
-public final class DirectDeliveryMessageBus
-        extends BaseMessageBus
+/**
+ * Registration reference holder for a Veto handling a MessageType on a MessageBus.
+ * 
+ * @author Paul Merlin <paul@nosphere.org>
+ */
+public final class VetoRegistration
 {
 
-    @Override
-    public <S extends Subscriber> void publish( Message<S> message )
+    private final MessageBus msgBus;
+    private final Veto veto;
+    private final MessageType<?> type;
+
+    /**
+     * Build a Registration reference holder for a Veto handling a MessageType on a MessageBus.
+     *
+     * @param <S>       Registration's Subscriber
+     * @param msgBus    Host MessageBus
+     * @param type      Registration's MessageType
+     * @param veto      Veto
+     */
+    /* package */ <S extends Subscriber> VetoRegistration( MessageBus msgBus, MessageType<S> type, Veto veto )
     {
-        if ( !vetoed( message ) ) {
-            for ( S eachSubscriber : subscribers( message.getMessageType() ) ) {
-                message.deliver( eachSubscriber );
-            }
-        }
+        this.msgBus = msgBus;
+        this.veto = veto;
+        this.type = type;
+    }
+
+    /**
+     * Unsubscribe from the host MessageBus.
+     *
+     * Unsubscription can be done on the MessageBus without reference to this Subscribtion,
+     * you'd better stick to one way per application layer to avoid spaghetti code.
+     */
+    @SuppressWarnings( "unchecked" )
+    public void unregister()
+    {
+        msgBus.unregisterVeto( ( MessageType<Subscriber> ) type, veto );
     }
 
 }

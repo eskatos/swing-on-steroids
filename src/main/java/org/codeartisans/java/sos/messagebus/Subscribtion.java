@@ -57,4 +57,5 @@ public final class Subscribtion
     {
         messageBus.unsubscribe( ( MessageType<Subscriber> ) messageType, subscriber );
     }
+
 }

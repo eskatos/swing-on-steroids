@@ -47,19 +47,22 @@ public abstract class SingleThreadDeliveryMixin
             @Override
             public void run()
             {
-
-                final UnitOfWork uow = uowf.newUnitOfWork();
-                try {
-                    for ( S eachSubscriber : get( message.getMessageType() ) ) {
-                        message.deliver( eachSubscriber );
+                if ( !vetoed( message ) ) {
+                    final UnitOfWork uow = uowf.newUnitOfWork();
+                    try {
+                        for ( S eachSubscriber : subscribers( message.getMessageType() ) ) {
+                            message.deliver( eachSubscriber );
+                        }
+                        uow.complete();
+                    } catch ( UnitOfWorkCompletionException ex ) {
+                        ex.printStackTrace();
+                        uow.discard();
+                        throw new InternalError( "Error during: " + ex.getMessage() );
                     }
-                    uow.complete();
-                } catch ( UnitOfWorkCompletionException ex ) {
-                    ex.printStackTrace();
-                    uow.discard();
-                    throw new InternalError( "Error during: " + ex.getMessage() );
                 }
             }
+
         } );
     }
+
 }

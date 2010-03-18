@@ -30,7 +30,7 @@ public interface MessageBus
      * @param subscriber    Subscriber
      * @return              Subscribtion
      */
-    <S extends Subscriber> Subscribtion subscribe(MessageType<S> messageType, S subscriber);
+    <S extends Subscriber> Subscribtion subscribe( MessageType<S> messageType, S subscriber );
 
     /**
      * Unregister Subscriber's Subscribtion for a MessageType.
@@ -42,14 +42,14 @@ public interface MessageBus
      * @param messageType   MessageType
      * @param subscriber    Subscriber
      */
-    <S extends Subscriber> void unsubscribe(MessageType<S> messageType, S subscriber);
+    <S extends Subscriber> void unsubscribe( MessageType<S> messageType, S subscriber );
 
     /**
      * Publish given message to all instances of Subscriber.
      * @param <S>           Subscriber mark type, for type safety
      * @param message       Message
      */
-    <S extends Subscriber> void publish(Message<S> message);
+    <S extends Subscriber> void publish( Message<S> message );
 
     /**
      * @param <S>           Subscriber mark type, for type safety
@@ -57,20 +57,24 @@ public interface MessageBus
      * @param id            Subscriber's ID
      * @return              Subscriber
      */
-    <S extends Subscriber> S getSubscriber(MessageType<S> messageType, int id);
+    <S extends Subscriber> S getSubscriber( MessageType<S> messageType, int id );
 
     /**
      * @param <S>           Subscriber mark type, for type safety
-     * @param messageType   MessageType
+     * @param type          MessageType
      * @return              Whether the MessageBus has Subscriber instances for the given MessageType
      */
-    <S extends Subscriber> boolean hasSubscribers(MessageType<S> messageType);
+    <S extends Subscriber> boolean hasSubscribers( MessageType<S> type );
 
     /**
      * @param <S>           Subscriber mark type, for type safety
-     * @param messageType   MessageType
+     * @param type          MessageType
      * @return              How many Subscriber instances the MessageBus has for the given MessageType
      */
-    <S extends Subscriber> int countSubscribers(MessageType<S> messageType);
+    <S extends Subscriber> int countSubscribers( MessageType<S> type );
+
+    <S extends Subscriber> VetoRegistration registerVeto( MessageType<S> type, Veto veto );
+
+    <S extends Subscriber> void unregisterVeto( MessageType<S> type, Veto veto );
 
 }

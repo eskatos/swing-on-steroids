@@ -32,71 +32,91 @@ public interface UseCase
     static class Util
     {
 
-        static void testMessageBus(MessageBus msgBus) throws InterruptedException
+        static void testMessageBus( MessageBus msgBus ) throws InterruptedException
         {
-            TestProutMessageHandler sub1 = new TestProutMessageHandler();
-            TestProutMessageHandler sub2 = new TestProutMessageHandler();
+            TestMessageHandlerImpl sub1 = new TestMessageHandlerImpl();
+            TestMessageHandlerImpl sub2 = new TestMessageHandlerImpl();
 
-            Subscribtion s1 = msgBus.subscribe(ProutMessage.TYPE, sub1);
-            Assert.assertEquals(1, msgBus.countSubscribers(ProutMessage.TYPE));
+            Subscribtion s1 = msgBus.subscribe( TestMessage.TYPE, sub1 );
+            Assert.assertEquals( 1, msgBus.countSubscribers( TestMessage.TYPE ) );
 
-            msgBus.publish(new ProutMessage());
-            Thread.sleep(100);
+            msgBus.publish( new TestMessage() );
+            Thread.sleep( 100 );
 
-            Subscribtion s2 = msgBus.subscribe(ProutMessage.TYPE, sub2);
-            Assert.assertEquals(2, msgBus.countSubscribers(ProutMessage.TYPE));
+            Subscribtion s2 = msgBus.subscribe( TestMessage.TYPE, sub2 );
+            Assert.assertEquals( 2, msgBus.countSubscribers( TestMessage.TYPE ) );
 
-            msgBus.publish(new ProutMessage());
-            Thread.sleep(100);
+            msgBus.publish( new TestMessage() );
+            Thread.sleep( 100 );
 
-            Assert.assertEquals(2, sub1.calls);
-            Assert.assertEquals(1, sub2.calls);
+            Assert.assertEquals( 2, sub1.calls );
+            Assert.assertEquals( 1, sub2.calls );
 
             s1.unsubscribe();
-            Assert.assertEquals(1, msgBus.countSubscribers(ProutMessage.TYPE));
-            s2.unsubscribe();
-            Assert.assertEquals(0, msgBus.countSubscribers(ProutMessage.TYPE));
+            Assert.assertEquals( 1, msgBus.countSubscribers( TestMessage.TYPE ) );
 
+            VetoRegistration vetoRegistration = msgBus.registerVeto( TestMessage.TYPE, new VetoAlways() );
+
+            msgBus.publish( new TestMessage() );
+            msgBus.publish( new TestMessage() );
+            msgBus.publish( new TestMessage() );
+            msgBus.publish( new TestMessage() );
+            Thread.sleep( 100 );
+
+            Assert.assertEquals( 1, sub2.calls );
+
+            vetoRegistration.unregister();
+
+            vetoRegistration = msgBus.registerVeto( TestMessage.TYPE, new VetoOnce() );
+
+            msgBus.publish( new TestMessage() );
+            msgBus.publish( new TestMessage() );
+            Thread.sleep( 100 );
+
+            Assert.assertEquals( 2, sub2.calls );
+
+            s2.unsubscribe();
+            Assert.assertEquals( 0, msgBus.countSubscribers( TestMessage.TYPE ) );
         }
 
     }
 
-    static class ProutMessage
-            extends Message<ProutMessageHandler>
+    static class TestMessage
+            extends Message<TestMessageHandler>
     {
 
-        public static final MessageType<ProutMessageHandler> TYPE = new MessageType<ProutMessageHandler>();
+        public static final MessageType<TestMessageHandler> TYPE = new MessageType<TestMessageHandler>();
 
         @Override
-        public MessageType<ProutMessageHandler> getMessageType()
+        public MessageType<TestMessageHandler> getMessageType()
         {
             return TYPE;
         }
 
         @Override
-        protected void deliver(ProutMessageHandler handler)
+        protected void deliver( TestMessageHandler handler )
         {
-            handler.onProut(this);
+            handler.onProut( this );
         }
 
     }
 
-    interface ProutMessageHandler
+    interface TestMessageHandler
             extends Subscriber
     {
 
-        void onProut(ProutMessage prout);
+        void onProut( TestMessage prout );
 
     }
 
-    class TestProutMessageHandler
-            implements ProutMessageHandler
+    class TestMessageHandlerImpl
+            implements TestMessageHandler
     {
 
         int calls = 0;
 
         @Override
-        public void onProut(ProutMessage prout)
+        public void onProut( TestMessage prout )
         {
             calls++;
         }

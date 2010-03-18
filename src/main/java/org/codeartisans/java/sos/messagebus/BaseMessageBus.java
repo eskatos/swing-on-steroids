@@ -36,53 +36,92 @@ public abstract class BaseMessageBus
         implements MessageBus
 {
 
-    private final ConcurrentHashMap<MessageType<?>, CopyOnWriteArrayList<?>> registry = new ConcurrentHashMap<MessageType<?>, CopyOnWriteArrayList<?>>();
+    private final ConcurrentHashMap<MessageType<?>, CopyOnWriteArrayList<?>> subscribers = new ConcurrentHashMap<MessageType<?>, CopyOnWriteArrayList<?>>();
+    private final ConcurrentHashMap<MessageType<?>, CopyOnWriteArrayList<?>> vetos = new ConcurrentHashMap<MessageType<?>, CopyOnWriteArrayList<?>>();
 
     @Override
-    public abstract <H extends Subscriber> void publish( Message<H> msg );
+    public abstract <S extends Subscriber> void publish( Message<S> msg );
 
     @Override
-    public <H extends Subscriber> Subscribtion subscribe( MessageType<H> type, H handler )
+    public <S extends Subscriber> Subscribtion subscribe( MessageType<S> type, S subscriber )
     {
-        get( type ).add( handler );
-        return new Subscribtion( this, type, handler );
+        subscribers( type ).add( subscriber );
+        return new Subscribtion( this, type, subscriber );
     }
 
     @Override
-    public <H extends Subscriber> H getSubscriber( MessageType<H> type, int index )
+    public <S extends Subscriber> S getSubscriber( MessageType<S> type, int index )
     {
-        return get( type ).get( index );
+        return subscribers( type ).get( index );
     }
 
     @Override
-    public <H extends Subscriber> int countSubscribers( MessageType<H> type )
+    public <S extends Subscriber> int countSubscribers( MessageType<S> type )
     {
-        CopyOnWriteArrayList<?> l = registry.get( type );
+        CopyOnWriteArrayList<?> l = subscribers.get( type );
         return l == null ? 0 : l.size();
     }
 
     @Override
-    public <H extends Subscriber> boolean hasSubscribers( MessageType<H> type )
+    public <S extends Subscriber> boolean hasSubscribers( MessageType<S> type )
     {
-        return registry.containsKey( type );
+        return subscribers.containsKey( type );
     }
 
     @Override
-    public <H extends Subscriber> void unsubscribe( MessageType<H> type, H handler )
+    public <S extends Subscriber> void unsubscribe( MessageType<S> type, S subscriber )
     {
-        CopyOnWriteArrayList<H> l = get( type );
-        boolean result = l.remove( handler );
+        CopyOnWriteArrayList<S> l = subscribers( type );
+        boolean result = l.remove( subscriber );
         if ( l.size() == 0 ) {
-            registry.remove( type );
+            subscribers.remove( type );
         }
-        assert result : "Tried to remove unknown handler: " + handler + " from " + type;
+        assert result : "Tried to remove unknown subscriber: " + subscriber + " for " + type;
+    }
+
+    @Override
+    public <S extends Subscriber> VetoRegistration registerVeto( MessageType<S> type, Veto veto )
+    {
+        vetos( type ).add( veto );
+        return new VetoRegistration( this, type, veto );
+    }
+
+    @Override
+    public <S extends Subscriber> void unregisterVeto( MessageType<S> type, Veto veto )
+    {
+        CopyOnWriteArrayList<Veto> l = vetos( type );
+        boolean result = l.remove( veto );
+        if ( l.size() == 0 ) {
+            vetos.remove( type );
+        }
+        assert result : "Tried to remove unknown veto: " + veto + " for " + type;
+    }
+
+    protected final <S extends Subscriber> boolean vetoed( Message<S> message )
+    {
+        CopyOnWriteArrayList<Veto> msgVetos = vetos( message.getMessageType() );
+        for ( Veto eachVeto : msgVetos ) {
+            if ( eachVeto.veto( message ) ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @SuppressWarnings( "unchecked" )
-    protected final <H extends Subscriber> CopyOnWriteArrayList<H> get( MessageType<H> type )
+    protected final <S extends Subscriber> CopyOnWriteArrayList<S> subscribers( MessageType<S> type )
     {
-        registry.putIfAbsent( type, new CopyOnWriteArrayList<H>() );
+        subscribers.putIfAbsent( type, new CopyOnWriteArrayList<S>() );
         // This cast is safe because we control the puts.
-        return ( CopyOnWriteArrayList<H> ) registry.get( type );
+        return ( CopyOnWriteArrayList<S> ) subscribers.get( type );
     }
+
+    @SuppressWarnings( "unchecked" )
+    protected final <S extends Subscriber> CopyOnWriteArrayList<Veto> vetos( MessageType<S> type )
+    {
+        vetos.putIfAbsent( type, new CopyOnWriteArrayList<Veto>() );
+        // This cast is safe because we control the puts.
+        return ( CopyOnWriteArrayList<Veto> ) vetos.get( type );
+    }
+
 }

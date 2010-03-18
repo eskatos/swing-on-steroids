@@ -27,10 +27,12 @@ public abstract class DirectDeliveryMixin
 {
 
     @Override
-    public <S extends Subscriber> void publish(final Message<S> message)
+    public <S extends Subscriber> void publish( final Message<S> message )
     {
-        for (S eachSubscriber : get(message.getMessageType())) {
-            message.deliver(eachSubscriber);
+        if ( !vetoed( message ) ) {
+            for ( S eachSubscriber : subscribers( message.getMessageType() ) ) {
+                message.deliver( eachSubscriber );
+            }
         }
     }
 

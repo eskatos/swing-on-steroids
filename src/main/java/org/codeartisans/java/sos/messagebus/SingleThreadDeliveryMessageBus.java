@@ -45,10 +45,14 @@ public final class SingleThreadDeliveryMessageBus
             @Override
             public void run()
             {
-                for ( S eachSubscriber : get( message.getMessageType() ) ) {
-                    message.deliver( eachSubscriber );
+                if ( !vetoed( message ) ) {
+                    for ( S eachSubscriber : subscribers( message.getMessageType() ) ) {
+                        message.deliver( eachSubscriber );
+                    }
                 }
             }
+
         } );
     }
+
 }

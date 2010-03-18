@@ -21,18 +21,13 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
-public final class DirectDeliveryMessageBus
-        extends BaseMessageBus
+public final class VetoAlways implements Veto
 {
 
     @Override
-    public <S extends Subscriber> void publish( Message<S> message )
+    public <S extends Subscriber> boolean veto( Message<S> message )
     {
-        if ( !vetoed( message ) ) {
-            for ( S eachSubscriber : subscribers( message.getMessageType() ) ) {
-                message.deliver( eachSubscriber );
-            }
-        }
+        return true;
     }
 
 }

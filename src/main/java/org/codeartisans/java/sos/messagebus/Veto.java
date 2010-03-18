@@ -21,18 +21,22 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
-public final class DirectDeliveryMessageBus
-        extends BaseMessageBus
+/**
+ * @author Paul Merlin <paul@nosphere.org>
+ */
+public interface Veto
 {
 
-    @Override
-    public <S extends Subscriber> void publish( Message<S> message )
-    {
-        if ( !vetoed( message ) ) {
-            for ( S eachSubscriber : subscribers( message.getMessageType() ) ) {
-                message.deliver( eachSubscriber );
-            }
-        }
-    }
+    /**
+     * Determine whether a Message should be vetoed or published.
+     *
+     * All MessageBus implementations call this method before Message delivery. If any of the Veto
+     * return true, then none of the Subscribers for that MessageType are called.
+     *
+     * @param <S>       Subscriber mark type, for type safety
+     * @param message   Message
+     * @return          True if the Message has to be vetoed, false otherwise.
+     */
+    <S extends Subscriber> boolean veto( Message<S> message );
 
 }

@@ -47,27 +47,32 @@ public abstract class MultiThreadDeliveryMixin
             @Override
             public void run()
             {
-                for ( final S eachSubscriber : get( message.getMessageType() ) ) {
-                    workQueue.enqueue( new Runnable()
-                    {
-
-                        @Override
-                        public void run()
+                if ( !vetoed( message ) ) {
+                    for ( final S eachSubscriber : subscribers( message.getMessageType() ) ) {
+                        workQueue.enqueue( new Runnable()
                         {
-                            final UnitOfWork uow = uowf.newUnitOfWork();
-                            try {
-                                message.deliver( eachSubscriber );
-                                uow.complete();
-                            } catch ( UnitOfWorkCompletionException ex ) {
-                                ex.printStackTrace();
-                                uow.discard();
-                                throw new InternalError( "Error during: " + ex.getMessage() );
+
+                            @Override
+                            public void run()
+                            {
+                                final UnitOfWork uow = uowf.newUnitOfWork();
+                                try {
+                                    message.deliver( eachSubscriber );
+                                    uow.complete();
+                                } catch ( UnitOfWorkCompletionException ex ) {
+                                    ex.printStackTrace();
+                                    uow.discard();
+                                    throw new InternalError( "Error during: " + ex.getMessage() );
+                                }
                             }
-                        }
-                    } );
+
+                        } );
+                    }
                 }
             }
+
         } );
 
     }
+
 }

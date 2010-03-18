@@ -48,7 +48,9 @@ public class GuiceMessageBusTest
             bind( WorkQueue.class ).to( DefaultWorkQueue.class ).in( Singleton.class );
             bind( MessageBus.class ).to( SingleThreadDeliveryMessageBus.class ).in( Singleton.class );
         }
+
     }
+
     private MessageBus msgBus;
 
     @Before
@@ -69,4 +71,5 @@ public class GuiceMessageBusTest
     {
         UseCase.Util.testMessageBus( msgBus );
     }
+
 }
