@@ -21,7 +21,7 @@
  */
 package org.codeartisans.java.sos.forking;
 
-import org.codeartisans.java.toolbox.async.AsyncCallbackWithE;
+import org.codeartisans.java.toolbox.async.CallbackWithE;
 
 public interface ForkService
 {
@@ -47,6 +47,6 @@ public interface ForkService
      * @param exitCallback      A callback triggered when the external process exit
      * @param shutdownAction    What should the ForkService do when the JVM shuts down
      */
-    void fork( Forkable forkable, AsyncCallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction );
+    void fork( Forkable forkable, CallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction );
 
 }

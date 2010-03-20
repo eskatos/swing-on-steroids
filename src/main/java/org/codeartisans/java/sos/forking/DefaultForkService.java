@@ -26,7 +26,7 @@ import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.codeartisans.java.toolbox.async.AsyncCallbackWithE;
+import org.codeartisans.java.toolbox.async.CallbackWithE;
 
 public final class DefaultForkService
         implements ForkService
@@ -49,7 +49,7 @@ public final class DefaultForkService
     }
 
     @Override
-    public void fork( Forkable forkable, final AsyncCallbackWithE<Void, ForkFault> exitCallback,
+    public void fork( Forkable forkable, final CallbackWithE<Void, ForkFault> exitCallback,
             final ShutdownAction shutdownAction )
     {
         try {
