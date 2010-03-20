@@ -1,8 +1,14 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.codeartisans</groupId>
+        <artifactId>codeartisans-parent</artifactId>
+        <version>1-SNAPSHOT</version>
+    </parent>
 
     <groupId>org.codeartisans.java</groupId>
     <artifactId>swing-on-steroids</artifactId>
@@ -10,29 +16,13 @@
 
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
-    <url>http://codeartisans.org</url>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.6</maven.compiler.source>
-        <maven.compiler.target>1.6</maven.compiler.target>
         <qi4j.version>1.0</qi4j.version>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
+
         <dependency>
             <groupId>org.codeartisans.java</groupId>
             <artifactId>java-toolbox</artifactId>
@@ -44,7 +34,7 @@
             <artifactId>swinghelper-debug</artifactId>
             <version>1.0</version>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>org.swinglabs</groupId>
             <artifactId>jxlayer</artifactId>
             <version>3.0.4</version>
@@ -132,10 +122,6 @@
 
     <repositories>
         <repository>
-            <id>codeartisans-public</id>
-            <url>https://codebox.codeartisans.org/nexus/content/groups/public</url>
-        </repository>
-        <repository>
             <id>ops4j-repository</id>
             <url>http://repository.ops4j.org/maven2</url>
         </repository>
@@ -156,16 +142,5 @@
             </snapshots>
         </repository>
     </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>codeartisans-public-releases</id>
-            <url>https://codebox.codeartisans.org/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>codeartisans-public-snapshots</id>
-            <url>https://codebox.codeartisans.org/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-
+    
 </project>
