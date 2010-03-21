@@ -49,8 +49,7 @@ public final class DefaultForkService
     }
 
     @Override
-    public void fork( Forkable forkable, final CallbackWithE<Void, ForkFault> exitCallback,
-            final ShutdownAction shutdownAction )
+    public void fork( Forkable forkable, final CallbackWithE<Void, ForkFault> exitCallback, final ShutdownAction shutdownAction )
     {
         try {
             final String forkUuid = UUID.randomUUID().toString();
@@ -70,30 +69,48 @@ public final class DefaultForkService
                 public void run()
                 {
                     try {
-                        if ( shutdownAction == ShutdownAction.KILL ) {
-                            ensureShutdownHook();
-                            addKillOnShutdownProcess( proc );
-                        }
+                        beforeProcessWaitFor();
                         proc.waitFor();
-                        stderr.interrupt();
-                        stdout.interrupt();
-                        if ( shutdownAction == ShutdownAction.KILL ) {
-                            removeKillOnShutdownProcess( proc );
-                        }
-                        int status = proc.exitValue();
-                        if ( status == 0 ) {
-                            if ( exitCallback != null ) {
-                                exitCallback.onSuccess( null );
-                            }
-                        } else {
-                            if ( exitCallback != null ) {
-                                exitCallback.onError( "Fork " + forkUuid + " exited with error, status was: " + status, null );
-                            }
-                        }
-                        this.interrupt();
-                    } catch ( InterruptedException ex ) {
+                        afterProcessWaitFor();
+                        callback();
+                        interrupt();
+                    } catch ( InterruptedException iex ) {
+                        ForkFault ex = new ForkFault( "Fork Watcher " + forkUuid + "interrupted!", iex );
                         if ( exitCallback != null ) {
-                            exitCallback.onError( "Fork Watcher " + forkUuid + "interrupted!", new ForkFault( ex.getMessage(), ex ) );
+                            exitCallback.onError( ex.getMessage(), ex );
+                        } else {
+                            LOGGER.error( ex.getMessage(), ex );
+                        }
+                    }
+                }
+
+                private void beforeProcessWaitFor()
+                {
+                    if ( shutdownAction == ShutdownAction.KILL ) {
+                        ensureShutdownHook();
+                        addKillOnShutdownProcess( proc );
+                    }
+                }
+
+                private void afterProcessWaitFor()
+                {
+                    stderr.interrupt();
+                    stdout.interrupt();
+                    if ( shutdownAction == ShutdownAction.KILL ) {
+                        removeKillOnShutdownProcess( proc );
+                    }
+                }
+
+                private void callback()
+                {
+                    int status = proc.exitValue();
+                    if ( status == 0 ) {
+                        if ( exitCallback != null ) {
+                            exitCallback.onSuccess( null );
+                        }
+                    } else {
+                        if ( exitCallback != null ) {
+                            exitCallback.onError( "Fork " + forkUuid + " exited with error, status was: " + status, null );
                         }
                     }
                 }
@@ -103,21 +120,6 @@ public final class DefaultForkService
             watcher.start();
         } catch ( IOException ex ) {
             throw new ForkFault( "Unable to fork: " + ex.getMessage(), ex );
-        }
-    }
-
-    private void addKillOnShutdownProcess( Process proc )
-    {
-        if ( processToKillOnShutdown == null ) {
-            processToKillOnShutdown = new CopyOnWriteArrayList<Process>();
-        }
-        processToKillOnShutdown.add( proc );
-    }
-
-    private void removeKillOnShutdownProcess( Process proc )
-    {
-        if ( processToKillOnShutdown != null ) {
-            processToKillOnShutdown.remove( proc );
         }
     }
 
@@ -138,8 +140,23 @@ public final class DefaultForkService
                     }
                 }
 
-            }, "ShutdownHook" ) );
+            }, getClass().getSimpleName() + ".ShutdownHook" ) );
             shutdownHookAdded = true;
+        }
+    }
+
+    private void addKillOnShutdownProcess( Process proc )
+    {
+        if ( processToKillOnShutdown == null ) {
+            processToKillOnShutdown = new CopyOnWriteArrayList<Process>();
+        }
+        processToKillOnShutdown.add( proc );
+    }
+
+    private void removeKillOnShutdownProcess( Process proc )
+    {
+        if ( processToKillOnShutdown != null ) {
+            processToKillOnShutdown.remove( proc );
         }
     }
 

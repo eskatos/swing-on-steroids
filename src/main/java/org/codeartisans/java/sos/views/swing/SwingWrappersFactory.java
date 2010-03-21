@@ -21,20 +21,16 @@
  */
 package org.codeartisans.java.sos.views.swing;
 
-
+import com.google.inject.Inject;
 import java.awt.Window;
 import java.awt.TrayIcon;
 import java.awt.MenuItem;
-
-import com.google.inject.Inject;
 import java.awt.Image;
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
@@ -50,46 +46,59 @@ import org.codeartisans.java.sos.views.swing.notifications.JComboBoxHasValueChan
 import org.codeartisans.java.sos.views.swing.notifications.JPasswordFieldHasCharsValueChangeHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JTextComponentHasStringValueChangeHandlers;
 
-public class SwingWrappersFactory {
+public final class SwingWrappersFactory
+{
 
     private final WorkQueue workQueue;
 
     @Inject
-    public SwingWrappersFactory(WorkQueue workQueue) {
+    public SwingWrappersFactory( WorkQueue workQueue )
+    {
         this.workQueue = workQueue;
     }
 
-    public HasFocusHandlers createWindowHasFocusHandlers(Window window) {
-        return new WindowHasFocusHandlers(workQueue, window);
+    public HasFocusHandlers createWindowHasFocusHandlers( Window window )
+    {
+        return new WindowHasFocusHandlers( workQueue, window );
     }
 
-    public HasClickHandlers createJButtonHasClickHandler(JButton button) {
-        return new JButtonHasClickHandlers(workQueue, button);
+    public HasClickHandlers createJButtonHasClickHandler( JButton button )
+    {
+        return new JButtonHasClickHandlers( workQueue, button );
     }
 
-    public HasClickHandlers createJFrameHasCloseClickHandlers(JFrame frame) {
-        return new JFrameHasCloseClickHandlers(workQueue, frame);
-    }
-    public HasClickHandlers createTrayIconHasClickHandlers(TrayIcon trayIcon) {
-        return new TrayIconHasClickHandlers(workQueue, trayIcon);
+    public HasClickHandlers createJFrameHasCloseClickHandlers( JFrame frame )
+    {
+        return new JFrameHasCloseClickHandlers( workQueue, frame );
     }
 
-    public HasClickHandlers createMenuItemHasClickHandlers(MenuItem menuItem) {
-        return new MenuItemHasClickHandlers(workQueue, menuItem);
+    public HasClickHandlers createTrayIconHasClickHandlers( TrayIcon trayIcon )
+    {
+        return new TrayIconHasClickHandlers( workQueue, trayIcon );
     }
 
-    public HasValueChangeHandlers createJComboBoxHasValueChangeHandlers(JComboBox jComboBox) {
-        return new JComboBoxHasValueChangeHandlers(workQueue, jComboBox);
-    }
-    public HasValueChangeHandlers<String> createJTextComponentHasStringValueChangeHandlers(JTextField textField) {
-        return new JTextComponentHasStringValueChangeHandlers(workQueue, textField);
+    public HasClickHandlers createMenuItemHasClickHandlers( MenuItem menuItem )
+    {
+        return new MenuItemHasClickHandlers( workQueue, menuItem );
     }
 
-    public HasValueChangeHandlers<char[]> createJPasswordFieldHasCharsValueChangeHandlers(JPasswordField passwordField) {
-        return new JPasswordFieldHasCharsValueChangeHandlers(workQueue, passwordField);
+    public HasValueChangeHandlers createJComboBoxHasValueChangeHandlers( JComboBox jComboBox )
+    {
+        return new JComboBoxHasValueChangeHandlers( workQueue, jComboBox );
     }
 
-    public HasValueChangeHandlers<Image> createEnhancedLabelHasImageValueChangeHandlers(EnhancedLabel enhancedLabel) {
+    public HasValueChangeHandlers<String> createJTextComponentHasStringValueChangeHandlers( JTextField textField )
+    {
+        return new JTextComponentHasStringValueChangeHandlers( workQueue, textField );
+    }
+
+    public HasValueChangeHandlers<char[]> createJPasswordFieldHasCharsValueChangeHandlers( JPasswordField passwordField )
+    {
+        return new JPasswordFieldHasCharsValueChangeHandlers( workQueue, passwordField );
+    }
+
+    public HasValueChangeHandlers<Image> createEnhancedLabelHasImageValueChangeHandlers( EnhancedLabel enhancedLabel )
+    {
         return new EnhancedLabelHasImageValueChangeHandlers( workQueue, enhancedLabel );
     }
 

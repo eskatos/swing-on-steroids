@@ -209,6 +209,7 @@ public class ButtonPanel
         private static final String FORWARD = "moveSelectionForward";
         private static final String BACKWARD = "moveSelectionBackward";
 
+        @Override
         public void actionPerformed( ActionEvent e )
         {
             FocusTraversalPolicy ftp = ButtonPanel.this.getFocusTraversalPolicy();
@@ -272,6 +273,7 @@ public class ButtonPanel
             isAlternativeFocusMode = alternativeFocusMode;
         }
 
+        @Override
         protected boolean accept( Component c )
         {
             if ( !isAlternativeFocusMode() && c instanceof AbstractButton ) {
@@ -284,6 +286,7 @@ public class ButtonPanel
             return super.accept( c );
         }
 
+        @Override
         public Component getComponentAfter( Container aContainer, Component aComponent )
         {
             Component componentAfter = super.getComponentAfter( aContainer, aComponent );
@@ -300,6 +303,7 @@ public class ButtonPanel
             return componentAfter;
         }
 
+        @Override
         public Component getComponentBefore( Container aContainer, Component aComponent )
         {
             Component componentBefore = super.getComponentBefore( aContainer, aComponent );

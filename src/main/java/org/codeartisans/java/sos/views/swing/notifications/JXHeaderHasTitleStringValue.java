@@ -21,7 +21,6 @@
  */
 package org.codeartisans.java.sos.views.swing.notifications;
 
-
 import org.codeartisans.java.sos.views.values.HasValue;
 import org.jdesktop.swingx.JXHeader;
 
@@ -32,7 +31,7 @@ public class JXHeaderHasTitleStringValue
     protected final JXHeader header;
 
     public JXHeaderHasTitleStringValue( JXHeader header )
-    {        
+    {
         this.header = header;
     }
 
@@ -52,4 +51,5 @@ public class JXHeaderHasTitleStringValue
     {
         return header;
     }
+
 }

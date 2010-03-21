@@ -49,27 +49,23 @@ public final class EnhancedLabelHasImageValueChangeHandlers
     {
         final PropertyChangeListener propertyChangeListener = new PropertyChangeListener()
         {
+
             @Override
             public void propertyChange( PropertyChangeEvent evt )
             {
-               if("icon".equals(evt.getPropertyName()))
-                   onValueChange();
-            }
-           
-
-            private void onValueChange()
-            {
-                workQueue.enqueue( new Runnable()
-                {
-
-                    @Override
-                    public void run()
+                if ( "icon".equals( evt.getPropertyName() ) ) {
+                    workQueue.enqueue( new Runnable()
                     {
-                        handler.onValueChange( new ValueChangeNotification<Image>( enhancedLabel.getImage() ) );
-                    }
-                } );
-            }
 
+                        @Override
+                        public void run()
+                        {
+                            handler.onValueChange( new ValueChangeNotification<Image>( enhancedLabel.getImage() ) );
+                        }
+
+                    } );
+                }
+            }
 
         };
         enhancedLabel.addPropertyChangeListener( propertyChangeListener );
@@ -79,8 +75,10 @@ public final class EnhancedLabelHasImageValueChangeHandlers
             @Override
             public void removeHandler()
             {
-                enhancedLabel.removePropertyChangeListener(propertyChangeListener);
+                enhancedLabel.removePropertyChangeListener( propertyChangeListener );
             }
+
         };
     }
+
 }

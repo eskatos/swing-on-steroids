@@ -45,23 +45,16 @@ public final class JComboBoxHasValueChangeHandlers<V>
     {
         super( jComboBox );
         this.workQueue = workQueue;
-
     }
 
     @Override
     public HandlerRegistration addValueChangeHandler( final ValueChangeHandler<V> handler )
     {
-
         final ActionListener actionListener = new ActionListener()
         {
 
             @Override
             public void actionPerformed( ActionEvent e )
-            {
-                onValueChange();
-            }
-
-            private void onValueChange()
             {
                 workQueue.enqueue( new Runnable()
                 {
@@ -76,10 +69,7 @@ public final class JComboBoxHasValueChangeHandlers<V>
             }
 
         };
-
-
         jComboBox.addActionListener( actionListener );
-
         return new HandlerRegistration()
         {
 
@@ -90,7 +80,6 @@ public final class JComboBoxHasValueChangeHandlers<V>
             }
 
         };
-
     }
 
 }

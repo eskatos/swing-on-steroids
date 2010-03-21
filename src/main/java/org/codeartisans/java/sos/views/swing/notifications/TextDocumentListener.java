@@ -21,37 +21,33 @@
  */
 package org.codeartisans.java.sos.views.swing.notifications;
 
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import org.codeartisans.java.sos.views.swing.components.EnhancedLabel;
-import org.codeartisans.java.sos.views.values.HasValue;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class EnhancedLabelHasImageValue
-        implements HasValue<Image>
+/**
+ * @author Paul Merlin <paul@nosphere.org>
+ */
+abstract class TextDocumentListener implements DocumentListener
 {
 
-    protected final EnhancedLabel enhancedLabel;
-
-    public EnhancedLabelHasImageValue( EnhancedLabel enhancedField )
+    @Override
+    public final void insertUpdate( DocumentEvent e )
     {
-        this.enhancedLabel = enhancedField;
+        onValueChange();
     }
 
     @Override
-    public final Image getValue()
+    public final void removeUpdate( DocumentEvent e )
     {
-        return enhancedLabel.getImage();
+        onValueChange();
     }
 
     @Override
-    public final void setValue( Image value )
+    public final void changedUpdate( DocumentEvent e )
     {
-        enhancedLabel.setIcon( new ImageIcon( value ) );
+        onValueChange();
     }
 
-    public final EnhancedLabel getEnhancedLabel()
-    {
-        return enhancedLabel;
-    }
+    protected abstract void onValueChange();
 
 }

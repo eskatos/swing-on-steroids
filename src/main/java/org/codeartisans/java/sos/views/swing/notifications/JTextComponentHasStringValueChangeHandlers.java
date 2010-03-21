@@ -21,7 +21,6 @@
  */
 package org.codeartisans.java.sos.views.swing.notifications;
 
-import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 import org.codeartisans.java.sos.threading.WorkQueue;
@@ -46,28 +45,11 @@ public final class JTextComponentHasStringValueChangeHandlers
     @Override
     public HandlerRegistration addValueChangeHandler( final ValueChangeHandler<String> handler )
     {
-        final DocumentListener docListener = new DocumentListener()
+        final DocumentListener docListener = new TextDocumentListener()
         {
 
             @Override
-            public void insertUpdate( DocumentEvent e )
-            {
-                onValueChange();
-            }
-
-            @Override
-            public void removeUpdate( DocumentEvent e )
-            {
-                onValueChange();
-            }
-
-            @Override
-            public void changedUpdate( DocumentEvent e )
-            {
-                onValueChange();
-            }
-
-            private void onValueChange()
+            protected void onValueChange()
             {
                 workQueue.enqueue( new Runnable()
                 {
