@@ -51,31 +51,13 @@ public final class WindowHasFocusHandlers
             @Override
             public void windowGainedFocus( WindowEvent e )
             {
-                workQueue.enqueue( new Runnable()
-                {
-
-                    @Override
-                    public void run()
-                    {
-                        handler.onFocusGained();
-                    }
-
-                } );
+                handleFocusGained( handler );
             }
 
             @Override
             public void windowLostFocus( WindowEvent e )
             {
-                workQueue.enqueue( new Runnable()
-                {
-
-                    @Override
-                    public void run()
-                    {
-                        handler.onFocusLost();
-                    }
-
-                } );
+                handleFocusLost( handler );
             }
 
         };
@@ -90,6 +72,34 @@ public final class WindowHasFocusHandlers
             }
 
         };
+    }
+
+    private void handleFocusGained( final FocusHandler handler )
+    {
+        workQueue.enqueue( new Runnable()
+        {
+
+            @Override
+            public void run()
+            {
+                handler.onFocusGained();
+            }
+
+        } );
+    }
+
+    private void handleFocusLost( final FocusHandler handler )
+    {
+        workQueue.enqueue( new Runnable()
+        {
+
+            @Override
+            public void run()
+            {
+                handler.onFocusLost();
+            }
+
+        } );
     }
 
 }

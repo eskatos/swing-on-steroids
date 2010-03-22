@@ -21,6 +21,7 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
+import org.codeartisans.java.sos.SOSFailure;
 import org.codeartisans.java.sos.threading.WorkQueueComposite;
 import org.qi4j.api.injection.scope.Service;
 import org.qi4j.api.injection.scope.Structure;
@@ -53,30 +54,35 @@ public abstract class MultiThreadDeliveryMixin
             {
                 if ( !vetoed( message ) ) {
                     for ( final S eachSubscriber : subscribers( message.getMessageType() ) ) {
-                        workQueue.enqueue( new Runnable()
-                        {
+                        deliver( message, eachSubscriber );
 
-                            @Override
-                            public void run()
-                            {
-                                final UnitOfWork uow = uowf.newUnitOfWork();
-                                try {
-                                    message.deliver( eachSubscriber );
-                                    uow.complete();
-                                } catch ( UnitOfWorkCompletionException ex ) {
-                                    ex.printStackTrace();
-                                    uow.discard();
-                                    throw new InternalError( "Error during: " + ex.getMessage() );
-                                }
-                            }
-
-                        } );
                     }
                 }
             }
 
         } );
 
+    }
+
+    private void deliver( final Message message, final Subscriber subscriber )
+    {
+        workQueue.enqueue( new Runnable()
+        {
+
+            @Override
+            public void run()
+            {
+                final UnitOfWork uow = uowf.newUnitOfWork();
+                try {
+                    message.deliver( subscriber );
+                    uow.complete();
+                } catch ( UnitOfWorkCompletionException ex ) {
+                    uow.discard();
+                    throw new SOSFailure( "Error message delivery", ex );
+                }
+            }
+
+        } );
     }
 
 }

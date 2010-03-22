@@ -51,18 +51,23 @@ public final class MultiThreadDeliveryMessageBus
             {
                 if ( !vetoed( message ) ) {
                     for ( final S eachSubscriber : subscribers( message.getMessageType() ) ) {
-                        workQueue.enqueue( new Runnable()
-                        {
-
-                            @Override
-                            public void run()
-                            {
-                                message.deliver( eachSubscriber );
-                            }
-
-                        } );
+                        deliver( message, eachSubscriber );
                     }
                 }
+            }
+
+        } );
+    }
+
+    private void deliver( final Message message, final Subscriber subscriber )
+    {
+        workQueue.enqueue( new Runnable()
+        {
+
+            @Override
+            public void run()
+            {
+                message.deliver( subscriber );
             }
 
         } );

@@ -19,40 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.views.swing.components;
-
-import java.awt.Image;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+package org.codeartisans.java.sos;
 
 /**
- * @author David Emo
+ * @author Paul Merlin <paul@nosphere.org>
  */
-public class EnhancedLabel extends JLabel
+public class SOSFailure
+        extends RuntimeException
 {
 
-    @Override
-    public final void setIcon( Icon icon )
-    {
-        Icon oldIcon = getIcon();
-        super.setIcon( icon );
-        PropertyChangeListener[] propertyChangeListeners = getPropertyChangeListeners();
-        for ( PropertyChangeListener propertyChangeListener : propertyChangeListeners ) {
-            propertyChangeListener.propertyChange( new PropertyChangeEvent( this, "icon", oldIcon, icon ) );
-        }
+    private static final long serialVersionUID = 1L;
 
+    public SOSFailure( String msg )
+    {
+        super( msg );
     }
 
-    public final Image getImage()
+    public SOSFailure( String msg, Throwable ex )
     {
-        if ( this.getIcon() == null ) {
-            return null;
-        } else {
-            return ( ( ImageIcon ) this.getIcon() ).getImage();
-        }
+        super( msg, ex );
     }
 
 }
+

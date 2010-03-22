@@ -44,12 +44,13 @@ public class MessageType<S extends Subscriber>
         index = ++nextHashCode;
     }
 
+    // CHECKSTYLE:OFF equals is not implemented on purpose !
     @Override
     public final int hashCode()
     {
         // We override hash code to make it as efficient as possible
-        // WARN equals is not implemented on purpose !
         return index;
     }
+    // CHECKSTYLE:ON
 
 }

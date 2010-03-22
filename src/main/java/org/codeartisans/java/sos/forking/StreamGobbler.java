@@ -27,6 +27,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * StreamGobbler is used by ForkService implementations to consume the forked processes standard/error output.
@@ -35,6 +37,7 @@ public final class StreamGobbler
         extends Thread
 {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger( StreamGobbler.class );
     private InputStream is;
     private OutputStream redirect;
 
@@ -69,8 +72,8 @@ public final class StreamGobbler
                 pw.flush();
             }
             br.close();
-        } catch ( IOException ioe ) {
-            ioe.printStackTrace();
+        } catch ( IOException ex ) {
+            LOGGER.warn( "IOE during StreamGobbler run", ex );
         }
     }
 

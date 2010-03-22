@@ -21,6 +21,7 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
+import org.codeartisans.java.sos.SOSFailure;
 import org.codeartisans.java.sos.threading.WorkQueueComposite;
 import org.qi4j.api.injection.scope.Service;
 import org.qi4j.api.injection.scope.Structure;
@@ -59,9 +60,8 @@ public abstract class SingleThreadDeliveryMixin
                         }
                         uow.complete();
                     } catch ( UnitOfWorkCompletionException ex ) {
-                        ex.printStackTrace();
                         uow.discard();
-                        throw new InternalError( "Error during: " + ex.getMessage() );
+                        throw new SOSFailure( "Error during message delivery", ex );
                     }
                 }
             }

@@ -28,7 +28,7 @@ import javax.swing.JFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SOSTrayIconUtil
+public final class SOSTrayIconUtil
 {
 
     private static final Logger LOGGER = LoggerFactory.getLogger( SOSTrayIconUtil.class );

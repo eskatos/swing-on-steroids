@@ -21,7 +21,6 @@
  */
 package org.codeartisans.java.sos.threading;
 
-import java.util.UUID;
 import org.qi4j.api.configuration.Configuration;
 import org.qi4j.api.injection.scope.This;
 import org.qi4j.api.mixin.Mixins;
@@ -49,13 +48,8 @@ public interface WorkQueueComposite
         private WorkQueue ensureDelegate()
         {
             if ( delegate == null ) {
-                if ( true ) {
-                    // FIXME : DO NOT WORK !! :-(
-                    WorkQueueConfiguration cfg = config.configuration();
-                    delegate = new DefaultWorkQueue( cfg.name().get(), cfg.size().get() );
-                } else {
-                    delegate = new DefaultWorkQueue( UUID.randomUUID().toString(), 4 );
-                }
+                WorkQueueConfiguration cfg = config.configuration();
+                delegate = new DefaultWorkQueue( cfg.name().get(), cfg.size().get() );
             }
             return delegate;
         }

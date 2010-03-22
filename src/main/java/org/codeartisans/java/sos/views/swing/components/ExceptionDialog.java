@@ -32,6 +32,10 @@ import javax.swing.JTextArea;
 public final class ExceptionDialog
 {
 
+    private static final int FONT_SIZE = 10;
+    private static final int DIALOG_WIDTH = 720;
+    private static final int DIALOG_HEIGHT = 400;
+
     private ExceptionDialog()
     {
     }
@@ -41,15 +45,11 @@ public final class ExceptionDialog
         final StringWriter sw = new StringWriter();
         ex.printStackTrace( new PrintWriter( sw ) );
         final JTextArea textArea = new JTextArea();
-        textArea.setFont( new Font( "SansSerif", Font.PLAIN, 10 ) );
+        textArea.setFont( new Font( "SansSerif", Font.PLAIN, FONT_SIZE ) );
         textArea.setText( sw.toString() );
         final JScrollPane scrollPane = new JScrollPane( textArea );
-        scrollPane.setPreferredSize( new Dimension( 720, 400 ) );
-        JOptionPane.showMessageDialog( null,
-                scrollPane,
-                ex.getMessage(),
-                JOptionPane.ERROR_MESSAGE );
-
+        scrollPane.setPreferredSize( new Dimension( DIALOG_WIDTH, DIALOG_HEIGHT ) );
+        JOptionPane.showMessageDialog( null, scrollPane, ex.getMessage(), JOptionPane.ERROR_MESSAGE );
     }
 
 }

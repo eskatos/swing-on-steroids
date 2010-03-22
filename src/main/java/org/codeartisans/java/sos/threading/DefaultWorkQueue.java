@@ -33,7 +33,9 @@ public final class DefaultWorkQueue
 {
 
     private static final Logger LOGGER = LoggerFactory.getLogger( DefaultWorkQueue.class );
+    // CHECKSTYLE:OFF We use a specific List implementation on purpose
     private final LinkedList<Runnable> queue;
+    // CHECKSTYLE:ON
 
     @Inject
     public DefaultWorkQueue( @Named( NAME ) String name, @Named( SIZE ) Integer size )

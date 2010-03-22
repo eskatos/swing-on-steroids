@@ -102,7 +102,7 @@ import java.awt.*;
  * https://swinghelper.dev.java.net/
  * http://weblogs.java.net/blog/alexfromsun/ 
  */
-public class ButtonPanel
+public final class ButtonPanel
         extends JPanel
 {
 
@@ -215,43 +215,51 @@ public class ButtonPanel
             FocusTraversalPolicy ftp = ButtonPanel.this.getFocusTraversalPolicy();
 
             if ( ftp instanceof JXButtonPanelFocusTraversalPolicy ) {
-                JXButtonPanelFocusTraversalPolicy xftp =
-                        ( JXButtonPanelFocusTraversalPolicy ) ftp;
 
-                String actionCommand = e.getActionCommand();
-                Component fo =
-                        KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-                Component next;
+                Component current = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+                Component next = getNextComponent( current, ( JXButtonPanelFocusTraversalPolicy ) ftp, e.getActionCommand() );
 
-                xftp.setAlternativeFocusMode( true );
+                unPressCurrentIfButton( current );
 
-                if ( FORWARD.equals( actionCommand ) ) {
-                    next = xftp.getComponentAfter( ButtonPanel.this, fo );
-                } else if ( BACKWARD.equals( actionCommand ) ) {
-                    next = xftp.getComponentBefore( ButtonPanel.this, fo );
-                } else {
-                    throw new AssertionError( "Unexpected action command: " + actionCommand );
+                applyFocusAndSelectionIfNeeded( current, next );
+            }
+        }
+
+        private Component getNextComponent( Component current, JXButtonPanelFocusTraversalPolicy xftp, String actionCommand )
+        {
+            Component next;
+            xftp.setAlternativeFocusMode( true );
+            if ( FORWARD.equals( actionCommand ) ) {
+                next = xftp.getComponentAfter( ButtonPanel.this, current );
+            } else if ( BACKWARD.equals( actionCommand ) ) {
+                next = xftp.getComponentBefore( ButtonPanel.this, current );
+            } else {
+                throw new AssertionError( "Unexpected action command: " + actionCommand );
+            }
+            xftp.setAlternativeFocusMode( false );
+            return next;
+        }
+
+        private void unPressCurrentIfButton( Component current )
+        {
+            if ( current instanceof AbstractButton ) {
+                AbstractButton b = ( AbstractButton ) current;
+                b.getModel().setPressed( false );
+            }
+        }
+
+        private void applyFocusAndSelectionIfNeeded( Component current, Component next )
+        {
+            if ( next != null && current instanceof AbstractButton && next instanceof AbstractButton ) {
+                ButtonGroup group = getButtonGroup( ( AbstractButton ) current );
+                AbstractButton nextButton = ( AbstractButton ) next;
+                if ( group != getButtonGroup( nextButton ) ) {
+                    return;
                 }
-
-                xftp.setAlternativeFocusMode( false );
-
-                if ( fo instanceof AbstractButton ) {
-                    AbstractButton b = ( AbstractButton ) fo;
-                    b.getModel().setPressed( false );
+                if ( isGroupSelectionFollowFocus() && group != null && group.getSelection() != null && !nextButton.isSelected() ) {
+                    nextButton.setSelected( true );
                 }
-                if ( next != null ) {
-                    if ( fo instanceof AbstractButton && next instanceof AbstractButton ) {
-                        ButtonGroup group = getButtonGroup( ( AbstractButton ) fo );
-                        AbstractButton nextButton = ( AbstractButton ) next;
-                        if ( group != getButtonGroup( nextButton ) ) {
-                            return;
-                        }
-                        if ( isGroupSelectionFollowFocus() && group != null && group.getSelection() != null && !nextButton.isSelected() ) {
-                            nextButton.setSelected( true );
-                        }
-                        next.requestFocusInWindow();
-                    }
-                }
+                next.requestFocusInWindow();
             }
         }
 
