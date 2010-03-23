@@ -47,6 +47,7 @@ public final class JButtonHasClickHandlers
     public HandlerRegistration addClickHandler( final ClickHandler handler )
     {
 
+        
         final ActionListener listener = new ActionListener()
         {
 

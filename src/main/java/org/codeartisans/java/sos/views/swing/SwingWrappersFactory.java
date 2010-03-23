@@ -29,6 +29,7 @@ import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import org.codeartisans.java.sos.threading.WorkQueue;
@@ -43,6 +44,7 @@ import org.codeartisans.java.sos.views.swing.notifications.MenuItemHasClickHandl
 import org.codeartisans.java.sos.views.swing.notifications.TrayIconHasClickHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JFrameHasCloseClickHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JComboBoxHasValueChangeHandlers;
+import org.codeartisans.java.sos.views.swing.notifications.JPaneHasClickHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JPasswordFieldHasCharsValueChangeHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JTextComponentHasStringValueChangeHandlers;
 
@@ -65,6 +67,11 @@ public final class SwingWrappersFactory
     public HasClickHandlers createJButtonHasClickHandler( JButton button )
     {
         return new JButtonHasClickHandlers( workQueue, button );
+    }
+
+    public HasClickHandlers createPanelHasClickHandlers( JPanel glassPane )
+    {
+        return new JPaneHasClickHandlers( workQueue, glassPane );
     }
 
     public HasClickHandlers createJFrameHasCloseClickHandlers( JFrame frame )
