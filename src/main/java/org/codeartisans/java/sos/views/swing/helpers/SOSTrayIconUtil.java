@@ -39,6 +39,7 @@ public final class SOSTrayIconUtil
         TOP_LEFT, TOP_RIGHT,
         BOTTOM_LEFT, BOTTOM_RIGHT
     }
+
     private static int trayIconScreen = 0;
     private static TrayIconLocation trayIconLocation = TrayIconLocation.BOTTOM_RIGHT;
 
@@ -98,4 +99,5 @@ public final class SOSTrayIconUtil
         LOGGER.trace( "AFTER moveFrameNextToTrayIcon: " + frameX + "," + frameY + " in screen: " + screenWidth + "," + screenHeight );
         frame.setLocation( frameX, frameY );
     }
+
 }

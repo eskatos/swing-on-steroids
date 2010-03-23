@@ -28,4 +28,5 @@ public final class SteroidAwtHandler
     {
         new SteroidUncaughtExceptionHandler().uncaughtException( Thread.currentThread(), t );
     }
+
 }

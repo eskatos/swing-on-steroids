@@ -24,7 +24,8 @@ package org.codeartisans.java.sos.messagebus;
 /**
  * A Veto implementation vetoing once only.
  */
-public final class VetoOnce implements Veto
+public final class VetoOnce
+        implements Veto
 {
 
     private boolean vetoed = false;

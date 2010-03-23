@@ -37,4 +37,5 @@ public class SwingFault
     {
         super( msg, cause );
     }
+
 }

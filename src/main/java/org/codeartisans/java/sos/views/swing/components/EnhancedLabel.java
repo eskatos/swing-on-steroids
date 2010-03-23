@@ -31,7 +31,8 @@ import javax.swing.JLabel;
 /**
  * @author David Emo
  */
-public class EnhancedLabel extends JLabel
+public class EnhancedLabel
+        extends JLabel
 {
 
     @Override

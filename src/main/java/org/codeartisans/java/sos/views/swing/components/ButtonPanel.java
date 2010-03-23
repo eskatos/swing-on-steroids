@@ -139,17 +139,17 @@ public final class ButtonPanel
         setFocusTraversalPolicy( new JXButtonPanelFocusTraversalPolicy() );
         ActionListener actionHandler = new ActionHandler();
         registerKeyboardAction( actionHandler, ActionHandler.FORWARD,
-                KeyStroke.getKeyStroke( KeyEvent.VK_RIGHT, 0 ),
-                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
+                                KeyStroke.getKeyStroke( KeyEvent.VK_RIGHT, 0 ),
+                                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
         registerKeyboardAction( actionHandler, ActionHandler.FORWARD,
-                KeyStroke.getKeyStroke( KeyEvent.VK_DOWN, 0 ),
-                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
+                                KeyStroke.getKeyStroke( KeyEvent.VK_DOWN, 0 ),
+                                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
         registerKeyboardAction( actionHandler, ActionHandler.BACKWARD,
-                KeyStroke.getKeyStroke( KeyEvent.VK_LEFT, 0 ),
-                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
+                                KeyStroke.getKeyStroke( KeyEvent.VK_LEFT, 0 ),
+                                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
         registerKeyboardAction( actionHandler, ActionHandler.BACKWARD,
-                KeyStroke.getKeyStroke( KeyEvent.VK_UP, 0 ),
-                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
+                                KeyStroke.getKeyStroke( KeyEvent.VK_UP, 0 ),
+                                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT );
         setGroupSelectionFollowFocus( true );
     }
 

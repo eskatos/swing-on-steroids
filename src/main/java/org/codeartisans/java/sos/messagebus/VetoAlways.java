@@ -24,7 +24,8 @@ package org.codeartisans.java.sos.messagebus;
 /**
  * A Veto implementation always vetoing.
  */
-public final class VetoAlways implements Veto
+public final class VetoAlways
+        implements Veto
 {
 
     @Override

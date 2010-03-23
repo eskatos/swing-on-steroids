@@ -79,6 +79,7 @@ public final class SwingHelper
                         throw new SwingFault( ex.getMessage(), ex );
                     }
                 }
+
             } );
         } catch ( InterruptedException ex ) {
             throw new SwingFault( ex.getMessage(), ex );
@@ -86,4 +87,5 @@ public final class SwingHelper
             throw new SwingFault( ex.getMessage(), ex );
         }
     }
+
 }

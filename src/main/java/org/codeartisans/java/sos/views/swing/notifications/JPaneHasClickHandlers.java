@@ -10,7 +10,8 @@ import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
 import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
 
-public class JPaneHasClickHandlers implements HasClickHandlers
+public class JPaneHasClickHandlers
+        implements HasClickHandlers
 {
 
     private final JPanel panel;
@@ -45,7 +46,7 @@ public class JPaneHasClickHandlers implements HasClickHandlers
 
         };
         panel.addMouseListener( listener );
-          return new HandlerRegistration()
+        return new HandlerRegistration()
         {
 
             @Override
@@ -62,5 +63,4 @@ public class JPaneHasClickHandlers implements HasClickHandlers
         return panel;
     }
 
-    
 }

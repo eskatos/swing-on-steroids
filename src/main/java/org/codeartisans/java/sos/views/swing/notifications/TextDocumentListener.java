@@ -27,7 +27,8 @@ import javax.swing.event.DocumentListener;
 /**
  * @author Paul Merlin <paul@nosphere.org>
  */
-abstract class TextDocumentListener implements DocumentListener
+abstract class TextDocumentListener
+        implements DocumentListener
 {
 
     @Override

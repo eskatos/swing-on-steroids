@@ -25,7 +25,7 @@ import org.qi4j.api.mixin.Mixins;
 import org.qi4j.api.service.ServiceComposite;
 
 @Mixins( DefaultForkService.class )
-public interface ForkServiceComposite extends
-        ForkService, ServiceComposite
+public interface ForkServiceComposite
+        extends ForkService, ServiceComposite
 {
 }

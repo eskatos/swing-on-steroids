@@ -24,7 +24,8 @@ package org.codeartisans.java.sos.views;
 /**
  * Interface for Views with accessors giving View state.
  */
-public interface QueryableView extends View
+public interface QueryableView
+        extends View
 {
 
     /**

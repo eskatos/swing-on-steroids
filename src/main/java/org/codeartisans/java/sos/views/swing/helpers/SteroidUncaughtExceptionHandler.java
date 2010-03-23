@@ -46,6 +46,7 @@ public final class SteroidUncaughtExceptionHandler
                 {
                     showException( ex );
                 }
+
             } );
         }
 
@@ -57,4 +58,5 @@ public final class SteroidUncaughtExceptionHandler
         LOGGER.error( "UncaughtException handled: " + ex.getMessage(), ex );
         ExceptionDialog.showException( ex );
     }
+
 }
