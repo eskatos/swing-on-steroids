@@ -21,6 +21,33 @@
  */
 package org.codeartisans.java.sos.views.notifications;
 
-public final class ClickNotification
+import org.codeartisans.java.sos.views.values.HasValue;
+
+public final class ClickNotification<V>
+        implements HasValue<V>
 {
+
+    private V value;
+
+    public ClickNotification()
+    {
+    }
+
+    public ClickNotification( V value )
+    {
+        setValue( value );
+    }
+
+    @Override
+    public V getValue()
+    {
+        return value;
+    }
+
+    @Override
+    public void setValue( V value )
+    {
+        this.value = value;
+    }
+
 }
