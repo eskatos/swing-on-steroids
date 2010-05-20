@@ -21,6 +21,7 @@
  */
 package org.codeartisans.java.sos.threading;
 
+import org.codeartisans.java.toolbox.async.ErrorCallbackAdapter;
 import org.qi4j.api.configuration.Configuration;
 import org.qi4j.api.injection.scope.This;
 import org.qi4j.api.mixin.Mixins;
@@ -43,6 +44,12 @@ public interface WorkQueueComposite
         public void enqueue( Runnable runnable )
         {
             ensureDelegate().enqueue( runnable );
+        }
+
+        @Override
+        public void enqueue( Runnable runnable, ErrorCallbackAdapter<RuntimeException> errorCallback )
+        {
+            ensureDelegate().enqueue( runnable, errorCallback );
         }
 
         private WorkQueue ensureDelegate()

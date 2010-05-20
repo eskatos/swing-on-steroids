@@ -24,9 +24,10 @@ package org.codeartisans.java.sos.threading;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import java.util.LinkedList;
+import org.codeartisans.java.toolbox.async.ErrorCallbackAdapter;
+import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
 
 public final class DefaultWorkQueue
         implements WorkQueue
@@ -34,15 +35,16 @@ public final class DefaultWorkQueue
 
     private static final Logger LOGGER = LoggerFactory.getLogger( DefaultWorkQueue.class );
     // CHECKSTYLE:OFF We use a specific List implementation on purpose
-    private final LinkedList<Runnable> queue;
+    private final LinkedList<RunnableCallbackHolder> queue;
     // CHECKSTYLE:ON
 
     @Inject
+    @SuppressWarnings( "CallToThreadStartDuringObjectConstruction" )
     public DefaultWorkQueue( @Named( NAME ) String name, @Named( SIZE ) Integer size )
     {
         NullArgumentException.ensureNotEmpty( NAME, true, name );
         NullArgumentException.ensureNotZero( SIZE, size );
-        queue = new LinkedList<Runnable>();
+        queue = new LinkedList<RunnableCallbackHolder>();
         PooledWorker[] threads = new PooledWorker[ size ];
         ThreadGroup threadGroup = new ThreadGroup( name + "WorkQueue" );
         for ( int i = 0; i < size; i++ ) {
@@ -54,13 +56,19 @@ public final class DefaultWorkQueue
     @Override
     public void enqueue( Runnable r )
     {
+        enqueue( r, null );
+    }
+
+    @Override
+    public void enqueue( Runnable runnable, ErrorCallbackAdapter<RuntimeException> errorCallback )
+    {
         synchronized ( queue ) {
-            queue.addLast( r );
+            queue.addLast( new RunnableCallbackHolder( runnable, errorCallback ) );
             queue.notifyAll();
         }
     }
 
-    private final class PooledWorker
+    private class PooledWorker
             extends Thread
     {
 
@@ -72,7 +80,7 @@ public final class DefaultWorkQueue
         @Override
         public void run()
         {
-            Runnable r;
+            RunnableCallbackHolder holder;
             while ( true ) {
                 synchronized ( queue ) {
                     while ( queue.isEmpty() ) {
@@ -81,13 +89,16 @@ public final class DefaultWorkQueue
                         } catch ( InterruptedException ignored ) {
                         }
                     }
-                    r = queue.removeFirst();
+                    holder = queue.removeFirst();
                 }
                 // If we don't catch RuntimeException, the pool could leak threads
                 try {
-                    r.run();
+                    holder.runnable().run();
                 } catch ( RuntimeException ex ) {
                     LOGGER.warn( ex.getMessage(), ex );
+                    if ( holder.errorCallback() != null ) {
+                        holder.errorCallback().onError( ex.getMessage(), ex );
+                    }
                 }
             }
         }
