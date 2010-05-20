@@ -49,6 +49,12 @@
             <artifactId>swingx</artifactId>
             <version>1.6</version>
             <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.swinglabs</groupId>
+                    <artifactId>swing-worker</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
