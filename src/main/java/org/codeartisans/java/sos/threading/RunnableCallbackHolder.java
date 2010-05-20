@@ -23,23 +23,26 @@ package org.codeartisans.java.sos.threading;
 
 import org.codeartisans.java.toolbox.async.ErrorCallbackAdapter;
 
-public interface WorkQueue
+class RunnableCallbackHolder
 {
 
-    String NAME = "WorkQueue:name";
-    String SIZE = "WorkQueue:size";
+    private final Runnable runnable;
+    private final ErrorCallbackAdapter<RuntimeException> errorCallback;
 
-    /**
-     * WARNING If a RuntimeException occurs inside your Runnable you won't be notified as it will occur in a separate thread.
-     *
-     * @param runnable Runnable to be run by one of the WorkQueue thread as soon as one is available.
-     */
-    void enqueue( Runnable runnable );
+    RunnableCallbackHolder( Runnable runable, ErrorCallbackAdapter<RuntimeException> errorCallback )
+    {
+        this.runnable = runable;
+        this.errorCallback = errorCallback;
+    }
 
-    /**
-     * @param runnable      Runnable to be run by one of the WorkQueue thread as soon as one is available.
-     * @param errorCallback Callback called
-     */
-    void enqueue( Runnable runnable, ErrorCallbackAdapter<RuntimeException> errorCallback );
+    Runnable runnable()
+    {
+        return runnable;
+    }
+
+    ErrorCallbackAdapter<RuntimeException> errorCallback()
+    {
+        return errorCallback;
+    }
 
 }
