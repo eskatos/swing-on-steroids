@@ -24,13 +24,13 @@ package org.codeartisans.java.sos.views.notifications;
 /**
  * Type that owns ClickHandler instances.
  */
-public interface HasClickHandlers
+public interface HasClickHandlers<V>
 {
 
     /**
      * @param handler   ClickHandler to register
      * @return          HandlerRegistration allowing to unregister the ClickHandler
      */
-    HandlerRegistration addClickHandler( ClickHandler handler );
+    HandlerRegistration addClickHandler( ClickHandler<V> handler );
 
 }
