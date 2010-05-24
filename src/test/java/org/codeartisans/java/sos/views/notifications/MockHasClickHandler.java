@@ -21,6 +21,9 @@
  */
 package org.codeartisans.java.sos.views.notifications;
 
+import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
+import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
+import org.codeartisans.java.sos.views.handlers.ClickHandler;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -28,7 +28,7 @@ import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.values.ValueChangeHandler;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
 import org.codeartisans.java.sos.views.values.ValueChangeNotification;
-import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
+import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
 
 /**
  * @param <V> Value type

@@ -19,19 +19,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.views.notifications;
+package org.codeartisans.java.sos.views.handlers;
 
-public interface FocusHandler
+/**
+ * Type that owns FocusHandler instances.
+ */
+public interface HasFocusHandlers
 {
 
     /**
-     * Tell the FocusHandler the subject got focused
+     * @param handler   FocusHandler to register
+     * @return          HandlerRegistration allowing to unregister the FocusHandler
      */
-    void onFocusGained();
-
-    /**
-     * Tell the FocusHandler the subject lost focus
-     */
-    void onFocusLost();
+    HandlerRegistration addFocusHandler( FocusHandler handler );
 
 }

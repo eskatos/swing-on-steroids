@@ -34,11 +34,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTree;
-import javax.swing.tree.TreePath;
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
-import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
-import org.codeartisans.java.sos.views.notifications.HasFocusHandlers;
+import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
+import org.codeartisans.java.sos.views.handlers.HasFocusHandlers;
 import org.codeartisans.java.sos.views.swing.components.EnhancedLabel;
 import org.codeartisans.java.sos.views.swing.notifications.EnhancedLabelHasImageValueChangeHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.WindowHasFocusHandlers;
@@ -68,27 +67,27 @@ public final class SwingWrappersFactory
         return new WindowHasFocusHandlers( workQueue, window );
     }
 
-    public HasClickHandlers createJButtonHasClickHandler( JButton button )
+    public HasClickHandlers<Void> createJButtonHasClickHandler( JButton button )
     {
         return new JButtonHasClickHandlers( workQueue, button );
     }
 
-    public HasClickHandlers createPanelHasClickHandlers( JPanel glassPane )
+    public HasClickHandlers<Void> createPanelHasClickHandlers( JPanel glassPane )
     {
         return new JPaneHasClickHandlers( workQueue, glassPane );
     }
 
-    public HasClickHandlers createJFrameHasCloseClickHandlers( JFrame frame )
+    public HasClickHandlers<Void> createJFrameHasCloseClickHandlers( JFrame frame )
     {
         return new JFrameHasCloseClickHandlers( workQueue, frame );
     }
 
-    public HasClickHandlers createTrayIconHasClickHandlers( TrayIcon trayIcon )
+    public HasClickHandlers<Void> createTrayIconHasClickHandlers( TrayIcon trayIcon )
     {
         return new TrayIconHasClickHandlers( workQueue, trayIcon );
     }
 
-    public HasClickHandlers createMenuItemHasClickHandlers( MenuItem menuItem )
+    public HasClickHandlers<Void> createMenuItemHasClickHandlers( MenuItem menuItem )
     {
         return new MenuItemHasClickHandlers( workQueue, menuItem );
     }

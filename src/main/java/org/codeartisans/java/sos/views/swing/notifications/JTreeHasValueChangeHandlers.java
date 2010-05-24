@@ -28,7 +28,7 @@ import java.util.Collection;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 import org.codeartisans.java.sos.threading.WorkQueue;
-import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
+import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
 import org.codeartisans.java.sos.views.values.ValueChangeHandler;
 import org.codeartisans.java.sos.views.values.ValueChangeNotification;

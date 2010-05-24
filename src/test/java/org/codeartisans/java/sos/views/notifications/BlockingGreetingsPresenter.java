@@ -21,6 +21,7 @@
  */
 package org.codeartisans.java.sos.views.notifications;
 
+import org.codeartisans.java.sos.views.handlers.ClickHandler;
 import com.google.inject.Inject;
 import org.codeartisans.java.sos.presenters.BasePresenter;
 import org.codeartisans.java.sos.presenters.Presenter;

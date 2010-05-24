@@ -25,7 +25,7 @@ import com.google.inject.Inject;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
-import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
+import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 import org.codeartisans.java.sos.views.swing.SwingWrappersFactory;
 import org.codeartisans.java.sos.views.swing.notifications.JFrameHasCloseClickHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JLabelHasStringValue;

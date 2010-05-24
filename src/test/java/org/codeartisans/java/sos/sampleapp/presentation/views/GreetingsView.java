@@ -22,7 +22,7 @@
 package org.codeartisans.java.sos.sampleapp.presentation.views;
 
 import org.codeartisans.java.sos.views.View;
-import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
+import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 import org.codeartisans.java.sos.views.values.HasValue;
 
 /**

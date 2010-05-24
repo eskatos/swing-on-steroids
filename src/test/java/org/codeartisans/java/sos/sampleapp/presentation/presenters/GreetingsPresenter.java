@@ -26,7 +26,7 @@ import org.codeartisans.java.sos.presenters.BasePresenter;
 import org.codeartisans.java.sos.presenters.Presenter;
 import org.codeartisans.java.sos.sampleapp.domain.GreetService;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
-import org.codeartisans.java.sos.views.notifications.ClickHandler;
+import org.codeartisans.java.sos.views.handlers.ClickHandler;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.toolbox.async.Callback;
 

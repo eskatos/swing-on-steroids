@@ -5,13 +5,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import org.codeartisans.java.sos.threading.WorkQueue;
-import org.codeartisans.java.sos.views.notifications.ClickHandler;
+import org.codeartisans.java.sos.views.handlers.ClickHandler;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
-import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
-import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
+import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
+import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 
 public class JPaneHasClickHandlers
-        implements HasClickHandlers
+        implements HasClickHandlers<Void>
 {
 
     private final JPanel panel;
@@ -24,7 +24,7 @@ public class JPaneHasClickHandlers
     }
 
     @Override
-    public HandlerRegistration addClickHandler( final ClickHandler handler )
+    public HandlerRegistration addClickHandler( final ClickHandler<Void> handler )
     {
         final MouseListener listener = new MouseAdapter()
         {
@@ -38,7 +38,7 @@ public class JPaneHasClickHandlers
                     @Override
                     public void run()
                     {
-                        handler.onClick( new ClickNotification() );
+                        handler.onClick( new ClickNotification<Void>() );
                     }
 
                 } );

@@ -26,13 +26,13 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 import org.codeartisans.java.sos.threading.WorkQueue;
-import org.codeartisans.java.sos.views.notifications.ClickHandler;
+import org.codeartisans.java.sos.views.handlers.ClickHandler;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
-import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
-import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
+import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
+import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 
 public final class JFrameHasCloseClickHandlers
-        implements HasClickHandlers
+        implements HasClickHandlers<Void>
 {
 
     private final WorkQueue workQueue;
@@ -45,7 +45,7 @@ public final class JFrameHasCloseClickHandlers
     }
 
     @Override
-    public HandlerRegistration addClickHandler( final ClickHandler handler )
+    public HandlerRegistration addClickHandler( final ClickHandler<Void> handler )
     {
         final WindowListener listener = new WindowAdapter()
         {
@@ -59,7 +59,7 @@ public final class JFrameHasCloseClickHandlers
                     @Override
                     public void run()
                     {
-                        handler.onClick( new ClickNotification() );
+                        handler.onClick( new ClickNotification<Void>() );
                     }
 
                 } );

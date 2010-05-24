@@ -26,12 +26,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
-import org.codeartisans.java.sos.views.notifications.ClickHandler;
-import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
-import org.codeartisans.java.sos.views.notifications.HasClickHandlers;
+import org.codeartisans.java.sos.views.handlers.ClickHandler;
+import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
+import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 
 public final class JButtonHasClickHandlers
-        implements HasClickHandlers
+        implements HasClickHandlers<Void>
 {
 
     private final WorkQueue workQueue;
@@ -44,7 +44,7 @@ public final class JButtonHasClickHandlers
     }
 
     @Override
-    public HandlerRegistration addClickHandler( final ClickHandler handler )
+    public HandlerRegistration addClickHandler( final ClickHandler<Void> handler )
     {
 
 
@@ -60,7 +60,7 @@ public final class JButtonHasClickHandlers
                     @Override
                     public void run()
                     {
-                        handler.onClick( new ClickNotification() );
+                        handler.onClick( new ClickNotification<Void>() );
                     }
 
                 } );

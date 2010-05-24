@@ -21,7 +21,7 @@
  */
 package org.codeartisans.java.sos.views.values;
 
-import org.codeartisans.java.sos.views.notifications.HandlerRegistration;
+import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
 
 public interface HasValueChangeHandlers<T>
         extends HasValue<T>

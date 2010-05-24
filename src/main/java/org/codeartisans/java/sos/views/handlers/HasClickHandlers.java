@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.views.notifications;
+package org.codeartisans.java.sos.views.handlers;
 
 /**
  * Type that owns ClickHandler instances.
