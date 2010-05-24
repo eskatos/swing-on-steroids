@@ -22,7 +22,7 @@
     </scm>
 
     <properties>
-        <qi4j.version>1.0</qi4j.version>
+        <qi4j.version>1.1</qi4j.version>
     </properties>
 
     <dependencies>
@@ -33,6 +33,11 @@
             <version>1.1-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.pushingpixels</groupId>
+            <artifactId>trident</artifactId>
+            <version>1.2</version>
+        </dependency>
         <dependency>
             <groupId>net.java.dev.swinghelper</groupId>
             <artifactId>swinghelper-debug</artifactId>
