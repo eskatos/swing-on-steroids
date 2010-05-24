@@ -26,6 +26,7 @@ import java.awt.Window;
 import java.awt.TrayIcon;
 import java.awt.MenuItem;
 import java.awt.Image;
+import java.util.Collection;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -49,7 +50,7 @@ import org.codeartisans.java.sos.views.swing.notifications.JComboBoxHasValueChan
 import org.codeartisans.java.sos.views.swing.notifications.JPaneHasClickHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JPasswordFieldHasCharsValueChangeHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JTextComponentHasStringValueChangeHandlers;
-import org.codeartisans.java.sos.views.swing.notifications.JTreeHasTreePathValueChangeHandlers;
+import org.codeartisans.java.sos.views.swing.notifications.JTreeHasValueChangeHandlers;
 
 public final class SwingWrappersFactory
 {
@@ -97,9 +98,9 @@ public final class SwingWrappersFactory
         return new JComboBoxHasValueChangeHandlers( workQueue, jComboBox );
     }
     
-    public HasValueChangeHandlers<TreePath[]> createJTreeHasTreePathValueChangeHandlers( JTree tree )
+    public HasValueChangeHandlers<Collection> createJTreeHasTreePathValueChangeHandlers( JTree tree )
     {
-        return new JTreeHasTreePathValueChangeHandlers( workQueue, tree );
+        return new JTreeHasValueChangeHandlers( workQueue, tree );
     }
 
     public HasValueChangeHandlers<String> createJTextComponentHasStringValueChangeHandlers( JTextField textField )

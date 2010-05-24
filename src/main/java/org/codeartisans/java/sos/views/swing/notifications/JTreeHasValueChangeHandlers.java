@@ -24,6 +24,7 @@ package org.codeartisans.java.sos.views.swing.notifications;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Collection;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 import org.codeartisans.java.sos.threading.WorkQueue;
@@ -33,22 +34,24 @@ import org.codeartisans.java.sos.views.values.ValueChangeHandler;
 import org.codeartisans.java.sos.views.values.ValueChangeNotification;
 
 /**
+ * 
+ *
  * @author Fabien Barbero <fabien.barbero@gmail.com>
  */
-public class JTreeHasTreePathValueChangeHandlers
-        extends JTreeHasTreePathValue
-        implements HasValueChangeHandlers<TreePath[]>
+public class JTreeHasValueChangeHandlers
+        extends JTreeHasValue
+        implements HasValueChangeHandlers<Collection>
 {
 
     private final WorkQueue workQueue;
 
-    public JTreeHasTreePathValueChangeHandlers(WorkQueue workQueue, JTree tree) {
+    public JTreeHasValueChangeHandlers(WorkQueue workQueue, JTree tree) {
         super(tree);
         this.workQueue = workQueue;
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler( final ValueChangeHandler<TreePath[]> handler )
+    public HandlerRegistration addValueChangeHandler( final ValueChangeHandler<Collection> handler )
     {
         final MouseListener mouseListener = new MouseAdapter() {
 
@@ -63,7 +66,7 @@ public class JTreeHasTreePathValueChangeHandlers
                         {
                             TreePath[] paths = tree.getSelectionPaths();
                             if(paths != null && paths.length != 0) {
-                                handler.onValueChange( new ValueChangeNotification<TreePath[]>(tree.getSelectionPaths()) );
+                                handler.onValueChange( new ValueChangeNotification<Collection>(getValue()) );
                             }
                         }
 
