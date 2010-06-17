@@ -23,6 +23,7 @@ package org.codeartisans.java.sos.threading;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.LinkedList;
 import org.codeartisans.java.toolbox.async.ErrorCallbackAdapter;
 import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
@@ -96,10 +97,19 @@ public final class DefaultWorkQueue
                     holder.runnable().run();
                 } catch ( RuntimeException ex ) {
                     LOGGER.warn( ex.getMessage(), ex );
+                    notifyUncaughtException( ex );
                     if ( holder.errorCallback() != null ) {
                         holder.errorCallback().onError( ex.getMessage(), ex );
                     }
                 }
+            }
+        }
+
+        private void notifyUncaughtException(Throwable e )
+        {
+            UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
+            if(handler != null) {
+                handler.uncaughtException( this, e );
             }
         }
 
