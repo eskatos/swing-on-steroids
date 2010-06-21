@@ -96,10 +96,11 @@ public final class DefaultWorkQueue
                 try {
                     holder.runnable().run();
                 } catch ( RuntimeException ex ) {
-                    LOGGER.warn( ex.getMessage(), ex );
-                    notifyUncaughtException( ex );
+//                    LOGGER.error( ex.getMessage(), ex );
                     if ( holder.errorCallback() != null ) {
                         holder.errorCallback().onError( ex.getMessage(), ex );
+                    } else {
+                        notifyUncaughtException( ex );
                     }
                 }
             }
