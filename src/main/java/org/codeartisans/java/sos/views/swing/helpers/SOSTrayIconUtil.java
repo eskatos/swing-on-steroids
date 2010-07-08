@@ -24,7 +24,9 @@ package org.codeartisans.java.sos.views.swing.helpers;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import javax.swing.JFrame;
+import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.Window;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,10 +68,11 @@ public final class SOSTrayIconUtil
         LOGGER.debug( "updateTrayIconLocation: {}, {}, {}", new Object[]{ trayX, trayY, trayIconLocation } );
     }
 
-    public static void moveFrameNextToTrayIcon( JFrame frame )
+    public static void moveFrameNextToTrayIcon( Window frame )
     {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
+        Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(ge.getDefaultScreenDevice().getDefaultConfiguration());
         DisplayMode dm = gs[trayIconScreen].getDisplayMode();
         int screenWidth = dm.getWidth();
         int screenHeight = dm.getHeight();
@@ -80,20 +83,20 @@ public final class SOSTrayIconUtil
         LOGGER.trace( "BEFORE moveFrameNextToTrayIcon: " + frameWidth + "," + frameHeight + "  " + frameX + "," + frameY + " in screen: " + screenWidth + "," + screenHeight );
         switch ( trayIconLocation ) {
             case TOP_LEFT:
-                frameX = 0;
-                frameY = 0;
+                frameX = insets.left;
+                frameY = insets.top;
                 break;
             case TOP_RIGHT:
-                frameX = screenWidth - frameWidth;
-                frameY = 0;
+                frameX = screenWidth - frameWidth - insets.right;
+                frameY = insets.top;
                 break;
             case BOTTOM_LEFT:
-                frameX = 0;
-                frameX = screenHeight - frameHeight;
+                frameX = insets.left;
+                frameX = screenHeight - frameHeight - insets.bottom;
                 break;
             case BOTTOM_RIGHT:
-                frameX = screenWidth - frameWidth;
-                frameY = screenHeight - frameHeight;
+                frameX = screenWidth - frameWidth - insets.right;
+                frameY = screenHeight - frameHeight - insets.bottom;
                 break;
         }
         LOGGER.trace( "AFTER moveFrameNextToTrayIcon: " + frameX + "," + frameY + " in screen: " + screenWidth + "," + screenHeight );
