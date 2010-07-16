@@ -23,6 +23,7 @@ package org.codeartisans.java.sos.views.swing.notifications;
 
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;

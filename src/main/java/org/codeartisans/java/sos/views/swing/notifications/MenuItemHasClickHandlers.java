@@ -24,6 +24,7 @@ package org.codeartisans.java.sos.views.swing.notifications;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.handlers.ClickHandler;

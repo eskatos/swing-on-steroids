@@ -24,15 +24,17 @@ package org.codeartisans.java.sos.messagebus;
 import org.junit.Assert;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin
  */
+@SuppressWarnings( "PublicInnerClass" )
 public interface UseCase
 {
 
     static class Util
     {
 
-        static void testMessageBus( MessageBus msgBus ) throws InterruptedException
+        static void testMessageBus( MessageBus msgBus )
+                throws InterruptedException
         {
             TestMessageHandlerImpl sub1 = new TestMessageHandlerImpl();
             TestMessageHandlerImpl sub2 = new TestMessageHandlerImpl();
@@ -109,6 +111,7 @@ public interface UseCase
 
     }
 
+    @SuppressWarnings( "PackageVisibleField" )
     class TestMessageHandlerImpl
             implements TestMessageHandler
     {

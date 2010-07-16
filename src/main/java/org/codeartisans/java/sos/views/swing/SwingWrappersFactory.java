@@ -22,6 +22,7 @@
 package org.codeartisans.java.sos.views.swing;
 
 import com.google.inject.Inject;
+
 import java.awt.Window;
 import java.awt.TrayIcon;
 import java.awt.MenuItem;
@@ -34,12 +35,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTree;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
+import org.codeartisans.java.sos.views.handlers.HasButtonBehavior;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
 import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 import org.codeartisans.java.sos.views.handlers.HasFocusHandlers;
 import org.codeartisans.java.sos.views.swing.components.EnhancedLabel;
 import org.codeartisans.java.sos.views.swing.notifications.EnhancedLabelHasImageValueChangeHandlers;
+import org.codeartisans.java.sos.views.swing.notifications.JButtonHasButtonBehavior;
 import org.codeartisans.java.sos.views.swing.notifications.WindowHasFocusHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JButtonHasClickHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.MenuItemHasClickHandlers;
@@ -51,6 +55,12 @@ import org.codeartisans.java.sos.views.swing.notifications.JPasswordFieldHasChar
 import org.codeartisans.java.sos.views.swing.notifications.JTextComponentHasStringValueChangeHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JTreeHasValueChangeHandlers;
 
+/**
+ * @author Paul Merlin
+ * @author Jean-Michel Tonneau
+ * @author Fabien Barbero
+ * @author David Emo
+ */
 public final class SwingWrappersFactory
 {
 
@@ -70,6 +80,11 @@ public final class SwingWrappersFactory
     public HasClickHandlers<Void> createJButtonHasClickHandler( JButton button )
     {
         return new JButtonHasClickHandlers( workQueue, button );
+    }
+
+    public HasButtonBehavior createJButtonHasButtonBehavior( JButton button )
+    {
+        return new JButtonHasButtonBehavior( workQueue, button );
     }
 
     public HasClickHandlers<Void> createPanelHasClickHandlers( JPanel glassPane )
@@ -92,12 +107,13 @@ public final class SwingWrappersFactory
         return new MenuItemHasClickHandlers( workQueue, menuItem );
     }
 
-    public HasValueChangeHandlers createJComboBoxHasValueChangeHandlers( JComboBox jComboBox )
+    public <V> HasValueChangeHandlers<V> createJComboBoxHasValueChangeHandlers( JComboBox jComboBox )
     {
-        return new JComboBoxHasValueChangeHandlers( workQueue, jComboBox );
+        return new JComboBoxHasValueChangeHandlers<V>( workQueue, jComboBox );
     }
-    
-    public HasValueChangeHandlers<Collection> createJTreeHasTreePathValueChangeHandlers( JTree tree )
+
+    // FIXME : use generics to box type of collection elements
+    public HasValueChangeHandlers<Collection<?>> createJTreeHasTreePathValueChangeHandlers( JTree tree )
     {
         return new JTreeHasValueChangeHandlers( workQueue, tree );
     }

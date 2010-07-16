@@ -24,6 +24,7 @@ package org.codeartisans.java.sos.views.swing.notifications;
 import java.awt.Image;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.values.ValueChangeHandler;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;

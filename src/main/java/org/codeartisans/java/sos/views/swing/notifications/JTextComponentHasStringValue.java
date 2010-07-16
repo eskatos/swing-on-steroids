@@ -22,6 +22,7 @@
 package org.codeartisans.java.sos.views.swing.notifications;
 
 import javax.swing.text.JTextComponent;
+
 import org.codeartisans.java.sos.views.values.HasValue;
 
 public class JTextComponentHasStringValue

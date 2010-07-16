@@ -22,6 +22,7 @@
 package org.codeartisans.java.sos.sampleapp.presentation.presenters;
 
 import com.google.inject.Inject;
+
 import org.codeartisans.java.sos.presenters.BasePresenter;
 import org.codeartisans.java.sos.presenters.Presenter;
 import org.codeartisans.java.sos.sampleapp.domain.GreetService;
@@ -31,7 +32,7 @@ import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.toolbox.async.Callback;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
 public class GreetingsPresenter
         extends BasePresenter<GreetingsView>
@@ -41,54 +42,54 @@ public class GreetingsPresenter
     private final GreetService greetService;
 
     @Inject
-    public GreetingsPresenter(GreetingsView view, GreetService greetService)
+    public GreetingsPresenter( GreetingsView view, GreetService greetService )
     {
-        super(view);
+        super( view );
         this.greetService = greetService;
     }
 
     @Override
     public void onBind()
     {
-        recordViewRegistration(view.greetButton().addClickHandler(new ClickHandler()
+        recordViewRegistration( view.greetButton().addClickHandler( new ClickHandler()
         {
 
             @Override
-            public void onClick(ClickNotification notification)
+            public void onClick( ClickNotification notification )
             {
                 view.busy();
-                greetService.greet(view.nameInput().getValue(), new Callback<String>()
+                greetService.greet( view.nameInput().getValue(), new Callback<String>()
                 {
 
                     @Override
-                    public void onSuccess(String value)
+                    public void onSuccess( String value )
                     {
-                        view.messageDisplay().setValue(value);
+                        view.messageDisplay().setValue( value );
                         view.done();
                     }
 
                     @Override
-                    public void onError(String message, Throwable cause)
+                    public void onError( String message, Throwable cause )
                     {
                         cause.printStackTrace();
-                        view.messageDisplay().setValue("Unable to greet, see logs for details.");
+                        view.messageDisplay().setValue( "Unable to greet, see logs for details." );
                         view.done();
                     }
 
-                });
+                } );
             }
 
-        }));
-        recordViewRegistration(view.closeButton().addClickHandler(new ClickHandler()
+        } ) );
+        recordViewRegistration( view.closeButton().addClickHandler( new ClickHandler()
         {
 
             @Override
-            public void onClick(ClickNotification notification)
+            public void onClick( ClickNotification notification )
             {
                 view.hide();
             }
 
-        }));
+        } ) );
     }
 
     @Override

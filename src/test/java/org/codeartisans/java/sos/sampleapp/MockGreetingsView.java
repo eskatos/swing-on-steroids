@@ -11,9 +11,9 @@ public class MockGreetingsView
 {
 
     final StringHasStringValue name = new StringHasStringValue();
-    final MockHasClickHandler greet = new MockHasClickHandler();
+    final MockHasClickHandler<Void> greet = new MockHasClickHandler<Void>();
     final StringHasStringValue message = new StringHasStringValue();
-    final MockHasClickHandler close = new MockHasClickHandler();
+    final MockHasClickHandler<Void> close = new MockHasClickHandler<Void>();
 
     @Override
     public HasValue<String> nameInput()
@@ -22,7 +22,7 @@ public class MockGreetingsView
     }
 
     @Override
-    public HasClickHandlers greetButton()
+    public HasClickHandlers<Void> greetButton()
     {
         return greet;
     }
@@ -34,7 +34,7 @@ public class MockGreetingsView
     }
 
     @Override
-    public HasClickHandlers closeButton()
+    public HasClickHandlers<Void> closeButton()
     {
         return close;
     }

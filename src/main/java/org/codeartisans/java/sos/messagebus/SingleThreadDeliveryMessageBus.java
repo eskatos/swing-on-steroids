@@ -22,6 +22,7 @@
 package org.codeartisans.java.sos.messagebus;
 
 import com.google.inject.Inject;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
 
 /**

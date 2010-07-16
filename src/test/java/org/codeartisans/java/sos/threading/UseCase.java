@@ -23,38 +23,40 @@ package org.codeartisans.java.sos.threading;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.junit.Assert;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
+@SuppressWarnings( "PublicInnerClass" )
 public interface UseCase
 {
 
     static class Util
     {
 
-        static void testWorkQueue(WorkQueue workQueue)
+        static void testWorkQueue( WorkQueue workQueue )
                 throws InterruptedException
         {
 
-            DoneableRunnable work1 = new DoneableRunnable(250);
-            DoneableRunnable work2 = new DoneableRunnable(250);
+            DoneableRunnable work1 = new DoneableRunnable( 250 );
+            DoneableRunnable work2 = new DoneableRunnable( 250 );
 
-            workQueue.enqueue(work1);
-            Assert.assertFalse(work1.done);
-            Thread.sleep(300);
-            Assert.assertTrue(work1.done);
+            workQueue.enqueue( work1 );
+            Assert.assertFalse( work1.done );
+            Thread.sleep( 300 );
+            Assert.assertTrue( work1.done );
             work1.done = false;
 
-            workQueue.enqueue(work1);
-            workQueue.enqueue(work2);
+            workQueue.enqueue( work1 );
+            workQueue.enqueue( work2 );
 
-            Assert.assertFalse(work1.done);
-            Assert.assertFalse(work2.done);
-            Thread.sleep(300);
-            Assert.assertTrue(work1.done);
-            Assert.assertTrue(work2.done);
+            Assert.assertFalse( work1.done );
+            Assert.assertFalse( work2.done );
+            Thread.sleep( 300 );
+            Assert.assertTrue( work1.done );
+            Assert.assertTrue( work2.done );
             work1.done = false;
             work2.done = false;
 
@@ -62,13 +64,15 @@ public interface UseCase
 
     }
 
-    static class DoneableRunnable implements Runnable
+    @SuppressWarnings( "PackageVisibleField" )
+    static class DoneableRunnable
+            implements Runnable
     {
 
         private final int delayMs;
         boolean done = false;
 
-        public DoneableRunnable(int delayMs)
+        public DoneableRunnable( int delayMs )
         {
             this.delayMs = delayMs;
         }
@@ -77,10 +81,10 @@ public interface UseCase
         public void run()
         {
             try {
-                Thread.sleep(delayMs);
+                Thread.sleep( delayMs );
                 done = true;
-            } catch (InterruptedException ex) {
-                Logger.getLogger(GuiceWorkQueueTest.class.getName()).log(Level.SEVERE, null, ex);
+            } catch ( InterruptedException ex ) {
+                Logger.getLogger( GuiceWorkQueueTest.class.getName() ).log( Level.SEVERE, null, ex );
             }
         }
 

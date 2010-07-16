@@ -21,7 +21,8 @@
  */
 package org.codeartisans.java.sos.views.values;
 
-public final class StringHasStringValue implements HasValue<String>
+public final class StringHasStringValue
+        implements HasValue<String>
 {
 
     private String value;

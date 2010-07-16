@@ -22,6 +22,7 @@
 package org.codeartisans.java.sos.threading;
 
 import org.junit.Test;
+
 import org.qi4j.api.service.ServiceReference;
 import org.qi4j.bootstrap.AssemblyException;
 import org.qi4j.bootstrap.ModuleAssembly;
@@ -30,27 +31,30 @@ import org.qi4j.spi.uuid.UuidIdentityGeneratorService;
 import org.qi4j.test.AbstractQi4jTest;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
 public class Qi4jWorkQueueTest
         extends AbstractQi4jTest
 {
 
     @Override
-    public void assemble(ModuleAssembly module) throws AssemblyException
+    @SuppressWarnings( "unchecked" )
+    public void assemble( ModuleAssembly module )
+            throws AssemblyException
     {
-        module.addServices(MemoryEntityStoreService.class, UuidIdentityGeneratorService.class);
-        module.addEntities(WorkQueueConfiguration.class);
-        module.addServices(WorkQueueComposite.class);
+        module.addServices( MemoryEntityStoreService.class, UuidIdentityGeneratorService.class );
+        module.addEntities( WorkQueueConfiguration.class );
+        module.addServices( WorkQueueComposite.class );
     }
 
     @Test
-    public void testWorkQueue() throws InterruptedException
+    public void testWorkQueue()
+            throws InterruptedException
     {
-        ServiceReference<WorkQueueComposite> ref = serviceLocator.findService(WorkQueueComposite.class);
+        ServiceReference<WorkQueueComposite> ref = serviceLocator.findService( WorkQueueComposite.class );
         WorkQueue workQueue = ref.get();
 
-        UseCase.Util.testWorkQueue(workQueue);
+        UseCase.Util.testWorkQueue( workQueue );
     }
 
 }

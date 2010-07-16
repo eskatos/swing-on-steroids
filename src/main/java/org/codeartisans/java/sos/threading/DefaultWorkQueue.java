@@ -23,13 +23,20 @@ package org.codeartisans.java.sos.threading;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.LinkedList;
+
 import org.codeartisans.java.toolbox.async.ErrorCallbackAdapter;
 import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author Paul Merlin
+ * @author Fabien Barbero
+ */
 public final class DefaultWorkQueue
         implements WorkQueue
 {
@@ -96,7 +103,6 @@ public final class DefaultWorkQueue
                 try {
                     holder.runnable().run();
                 } catch ( RuntimeException ex ) {
-//                    LOGGER.error( ex.getMessage(), ex );
                     if ( holder.errorCallback() != null ) {
                         holder.errorCallback().onError( ex.getMessage(), ex );
                     } else {
@@ -106,11 +112,13 @@ public final class DefaultWorkQueue
             }
         }
 
-        private void notifyUncaughtException(Throwable e )
+        private void notifyUncaughtException( Throwable e )
         {
             UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
-            if(handler != null) {
+            if ( handler != null ) {
                 handler.uncaughtException( this, e );
+            } else {
+                LOGGER.error( "Uncaught exception in queued work - " + e.getMessage(), e );
             }
         }
 

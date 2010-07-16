@@ -28,6 +28,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+
 import org.codeartisans.java.sos.views.values.HasValue;
 
 /**
@@ -37,23 +38,24 @@ import org.codeartisans.java.sos.views.values.HasValue;
  * @author Fabien Barbero <fabien.barbero@gmail.com>
  */
 public class JTreeHasValue
-        implements HasValue<Collection> {
+        implements HasValue<Collection<?>>
+{
 
     protected final JTree tree;
 
-
-    public JTreeHasValue(JTree tree) {
+    public JTreeHasValue( JTree tree )
+    {
         this.tree = tree;
     }
 
     @Override
-    public Collection getValue()
+    public Collection<?> getValue()
     {
-        List collection = new ArrayList();
-        for(TreePath path : tree.getSelectionPaths()) {
+        List<Object> collection = new ArrayList<Object>();
+        for ( TreePath path : tree.getSelectionPaths() ) {
             Object lastElement = path.getLastPathComponent();
-            if(lastElement instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode mutableNode = (DefaultMutableTreeNode) lastElement;
+            if ( lastElement instanceof DefaultMutableTreeNode ) {
+                DefaultMutableTreeNode mutableNode = ( DefaultMutableTreeNode ) lastElement;
                 collection.add( mutableNode.getUserObject() );
             }
         }
@@ -61,25 +63,26 @@ public class JTreeHasValue
     }
 
     @Override
-    public void setValue( Collection value )
+    public void setValue( Collection<?> value )
     {
         List<TreePath> paths = new ArrayList<TreePath>();
-        for(Object obj : value) {
-            TreePath path = findObject( (TreeNode) tree.getModel().getRoot(), obj );
-            if(path != null) {
-                paths.add(path);
+        for ( Object obj : value ) {
+            TreePath path = findObject( ( TreeNode ) tree.getModel().getRoot(), obj );
+            if ( path != null ) {
+                paths.add( path );
             }
         }
-       tree.setSelectionPaths( paths.toArray(new TreePath[]{}) );
+        tree.setSelectionPaths( paths.toArray( new TreePath[]{} ) );
     }
 
-    private TreePath findObject(TreeNode node, Object researchedObj) {
-        for(int i=0; i<node.getChildCount(); i++) {
+    private TreePath findObject( TreeNode node, Object researchedObj )
+    {
+        for ( int i = 0; i < node.getChildCount(); i++ ) {
             TreeNode child = node.getChildAt( i );
-            if(child instanceof DefaultMutableTreeNode) {
-                DefaultMutableTreeNode mutableChild = (DefaultMutableTreeNode) child;
-                if(mutableChild.getUserObject().equals(researchedObj)) {
-                    return new TreePath(mutableChild.getPath());
+            if ( child instanceof DefaultMutableTreeNode ) {
+                DefaultMutableTreeNode mutableChild = ( DefaultMutableTreeNode ) child;
+                if ( mutableChild.getUserObject().equals( researchedObj ) ) {
+                    return new TreePath( mutableChild.getPath() );
                 }
                 return findObject( mutableChild, researchedObj );
             }

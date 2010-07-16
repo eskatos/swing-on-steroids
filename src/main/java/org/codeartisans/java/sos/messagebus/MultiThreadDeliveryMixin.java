@@ -23,6 +23,7 @@ package org.codeartisans.java.sos.messagebus;
 
 import org.codeartisans.java.sos.SOSFailure;
 import org.codeartisans.java.sos.threading.WorkQueueComposite;
+
 import org.qi4j.api.injection.scope.Service;
 import org.qi4j.api.injection.scope.Structure;
 import org.qi4j.api.unitofwork.UnitOfWork;
@@ -64,7 +65,7 @@ public abstract class MultiThreadDeliveryMixin
 
     }
 
-    private void deliver( final Message message, final Subscriber subscriber )
+    private <S extends Subscriber> void deliver( final Message<S> message, final S subscriber )
     {
         workQueue.enqueue( new Runnable()
         {

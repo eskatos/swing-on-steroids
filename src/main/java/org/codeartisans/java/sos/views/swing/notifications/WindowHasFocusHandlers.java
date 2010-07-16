@@ -24,6 +24,7 @@ package org.codeartisans.java.sos.views.swing.notifications;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.handlers.FocusHandler;
 import org.codeartisans.java.sos.views.handlers.HandlerRegistration;

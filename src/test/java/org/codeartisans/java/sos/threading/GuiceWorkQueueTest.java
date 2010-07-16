@@ -25,25 +25,27 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
 public class GuiceWorkQueueTest
 {
 
-    private class WorkQueueTestModule extends AbstractModule
+    private class WorkQueueTestModule
+            extends AbstractModule
     {
 
         @Override
         protected void configure()
         {
-            bind(String.class).annotatedWith(Names.named(WorkQueue.NAME)).toInstance("WorkQueueTest");
-            bind(Integer.class).annotatedWith(Names.named(WorkQueue.SIZE)).toInstance(2);
-            bind(WorkQueue.class).to(DefaultWorkQueue.class).in(Singleton.class);
+            bind( String.class ).annotatedWith( Names.named( WorkQueue.NAME ) ).toInstance( "WorkQueueTest" );
+            bind( Integer.class ).annotatedWith( Names.named( WorkQueue.SIZE ) ).toInstance( 2 );
+            bind( WorkQueue.class ).to( DefaultWorkQueue.class ).in( Singleton.class );
         }
 
     }
@@ -53,7 +55,7 @@ public class GuiceWorkQueueTest
     @Before
     public void setUp()
     {
-        workQueue = Guice.createInjector(new WorkQueueTestModule()).getInstance(WorkQueue.class);
+        workQueue = Guice.createInjector( new WorkQueueTestModule() ).getInstance( WorkQueue.class );
 
     }
 
@@ -64,9 +66,10 @@ public class GuiceWorkQueueTest
     }
 
     @Test
-    public void test() throws InterruptedException
+    public void test()
+            throws InterruptedException
     {
-        UseCase.Util.testWorkQueue(workQueue);
+        UseCase.Util.testWorkQueue( workQueue );
     }
 
 }

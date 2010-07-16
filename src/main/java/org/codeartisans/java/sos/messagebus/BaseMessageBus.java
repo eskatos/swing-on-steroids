@@ -54,7 +54,7 @@ public abstract class BaseMessageBus
     {
         CopyOnWriteArrayList<S> l = subscribers( type );
         boolean result = l.remove( subscriber );
-        if ( l.size() == 0 ) {
+        if ( l.isEmpty() ) {
             subscribers.remove( type );
         }
         assert result : "Tried to remove unknown subscriber: " + subscriber + " for " + type;
@@ -72,7 +72,7 @@ public abstract class BaseMessageBus
     {
         CopyOnWriteArrayList<Veto> l = vetos( type );
         boolean result = l.remove( veto );
-        if ( l.size() == 0 ) {
+        if ( l.isEmpty() ) {
             vetos.remove( type );
         }
         assert result : "Tried to remove unknown veto: " + veto + " for " + type;

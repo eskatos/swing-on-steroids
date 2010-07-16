@@ -23,7 +23,7 @@
 import com.seventytwomiles.architecturerules.AbstractArchitectureRulesConfigurationTest;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin
  */
 public final class EnforceArchitectureTest
         extends AbstractArchitectureRulesConfigurationTest
@@ -37,7 +37,7 @@ public final class EnforceArchitectureTest
          * or if the configuration can not be loaded properly,
          * then the appropriate Exception will be thrown.
          */
-        assertTrue(doTests());
+        assertTrue( doTests() );
     }
 
 }

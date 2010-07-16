@@ -23,6 +23,7 @@ package org.codeartisans.java.sos.views.swing.notifications;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+
 import org.codeartisans.java.sos.views.swing.components.EnhancedLabel;
 import org.codeartisans.java.sos.views.values.HasValue;
 

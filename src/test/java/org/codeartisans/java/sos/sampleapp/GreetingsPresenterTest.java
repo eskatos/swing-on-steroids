@@ -24,11 +24,13 @@ package org.codeartisans.java.sos.sampleapp;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import org.codeartisans.java.sos.sampleapp.domain.DefaultGreetService;
 import org.codeartisans.java.sos.sampleapp.domain.GreetService;
 import org.codeartisans.java.sos.sampleapp.presentation.presenters.GreetingsPresenter;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.toolbox.guice.GuiceHelper;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -36,7 +38,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
 public final class GreetingsPresenterTest
 {
@@ -48,9 +50,9 @@ public final class GreetingsPresenterTest
         @Override
         protected void configure()
         {
-            bind(GreetingsView.class).to(MockGreetingsView.class);
-            bind(GreetingsPresenter.class);
-            bind(GreetService.class).to(DefaultGreetService.class);
+            bind( GreetingsView.class ).to( MockGreetingsView.class );
+            bind( GreetingsPresenter.class );
+            bind( GreetService.class ).to( DefaultGreetService.class );
         }
 
     }
@@ -63,14 +65,14 @@ public final class GreetingsPresenterTest
     public static void beforeClass()
     {
         GuiceHelper.enableDebugOutput();
-        injector = Guice.createInjector(new GreetingsPresenterTestGuiceModule());
+        injector = Guice.createInjector( new GreetingsPresenterTestGuiceModule() );
     }
 
     @Before
     public void before()
     {
-        presenter = injector.getInstance(GreetingsPresenter.class);
-        view = (MockGreetingsView) presenter.view();
+        presenter = injector.getInstance( GreetingsPresenter.class );
+        view = ( MockGreetingsView ) presenter.view();
         presenter.bind();
         presenter.view().reveal();
     }
@@ -78,13 +80,13 @@ public final class GreetingsPresenterTest
     @Test
     public void testGreetingsPresenter()
     {
-        view.name.setValue("Bob");
+        view.name.setValue( "Bob" );
         view.greet.click();
         try {
-            Thread.sleep(200);
-        } catch (InterruptedException ex) {
+            Thread.sleep( 200 );
+        } catch ( InterruptedException ex ) {
         }
-        Assert.assertEquals("Hello Bob!", view.message.getValue());
+        Assert.assertEquals( "Hello Bob!", view.message.getValue() );
     }
 
     @After

@@ -23,6 +23,7 @@ package org.codeartisans.java.sos.presenters;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.codeartisans.java.sos.messagebus.Subscribtion;
 import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
 import org.codeartisans.java.sos.views.View;
@@ -47,7 +48,7 @@ public abstract class BasePresenter<V extends View>
     }
 
     @Override
-    public final View view()
+    public final V view()
     {
         return view;
     }

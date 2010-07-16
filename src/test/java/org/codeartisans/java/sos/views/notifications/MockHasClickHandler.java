@@ -24,16 +24,18 @@ package org.codeartisans.java.sos.views.notifications;
 import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
 import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 import org.codeartisans.java.sos.views.handlers.ClickHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public final class MockHasClickHandler implements HasClickHandlers
+public final class MockHasClickHandler<T>
+        implements HasClickHandlers<T>
 {
 
-    private final List<ClickHandler> handlers = new ArrayList<ClickHandler>();
+    private final List<ClickHandler<T>> handlers = new ArrayList<ClickHandler<T>>();
 
     @Override
-    public HandlerRegistration addClickHandler( final ClickHandler handler )
+    public HandlerRegistration addClickHandler( final ClickHandler<T> handler )
     {
         handlers.add( handler );
         return new HandlerRegistration()
@@ -51,8 +53,8 @@ public final class MockHasClickHandler implements HasClickHandlers
 
     public void click()
     {
-        for ( ClickHandler eachHandler : handlers ) {
-            eachHandler.onClick( new ClickNotification() );
+        for ( ClickHandler<T> eachHandler : handlers ) {
+            eachHandler.onClick( new ClickNotification<T>() );
         }
     }
 

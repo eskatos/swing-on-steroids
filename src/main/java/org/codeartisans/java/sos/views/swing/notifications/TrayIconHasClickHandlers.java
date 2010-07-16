@@ -25,6 +25,7 @@ import java.awt.TrayIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.handlers.ClickHandler;

@@ -27,9 +27,11 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.Window;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings( "PublicInnerClass" )
 public final class SOSTrayIconUtil
 {
 
@@ -65,14 +67,14 @@ public final class SOSTrayIconUtil
         } else {
             trayIconLocation = TrayIconLocation.BOTTOM_RIGHT;
         }
-        LOGGER.debug( "updateTrayIconLocation: {}, {}, {}", new Object[]{ trayX, trayY, trayIconLocation } );
+        LOGGER.trace( "updateTrayIconLocation: {}, {}, {}", new Object[]{ trayX, trayY, trayIconLocation } );
     }
 
     public static void moveFrameNextToTrayIcon( Window frame )
     {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
-        Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(ge.getDefaultScreenDevice().getDefaultConfiguration());
+        Insets insets = Toolkit.getDefaultToolkit().getScreenInsets( ge.getDefaultScreenDevice().getDefaultConfiguration() );
         DisplayMode dm = gs[trayIconScreen].getDisplayMode();
         int screenWidth = dm.getWidth();
         int screenHeight = dm.getHeight();

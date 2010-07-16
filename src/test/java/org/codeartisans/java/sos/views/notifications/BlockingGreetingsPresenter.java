@@ -21,89 +21,86 @@
  */
 package org.codeartisans.java.sos.views.notifications;
 
-import org.codeartisans.java.sos.views.handlers.ClickHandler;
 import com.google.inject.Inject;
+
 import org.codeartisans.java.sos.presenters.BasePresenter;
 import org.codeartisans.java.sos.presenters.Presenter;
 import org.codeartisans.java.sos.sampleapp.domain.GreetService;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
+import org.codeartisans.java.sos.views.handlers.ClickHandler;
 import org.codeartisans.java.toolbox.async.Callback;
 
 /**
- *
- * @author jmt
+ * @author Jean-Michel Tonneau
  */
+@SuppressWarnings( "CallToThreadDumpStack" )
 public class BlockingGreetingsPresenter
-         extends BasePresenter<GreetingsView>
+        extends BasePresenter<GreetingsView>
         implements Presenter
 {
 
     private final GreetService greetService;
 
-    /**
-     *
-     * @param view
-     * @param greetService
-     */
     @Inject
-    public BlockingGreetingsPresenter(GreetingsView view, GreetService greetService)
+    public BlockingGreetingsPresenter( GreetingsView view, GreetService greetService )
     {
-        super(view);
+        super( view );
         this.greetService = greetService;
     }
 
     @Override
     public void onBind()
     {
-        recordViewRegistration(view.greetButton().addClickHandler(new ClickHandler()
+        recordViewRegistration( view.greetButton().addClickHandler( new ClickHandler<Void>()
         {
 
             @Override
-            public void onClick(ClickNotification notification)
+            public void onClick( ClickNotification notification )
             {
                 view.busy();
 
                 try {
-                    Thread.sleep(500);
-                } catch (InterruptedException ex) {
+                    Thread.sleep( 500 );
+                } catch ( InterruptedException ex ) {
                 }
-                
-                greetService.greet(view.nameInput().getValue(), new Callback<String>()
+
+                greetService.greet( view.nameInput().getValue(), new Callback<String>()
                 {
 
                     @Override
-                    public void onSuccess(String value)
+                    public void onSuccess( String value )
                     {
-                        view.messageDisplay().setValue(value);
+                        view.messageDisplay().setValue( value );
                         view.done();
                     }
 
                     @Override
-                    public void onError(String message, Throwable cause)
+                    public void onError( String message, Throwable cause )
                     {
                         cause.printStackTrace();
-                        view.messageDisplay().setValue("Unable to greet, see logs for details.");
+                        view.messageDisplay().setValue( "Unable to greet, see logs for details." );
                         view.done();
                     }
 
-                });
+                } );
             }
 
-        }));
-        recordViewRegistration(view.closeButton().addClickHandler(new ClickHandler()
+        } ) );
+        recordViewRegistration( view.closeButton().addClickHandler( new ClickHandler<Void>()
         {
 
             @Override
-            public void onClick(ClickNotification notification)
+            public void onClick( ClickNotification notification )
             {
                 view.hide();
             }
 
-        }));
+        } ) );
     }
 
     @Override
     public void onUnbind()
     {
     }
+
 }

@@ -23,25 +23,28 @@ package org.codeartisans.java.sos.presenters;
 
 import org.codeartisans.java.sos.presenters.UseCase.HelloPresenter;
 import org.codeartisans.java.sos.presenters.UseCase.HelloViewImpl;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import org.qi4j.bootstrap.AssemblyException;
 import org.qi4j.bootstrap.ModuleAssembly;
 import org.qi4j.test.AbstractQi4jTest;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
 public class Qi4jHelloPresenterTest
         extends AbstractQi4jTest
 {
 
     @Override
-    public void assemble(ModuleAssembly module) throws AssemblyException
+    public void assemble( ModuleAssembly module )
+            throws AssemblyException
     {
-        module.addObjects(HelloViewImpl.class);
-        module.addObjects(HelloPresenter.class);
+        module.addObjects( HelloViewImpl.class );
+        module.addObjects( HelloPresenter.class );
     }
 
     private HelloPresenter presenter;
@@ -52,7 +55,7 @@ public class Qi4jHelloPresenterTest
             throws Exception
     {
         super.setUp();
-        presenter = objectBuilderFactory.newObject(HelloPresenter.class);
+        presenter = objectBuilderFactory.newObject( HelloPresenter.class );
         presenter.bind();
     }
 
@@ -69,7 +72,7 @@ public class Qi4jHelloPresenterTest
     @Test
     public void testHelloPresenter()
     {
-        UseCase.Util.testHelloPresenter(presenter);
+        UseCase.Util.testHelloPresenter( presenter );
     }
 
 }

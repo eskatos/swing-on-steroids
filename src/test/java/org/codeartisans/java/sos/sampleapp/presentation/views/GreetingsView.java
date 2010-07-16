@@ -25,19 +25,16 @@ import org.codeartisans.java.sos.views.View;
 import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 import org.codeartisans.java.sos.views.values.HasValue;
 
-/**
- * @author Paul Merlin <paul@nosphere.org>
- */
 public interface GreetingsView
         extends View
 {
 
     HasValue<String> nameInput();
 
-    HasClickHandlers greetButton();
+    HasClickHandlers<Void> greetButton();
 
     HasValue<String> messageDisplay();
 
-    HasClickHandlers closeButton();
+    HasClickHandlers<Void> closeButton();
 
 }

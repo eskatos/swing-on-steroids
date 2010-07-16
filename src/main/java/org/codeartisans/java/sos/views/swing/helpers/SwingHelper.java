@@ -21,12 +21,14 @@
  */
 package org.codeartisans.java.sos.views.swing.helpers;
 
+import java.awt.EventQueue;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.RepaintManager;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
 import org.jdesktop.swinghelper.debug.CheckThreadViolationRepaintManager;
 import org.jdesktop.swinghelper.debug.EventDispatchThreadHangMonitor;
 
@@ -85,6 +87,17 @@ public final class SwingHelper
             throw new SwingFault( ex.getMessage(), ex );
         } catch ( InvocationTargetException ex ) {
             throw new SwingFault( ex.getMessage(), ex );
+        }
+    }
+
+    public static void invokeAndWait( Runnable runnable )
+    {
+        try {
+            EventQueue.invokeAndWait( runnable );
+        } catch ( InterruptedException ex ) {
+            throw new SwingFault( "Unable to invoke and wait: " + ex.getMessage(), ex );
+        } catch ( InvocationTargetException ex ) {
+            throw new SwingFault( "Unable to invoke and wait: " + ex.getMessage(), ex );
         }
     }
 

@@ -22,11 +22,13 @@
 package org.codeartisans.java.sos.views.swing.helpers;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin
  */
 public class SwingFault
         extends RuntimeException
 {
+
+    private static final long serialVersionUID = 1L;
 
     public SwingFault( String msg )
     {

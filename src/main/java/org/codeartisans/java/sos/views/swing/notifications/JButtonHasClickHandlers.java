@@ -24,13 +24,14 @@ package org.codeartisans.java.sos.views.swing.notifications;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.handlers.ClickHandler;
 import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
 import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 
-public final class JButtonHasClickHandlers
+public class JButtonHasClickHandlers
         implements HasClickHandlers<Void>
 {
 
@@ -44,10 +45,8 @@ public final class JButtonHasClickHandlers
     }
 
     @Override
-    public HandlerRegistration addClickHandler( final ClickHandler<Void> handler )
+    public final HandlerRegistration addClickHandler( final ClickHandler<Void> handler )
     {
-
-
         final ActionListener listener = new ActionListener()
         {
 
@@ -78,10 +77,9 @@ public final class JButtonHasClickHandlers
             }
 
         };
-
     }
 
-    public JButton getJButton()
+    public final JButton getJButton()
     {
         return button;
     }

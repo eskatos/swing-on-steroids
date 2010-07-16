@@ -21,65 +21,80 @@
  */
 package org.codeartisans.java.sos.views.notifications;
 
+import com.google.inject.Inject;
+
+import javax.swing.JButton;
+
 import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 import org.codeartisans.java.sos.views.values.StringHasStringValue;
-import com.google.inject.Inject;
-import javax.swing.JButton;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.sos.views.swing.SwingWrappersFactory;
 import org.codeartisans.java.sos.views.values.HasValue;
 
-class MockUnBlockingJButtonedGreetingsView implements GreetingsView {
+class MockUnBlockingJButtonedGreetingsView
+        implements GreetingsView
+{
 
     private final SwingWrappersFactory swingWrappersFactory;
     final StringHasStringValue name = new StringHasStringValue();
-    final MockHasClickHandler greet = new MockHasClickHandler();
+    final MockHasClickHandler<Void> greet = new MockHasClickHandler<Void>();
     final StringHasStringValue message = new StringHasStringValue();
-    final MockHasClickHandler close = new MockHasClickHandler();
+    final MockHasClickHandler<Void> close = new MockHasClickHandler<Void>();
     final JButton button = new JButton();
 
     @Inject
-    public MockUnBlockingJButtonedGreetingsView(SwingWrappersFactory swingWrappersFactory) {
+    public MockUnBlockingJButtonedGreetingsView( SwingWrappersFactory swingWrappersFactory )
+    {
         this.swingWrappersFactory = swingWrappersFactory;
     }
 
     @Override
-    public HasValue<String> nameInput() {
+    public HasValue<String> nameInput()
+    {
         return name;
     }
 
     @Override
-    public HasClickHandlers greetButton() {
-        return swingWrappersFactory.createJButtonHasClickHandler(button);
+    public HasClickHandlers<Void> greetButton()
+    {
+        return swingWrappersFactory.createJButtonHasClickHandler( button );
     }
 
     @Override
-    public HasValue<String> messageDisplay() {
+    public HasValue<String> messageDisplay()
+    {
         return message;
     }
 
     @Override
-    public HasClickHandlers closeButton() {
+    public HasClickHandlers<Void> closeButton()
+    {
         return close;
     }
 
     @Override
-    public void reveal() {
+    public void reveal()
+    {
     }
 
     @Override
-    public void hide() {
+    public void hide()
+    {
     }
 
     @Override
-    public void busy() {
+    public void busy()
+    {
     }
 
     @Override
-    public void done() {
+    public void done()
+    {
     }
 
-    public JButton getButton() {
+    public JButton getButton()
+    {
         return button;
     }
+
 }

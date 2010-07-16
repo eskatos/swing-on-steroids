@@ -23,6 +23,7 @@ package org.codeartisans.java.sos.forking;
 
 import org.codeartisans.java.toolbox.async.CallbackWithE;
 
+@SuppressWarnings( "PublicInnerClass" )
 public interface ForkService
 {
 

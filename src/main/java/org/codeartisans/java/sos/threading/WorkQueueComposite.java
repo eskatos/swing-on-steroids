@@ -22,12 +22,14 @@
 package org.codeartisans.java.sos.threading;
 
 import org.codeartisans.java.toolbox.async.ErrorCallbackAdapter;
+
 import org.qi4j.api.configuration.Configuration;
 import org.qi4j.api.injection.scope.This;
 import org.qi4j.api.mixin.Mixins;
 import org.qi4j.api.service.ServiceComposite;
 
 @Mixins( WorkQueueComposite.Mixin.class )
+@SuppressWarnings( "PublicInnerClass" )
 public interface WorkQueueComposite
         extends WorkQueue, ServiceComposite
 {

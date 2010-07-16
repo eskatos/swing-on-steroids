@@ -27,6 +27,7 @@ import java.awt.event.MouseListener;
 import java.util.Collection;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.handlers.HandlerRegistration;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
@@ -34,39 +35,40 @@ import org.codeartisans.java.sos.views.values.ValueChangeHandler;
 import org.codeartisans.java.sos.views.values.ValueChangeNotification;
 
 /**
- * 
- *
  * @author Fabien Barbero <fabien.barbero@gmail.com>
  */
 public class JTreeHasValueChangeHandlers
         extends JTreeHasValue
-        implements HasValueChangeHandlers<Collection>
+        implements HasValueChangeHandlers<Collection<?>>
 {
 
     private final WorkQueue workQueue;
 
-    public JTreeHasValueChangeHandlers(WorkQueue workQueue, JTree tree) {
-        super(tree);
+    public JTreeHasValueChangeHandlers( WorkQueue workQueue, JTree tree )
+    {
+        super( tree );
         this.workQueue = workQueue;
     }
 
     @Override
-    public HandlerRegistration addValueChangeHandler( final ValueChangeHandler<Collection> handler )
+    public HandlerRegistration addValueChangeHandler( final ValueChangeHandler<Collection<?>> handler )
     {
-        final MouseListener mouseListener = new MouseAdapter() {
+        final MouseListener mouseListener = new MouseAdapter()
+        {
 
             @Override
             public void mouseReleased( MouseEvent e )
             {
-                if(e.getButton() == MouseEvent.BUTTON1) {
+                if ( e.getButton() == MouseEvent.BUTTON1 ) {
                     workQueue.enqueue( new Runnable()
                     {
+
                         @Override
                         public void run()
                         {
                             TreePath[] paths = tree.getSelectionPaths();
-                            if(paths != null && paths.length != 0) {
-                                handler.onValueChange( new ValueChangeNotification<Collection>(getValue()) );
+                            if ( paths != null && paths.length != 0 ) {
+                                handler.onValueChange( new ValueChangeNotification<Collection<?>>( getValue() ) );
                             }
                         }
 
@@ -79,13 +81,16 @@ public class JTreeHasValueChangeHandlers
         tree.addMouseListener( mouseListener );
 
 
-        return new HandlerRegistration() {
+        return new HandlerRegistration()
+        {
 
             @Override
             public void removeHandler()
             {
                 tree.removeMouseListener( mouseListener );
             }
+
         };
     }
+
 }

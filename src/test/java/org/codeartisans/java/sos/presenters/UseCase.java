@@ -22,6 +22,7 @@
 package org.codeartisans.java.sos.presenters;
 
 import com.google.inject.Inject;
+
 import org.codeartisans.java.sos.views.View;
 import org.codeartisans.java.sos.views.notifications.MockHasClickHandler;
 import org.codeartisans.java.sos.views.values.StringHasStringValue;
@@ -29,12 +30,15 @@ import org.codeartisans.java.sos.views.handlers.ClickHandler;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 import org.codeartisans.java.sos.views.values.HasValue;
+
 import org.junit.Assert;
+
 import org.qi4j.api.injection.scope.Uses;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
+@SuppressWarnings( "PublicInnerClass" )
 public interface UseCase
 {
 
@@ -45,10 +49,11 @@ public interface UseCase
         {
             presenter.bind();
             presenter.view.input().setValue( "Sneak" );
-            ( ( MockHasClickHandler ) presenter.view.sayHelloButton() ).click();
+            ( ( MockHasClickHandler<Void> ) presenter.view.sayHelloButton() ).click();
             Assert.assertEquals( "Hello Sneak", presenter.view.output().getValue() );
 
         }
+
     }
 
     static class HelloPresenter
@@ -65,14 +70,15 @@ public interface UseCase
         @Override
         public void onBind()
         {
-            recordViewRegistration( view.sayHelloButton().addClickHandler( new ClickHandler()
+            recordViewRegistration( view.sayHelloButton().addClickHandler( new ClickHandler<Void>()
             {
 
                 @Override
-                public void onClick( ClickNotification notification )
+                public void onClick( ClickNotification<Void> notification )
                 {
                     view.output().setValue( "Hello " + view.input().getValue() );
                 }
+
             } ) );
         }
 
@@ -80,29 +86,33 @@ public interface UseCase
         public void onUnbind()
         {
         }
+
     }
 
-    interface HelloView extends View
+    interface HelloView
+            extends View
     {
 
         HasValue<String> input();
 
-        HasClickHandlers sayHelloButton();
+        HasClickHandlers<Void> sayHelloButton();
 
         HasValue<String> output();
+
     }
 
-    static class HelloViewImpl implements HelloView
+    static class HelloViewImpl
+            implements HelloView
     {
 
         private final HasValue<String> input;
         private final HasValue<String> output;
-        private final MockHasClickHandler sayHelloButton;
+        private final MockHasClickHandler<Void> sayHelloButton;
 
         public HelloViewImpl()
         {
             input = new StringHasStringValue();
-            sayHelloButton = new MockHasClickHandler();
+            sayHelloButton = new MockHasClickHandler<Void>();
             output = new StringHasStringValue();
         }
 
@@ -113,7 +123,7 @@ public interface UseCase
         }
 
         @Override
-        public HasClickHandlers sayHelloButton()
+        public HasClickHandlers<Void> sayHelloButton()
         {
             return sayHelloButton;
         }
@@ -143,5 +153,7 @@ public interface UseCase
         public void done()
         {
         }
+
     }
+
 }

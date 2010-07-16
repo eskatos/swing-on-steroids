@@ -22,7 +22,7 @@
 package org.codeartisans.java.sos.messagebus;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
 public interface Veto
 {

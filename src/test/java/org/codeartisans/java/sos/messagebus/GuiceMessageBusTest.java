@@ -25,19 +25,22 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
+
 import org.codeartisans.java.sos.threading.DefaultWorkQueue;
 import org.codeartisans.java.sos.threading.WorkQueue;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
 public class GuiceMessageBusTest
 {
 
-    private class MessageBusTestModule extends AbstractModule
+    private class MessageBusTestModule
+            extends AbstractModule
     {
 
         @Override
@@ -67,7 +70,8 @@ public class GuiceMessageBusTest
     }
 
     @Test
-    public void test() throws InterruptedException
+    public void test()
+            throws InterruptedException
     {
         UseCase.Util.testMessageBus( msgBus );
     }

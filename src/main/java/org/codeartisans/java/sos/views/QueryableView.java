@@ -25,17 +25,6 @@ package org.codeartisans.java.sos.views;
  * Interface for Views with accessors giving View state.
  */
 public interface QueryableView
-        extends View
+        extends View, ViewQueries
 {
-
-    /**
-     * @return True if the View is visible in the current display, false otherwise.
-     */
-    boolean isRevealed();
-
-    /**
-     * @return Trus if the View is in busy state, false otherwise.
-     */
-    boolean isBusy();
-
 }

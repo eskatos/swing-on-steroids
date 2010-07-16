@@ -24,11 +24,11 @@ package org.codeartisans.java.sos.sampleapp.domain;
 import org.codeartisans.java.toolbox.async.Callback;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin
  */
 public interface GreetService
 {
 
-    void greet(String name, Callback<String> callback);
+    void greet( String name, Callback<String> callback );
 
 }

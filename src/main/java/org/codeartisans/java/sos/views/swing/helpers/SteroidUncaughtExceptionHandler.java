@@ -22,9 +22,11 @@
 package org.codeartisans.java.sos.views.swing.helpers;
 
 import javax.swing.SwingUtilities;
+
+import org.codeartisans.java.sos.views.swing.components.ExceptionDialog;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.codeartisans.java.sos.views.swing.components.ExceptionDialog;
 
 public final class SteroidUncaughtExceptionHandler
         implements Thread.UncaughtExceptionHandler

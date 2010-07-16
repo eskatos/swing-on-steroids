@@ -22,12 +22,13 @@
 package org.codeartisans.java.sos.sampleapp.presentation.views.swing;
 
 import com.google.inject.Inject;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 import org.codeartisans.java.sos.views.swing.SwingWrappersFactory;
-import org.codeartisans.java.sos.views.swing.notifications.JFrameHasCloseClickHandlers;
 import org.codeartisans.java.sos.views.swing.notifications.JLabelHasStringValue;
 import org.codeartisans.java.sos.views.swing.notifications.JTextComponentHasStringValue;
 import org.codeartisans.java.sos.views.values.HasValue;
@@ -38,37 +39,37 @@ public class SwingGreetingsView
 
     private final SwingWrappersFactory swingWrappersFactory;
     private GreetingsFrame delegate;
-    private HasClickHandlers greetButton;
-    private HasClickHandlers closeButton;
+    private HasClickHandlers<Void> greetButton;
+    private HasClickHandlers<Void> closeButton;
 
     @Inject
-    public SwingGreetingsView(SwingWrappersFactory swingWrapFactory)
+    public SwingGreetingsView( SwingWrappersFactory swingWrapFactory )
     {
         swingWrappersFactory = swingWrapFactory;
-        EventQueue.invokeLater(new Runnable()
+        EventQueue.invokeLater( new Runnable()
         {
 
             @Override
             public void run()
             {
                 delegate = new GreetingsFrame();
-                delegate.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                greetButton = swingWrappersFactory.createJButtonHasClickHandler(delegate.getButton());
-                closeButton = swingWrappersFactory.createJFrameHasCloseClickHandlers(delegate);
+                delegate.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE );
+                greetButton = swingWrappersFactory.createJButtonHasClickHandler( delegate.getButton() );
+                closeButton = swingWrappersFactory.createJFrameHasCloseClickHandlers( delegate );
             }
 
-        });
+        } );
 
     }
 
     @Override
     public HasValue<String> nameInput()
     {
-        return new JTextComponentHasStringValue(delegate.getInput());
+        return new JTextComponentHasStringValue( delegate.getInput() );
     }
 
     @Override
-    public HasClickHandlers greetButton()
+    public HasClickHandlers<Void> greetButton()
     {
         return greetButton;
     }
@@ -76,11 +77,11 @@ public class SwingGreetingsView
     @Override
     public HasValue<String> messageDisplay()
     {
-        return new JLabelHasStringValue(delegate.getMessage());
+        return new JLabelHasStringValue( delegate.getMessage() );
     }
 
     @Override
-    public HasClickHandlers closeButton()
+    public HasClickHandlers<Void> closeButton()
     {
         return closeButton;
     }
@@ -88,22 +89,22 @@ public class SwingGreetingsView
     @Override
     public void reveal()
     {
-        EventQueue.invokeLater(new Runnable()
+        EventQueue.invokeLater( new Runnable()
         {
 
             @Override
             public void run()
             {
-                delegate.setVisible(true);
+                delegate.setVisible( true );
             }
 
-        });
+        } );
     }
 
     @Override
     public void hide()
     {
-        EventQueue.invokeLater(new Runnable()
+        EventQueue.invokeLater( new Runnable()
         {
 
             @Override
@@ -112,37 +113,37 @@ public class SwingGreetingsView
                 delegate.dispose();
             }
 
-        });
+        } );
     }
 
     @Override
     public void busy()
     {
-        EventQueue.invokeLater(new Runnable()
+        EventQueue.invokeLater( new Runnable()
         {
 
             @Override
             public void run()
             {
-                delegate.getButton().setEnabled(false);
+                delegate.getButton().setEnabled( false );
             }
 
-        });
+        } );
     }
 
     @Override
     public void done()
     {
-        EventQueue.invokeLater(new Runnable()
+        EventQueue.invokeLater( new Runnable()
         {
 
             @Override
             public void run()
             {
-                delegate.getButton().setEnabled(true);
+                delegate.getButton().setEnabled( true );
             }
 
-        });
+        } );
     }
 
 }

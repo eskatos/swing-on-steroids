@@ -35,6 +35,8 @@ public class EnhancedLabel
         extends JLabel
 {
 
+    private static final long serialVersionUID = 1L;
+
     @Override
     public final void setIcon( Icon icon )
     {

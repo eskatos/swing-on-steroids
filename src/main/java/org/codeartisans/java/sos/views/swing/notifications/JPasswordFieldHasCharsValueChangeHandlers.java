@@ -23,6 +23,7 @@ package org.codeartisans.java.sos.views.swing.notifications;
 
 import javax.swing.JPasswordField;
 import javax.swing.event.DocumentListener;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.values.ValueChangeHandler;
 import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;

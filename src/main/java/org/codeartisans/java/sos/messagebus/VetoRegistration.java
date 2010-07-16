@@ -24,7 +24,7 @@ package org.codeartisans.java.sos.messagebus;
 /**
  * Registration reference holder for a Veto handling a MessageType on a MessageBus.
  * 
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
 public final class VetoRegistration
 {

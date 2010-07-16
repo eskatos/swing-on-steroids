@@ -25,7 +25,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin
  */
 abstract class TextDocumentListener
         implements DocumentListener

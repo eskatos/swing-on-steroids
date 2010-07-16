@@ -23,29 +23,32 @@ package org.codeartisans.java.sos.presenters;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
+
 import org.codeartisans.java.sos.presenters.UseCase.HelloPresenter;
 import org.codeartisans.java.sos.presenters.UseCase.HelloView;
 import org.codeartisans.java.sos.presenters.UseCase.HelloViewImpl;
 import org.codeartisans.java.sos.views.notifications.MockHasClickHandler;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
 public class GuiceHelloPresenterTest
 {
 
-    private class HelloPresenterTestModule extends AbstractModule
+    private class HelloPresenterTestModule
+            extends AbstractModule
     {
 
         @Override
         protected void configure()
         {
-            bind(HelloView.class).to(HelloViewImpl.class);
-            bind(HelloPresenter.class);
+            bind( HelloView.class ).to( HelloViewImpl.class );
+            bind( HelloPresenter.class );
         }
 
     }
@@ -55,7 +58,7 @@ public class GuiceHelloPresenterTest
     @Before
     public void setUp()
     {
-        presenter = Guice.createInjector(new HelloPresenterTestModule()).getInstance(HelloPresenter.class);
+        presenter = Guice.createInjector( new HelloPresenterTestModule() ).getInstance( HelloPresenter.class );
         presenter.bind();
     }
 
@@ -70,9 +73,9 @@ public class GuiceHelloPresenterTest
     public void testHelloPresenter()
     {
         presenter.bind();
-        presenter.view.input().setValue("Sneak");
-        ((MockHasClickHandler) presenter.view.sayHelloButton()).click();
-        Assert.assertEquals("Hello Sneak", presenter.view.output().getValue());
+        presenter.view.input().setValue( "Sneak" );
+        ( ( MockHasClickHandler ) presenter.view.sayHelloButton() ).click();
+        Assert.assertEquals( "Hello Sneak", presenter.view.output().getValue() );
     }
 
 }

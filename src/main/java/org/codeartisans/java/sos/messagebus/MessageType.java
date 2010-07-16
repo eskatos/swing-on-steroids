@@ -32,6 +32,7 @@ package org.codeartisans.java.sos.messagebus;
  *
  * @param <S> Subscriber mark
  */
+@SuppressWarnings( "ValueOfIncrementOrDecrementUsed" )
 public class MessageType<S extends Subscriber>
 {
 

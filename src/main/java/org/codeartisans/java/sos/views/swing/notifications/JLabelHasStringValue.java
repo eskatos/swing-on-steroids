@@ -22,6 +22,7 @@
 package org.codeartisans.java.sos.views.swing.notifications;
 
 import javax.swing.JLabel;
+
 import org.codeartisans.java.sos.views.values.HasValue;
 
 /**

@@ -22,7 +22,7 @@
 package org.codeartisans.java.sos;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin
  */
 public class SOSFailure
         extends RuntimeException
@@ -41,4 +41,3 @@ public class SOSFailure
     }
 
 }
-

@@ -22,6 +22,7 @@
 package org.codeartisans.java.sos.views.swing.notifications;
 
 import org.codeartisans.java.sos.views.values.HasValue;
+
 import org.jdesktop.swingx.JXHeader;
 
 public class JXHeaderHasTitleStringValue

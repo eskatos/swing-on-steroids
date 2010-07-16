@@ -22,6 +22,8 @@
 package org.codeartisans.java.sos.views.swing.notifications;
 
 import javax.swing.JComboBox;
+import org.codeartisans.java.sos.views.swing.helpers.SwingHelper;
+
 import org.codeartisans.java.sos.views.values.HasValue;
 
 /**
@@ -51,9 +53,18 @@ public class JComboBoxHasValue<V>
     }
 
     @Override
-    public final void setValue( V value )
+    public final void setValue( final V value )
     {
-        jComboBox.setSelectedItem( value );
+        SwingHelper.invokeAndWait( new Runnable()
+        {
+
+            @Override
+            public void run()
+            {
+                jComboBox.setSelectedItem( value );
+            }
+
+        } );
     }
 
 }

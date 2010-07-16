@@ -22,6 +22,7 @@
 package org.codeartisans.java.sos.messagebus;
 
 import com.google.inject.Inject;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
 
 /**
@@ -59,7 +60,7 @@ public final class MultiThreadDeliveryMessageBus
         } );
     }
 
-    private void deliver( final Message message, final Subscriber subscriber )
+    private <S extends Subscriber> void deliver( final Message<S> message, final S subscriber )
     {
         workQueue.enqueue( new Runnable()
         {

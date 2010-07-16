@@ -25,19 +25,19 @@ import org.codeartisans.java.toolbox.StringUtils;
 import org.codeartisans.java.toolbox.async.Callback;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin 
  */
 public class DefaultGreetService
         implements GreetService
 {
 
     @Override
-    public void greet(String name, Callback<String> callback)
+    public void greet( String name, Callback<String> callback )
     {
-        if (StringUtils.isEmpty(name)) {
-            callback.onError("name was empty", new IllegalArgumentException("name was empty"));
+        if ( StringUtils.isEmpty( name ) ) {
+            callback.onError( "name was empty", new IllegalArgumentException( "name was empty" ) );
         }
-        callback.onSuccess("Hello " + name + "!");
+        callback.onSuccess( "Hello " + name + "!" );
     }
 
 }

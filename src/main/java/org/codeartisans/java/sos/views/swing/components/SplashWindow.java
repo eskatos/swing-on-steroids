@@ -31,6 +31,8 @@ public final class SplashWindow
         extends JWindow
 {
 
+    private static final long serialVersionUID = 1L;
+
     public SplashWindow( URL splashURL )
     {
         JLabel label = new JLabel( new ImageIcon( splashURL ) );

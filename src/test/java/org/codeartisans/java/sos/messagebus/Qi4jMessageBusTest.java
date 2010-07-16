@@ -23,7 +23,9 @@ package org.codeartisans.java.sos.messagebus;
 
 import org.codeartisans.java.sos.threading.WorkQueueComposite;
 import org.codeartisans.java.sos.threading.WorkQueueConfiguration;
+
 import org.junit.Test;
+
 import org.qi4j.api.service.ServiceReference;
 import org.qi4j.bootstrap.AssemblyException;
 import org.qi4j.bootstrap.ModuleAssembly;
@@ -32,14 +34,16 @@ import org.qi4j.spi.uuid.UuidIdentityGeneratorService;
 import org.qi4j.test.AbstractQi4jTest;
 
 /**
- * @author Paul Merlin <p.merlin@nosphere.org>
+ * @author Paul Merlin 
  */
 public class Qi4jMessageBusTest
         extends AbstractQi4jTest
 {
 
     @Override
-    public void assemble( ModuleAssembly module ) throws AssemblyException
+    @SuppressWarnings( "unchecked" )
+    public void assemble( ModuleAssembly module )
+            throws AssemblyException
     {
         module.addServices( MemoryEntityStoreService.class, UuidIdentityGeneratorService.class );
         module.addEntities( WorkQueueConfiguration.class );
@@ -48,7 +52,8 @@ public class Qi4jMessageBusTest
     }
 
     @Test
-    public void testMessageBus() throws InterruptedException
+    public void testMessageBus()
+            throws InterruptedException
     {
         ServiceReference<MessageBusComposite> ref = serviceLocator.findService( MessageBusComposite.class );
         MessageBus messageBus = ref.get();
