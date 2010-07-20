@@ -19,47 +19,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.wizard.views.swing;
+package org.codeartisans.java.sos.wizard.views.swing.components;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.LayoutManager;
+import java.awt.Rectangle;
+import java.awt.geom.Area;
+import java.awt.geom.RoundRectangle2D;
+import javax.swing.JPanel;
+import org.codeartisans.java.sos.views.swing.helpers.SwingHelper;
 
-import net.miginfocom.layout.CC;
-import net.miginfocom.swing.MigLayout;
-
-import org.codeartisans.java.sos.wizard.model.PlanType;
-import org.codeartisans.java.sos.wizard.views.swing.components.BaseSwingWizardBlockingPanel;
-
-public class PlanTypeConfirmBlockingPanel
-        extends BaseSwingWizardBlockingPanel
+/**
+ * @author Paul Merlin
+ * @author Fabien Barbero
+ */
+public abstract class BaseSwingWizardBlockingPanel
+        extends JPanel
 {
 
-    private static final long serialVersionUID = 1L;
-    private JLabel msg = new JLabel();
-    private JButton yes = new JButton( "Yes" );
-    private JButton no = new JButton( "No" );
-
-    public PlanTypeConfirmBlockingPanel()
+    public BaseSwingWizardBlockingPanel( LayoutManager layoutManager )
     {
-        super( new MigLayout() );
-        add( msg, new CC().span( 2 ).alignX( "center" ).wrap() );
-        add( yes );
-        add( no );
+        super( layoutManager );
+        setOpaque( false );
     }
 
-    public JButton yesButton()
+    @Override
+    protected void paintComponent( Graphics g )
     {
-        return yes;
-    }
-
-    public JButton noButton()
-    {
-        return no;
-    }
-
-    public void setPlan( PlanType planType )
-    {
-        msg.setText( "Are you sure you want the " + planType + " plan?" );
+        super.paintComponent( g );
+        Graphics2D g2d = SwingHelper.addAntiAliasing( g );
+        Area shape = new Area( new RoundRectangle2D.Double( 0, 0, getWidth() - 1, getHeight() - 1, 20, 20 ) );
+        shape.add( new Area( new Rectangle( 0, 0, getWidth() - 1, 20 ) ) );
+        g2d.setColor( getBackground() );
+        g2d.fill( shape );
+        g2d.setColor( getForeground() );
+        g2d.draw( shape );
     }
 
 }

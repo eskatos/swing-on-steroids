@@ -25,19 +25,21 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JPanel;
 
-import net.miginfocom.layout.AC;
-import net.miginfocom.layout.CC;
-import net.miginfocom.layout.LC;
-import net.miginfocom.swing.MigLayout;
+import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.Timeline.TimelineState;
+import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
 
 /**
  * @author Paul Merlin
+ * @author Fabien Barbero
  */
 public class SwingWizardBlockingGlassPane
         extends JPanel
@@ -48,10 +50,8 @@ public class SwingWizardBlockingGlassPane
 
     public SwingWizardBlockingGlassPane()
     {
-        super( new MigLayout( new LC().fill().insets( "0" ),
-                              new AC(),
-                              new AC() ) );
-        setVisible( false );
+        super( null );
+        super.setVisible( false );
         setOpaque( false );
         addMouseListener( new MouseAdapter()
         {
@@ -61,17 +61,60 @@ public class SwingWizardBlockingGlassPane
         } );
     }
 
+    @Override
+    public void setVisible( boolean visible )
+    {
+        if ( isVisible() != visible ) {
+            Dimension compSize = blockingComponent.getPreferredSize();
+            int x = ( int ) ( getWidth() / 2 - compSize.getWidth() / 2 );
+            Timeline timeline = new Timeline( blockingComponent );
+            if ( !isVisible() ) {
+                timeline.setDuration( 250 );
+                timeline.addPropertyToInterpolate( "bounds",
+                                                   new Rectangle( x, -compSize.height, compSize.width, compSize.height ),
+                                                   new Rectangle( x, -1, compSize.width, compSize.height ) );
+                super.setVisible( true );
+                timeline.play();
+            } else {
+                timeline.setDuration( 100 );
+                timeline.addPropertyToInterpolate( "bounds",
+                                                   new Rectangle( x, -1, compSize.width, compSize.height ),
+                                                   new Rectangle( x, -compSize.height, compSize.width, compSize.height ) );
+                timeline.addCallback( new TimelineCallbackAdapter()
+                {
+
+                    @Override
+                    public void onTimelineStateChanged( TimelineState oldState, TimelineState newState, float durationFraction, float timelinePosition )
+                    {
+                        if ( newState == TimelineState.DONE ) {
+                            EventQueue.invokeLater( new Runnable()
+                            {
+
+                                @Override
+                                public void run()
+                                {
+                                    SwingWizardBlockingGlassPane.super.setVisible( false );
+                                }
+
+                            } );
+                        }
+                    }
+
+                } );
+                timeline.play();
+            }
+        }
+    }
+
     public void setBlockingComponent( Component blockingComponent )
     {
         if ( this.blockingComponent != null ) {
             remove( this.blockingComponent );
         }
-        Dimension compSize = blockingComponent.getPreferredSize();
-        double x = getWidth() / 2 - compSize.getWidth() / 2;
-        add( blockingComponent, new CC().pos( String.valueOf( x ), "0" ) );
+        add( blockingComponent );
+        this.blockingComponent = blockingComponent;
         validate();
         repaint();
-        this.blockingComponent = blockingComponent;
     }
 
     @Override

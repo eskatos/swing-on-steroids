@@ -22,6 +22,9 @@
 package org.codeartisans.java.sos.views.swing.helpers;
 
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -99,6 +102,13 @@ public final class SwingHelper
         } catch ( InvocationTargetException ex ) {
             throw new SwingFault( "Unable to invoke and wait: " + ex.getMessage(), ex );
         }
+    }
+
+    public static Graphics2D addAntiAliasing( Graphics g )
+    {
+        Graphics2D g2d = ( Graphics2D ) g;
+        g2d.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
+        return g2d;
     }
 
 }
