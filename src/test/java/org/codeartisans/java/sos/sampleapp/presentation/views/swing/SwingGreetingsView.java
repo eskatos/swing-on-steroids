@@ -29,9 +29,12 @@ import javax.swing.JFrame;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.sos.views.handlers.HasClickHandlers;
 import org.codeartisans.java.sos.views.swing.SwingWrappersFactory;
+import org.codeartisans.java.sos.views.swing.annotations.EventDispatchThread;
+import org.codeartisans.java.sos.views.swing.annotations.EventDispatchThreadPolicy;
+import org.codeartisans.java.sos.views.swing.helpers.SwingHelper;
 import org.codeartisans.java.sos.views.swing.notifications.JLabelHasStringValue;
-import org.codeartisans.java.sos.views.swing.notifications.JTextComponentHasStringValue;
 import org.codeartisans.java.sos.views.values.HasValue;
+import org.codeartisans.java.sos.views.values.HasValueChangeHandlers;
 
 public class SwingGreetingsView
         implements GreetingsView
@@ -41,12 +44,14 @@ public class SwingGreetingsView
     private GreetingsFrame delegate;
     private HasClickHandlers<Void> greetButton;
     private HasClickHandlers<Void> closeButton;
+    private HasValueChangeHandlers<String> nameInput;
+    private JLabelHasStringValue messageDisplay;
 
     @Inject
     public SwingGreetingsView( SwingWrappersFactory swingWrapFactory )
     {
         swingWrappersFactory = swingWrapFactory;
-        EventQueue.invokeLater( new Runnable()
+        SwingHelper.invokeAndWait( new Runnable()
         {
 
             @Override
@@ -56,6 +61,8 @@ public class SwingGreetingsView
                 delegate.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE );
                 greetButton = swingWrappersFactory.createJButtonHasClickHandler( delegate.getButton() );
                 closeButton = swingWrappersFactory.createJFrameHasCloseClickHandlers( delegate );
+                nameInput = swingWrappersFactory.createJTextComponentHasStringValueChangeHandlers( delegate.getInput() );
+                messageDisplay = new JLabelHasStringValue( delegate.getMessage() );
             }
 
         } );
@@ -65,7 +72,7 @@ public class SwingGreetingsView
     @Override
     public HasValue<String> nameInput()
     {
-        return new JTextComponentHasStringValue( delegate.getInput() );
+        return nameInput;
     }
 
     @Override
@@ -77,13 +84,22 @@ public class SwingGreetingsView
     @Override
     public HasValue<String> messageDisplay()
     {
-        return new JLabelHasStringValue( delegate.getMessage() );
+        return messageDisplay;
     }
 
     @Override
     public HasClickHandlers<Void> closeButton()
     {
         return closeButton;
+    }
+
+    @Override
+    @EventDispatchThread( value = EventDispatchThreadPolicy.invokeAndWait )
+    public void doSomethingLongInEDT()
+    {
+        for ( int i = 0; i < 200; i++ ) {
+            delegate.getMessage().setText( "Coucou " + i );
+        }
     }
 
     @Override

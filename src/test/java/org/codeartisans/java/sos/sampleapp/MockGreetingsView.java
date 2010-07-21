@@ -59,4 +59,9 @@ public class MockGreetingsView
     {
     }
 
+    @Override
+    public void doSomethingLongInEDT()
+    {
+    }
+
 }

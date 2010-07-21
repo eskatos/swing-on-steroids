@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 Paul Merlin <paul@nosphere.org>
+ * Copyright (c) 2010 Paul Merlin <paul@nosphere.org>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,51 +19,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.views.swing.notifications;
+package org.codeartisans.java.sos.views.swing.annotations;
 
-import javax.swing.JLabel;
-import org.codeartisans.java.sos.views.swing.helpers.SwingHelper;
-
-import org.codeartisans.java.sos.views.values.HasValue;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * @author Paul Merlin <paul@nosphere.org>
+ * @author Paul Merlin
  */
-public final class JLabelHasStringValue
-        implements HasValue<String>
+@Target( ElementType.METHOD )
+@Retention( RetentionPolicy.RUNTIME )
+public @interface EventDispatchThread
 {
 
-    private final JLabel label;
-
-    public JLabelHasStringValue( JLabel label )
-    {
-        this.label = label;
-    }
-
-    @Override
-    public String getValue()
-    {
-        return label.getText();
-    }
-
-    @Override
-    public void setValue( final String value )
-    {
-        SwingHelper.invokeAndWait( new Runnable()
-        {
-
-            @Override
-            public void run()
-            {
-                label.setText( value );
-            }
-
-        } );
-    }
-
-    public JLabel getLabel()
-    {
-        return label;
-    }
+    EventDispatchThreadPolicy value();
 
 }

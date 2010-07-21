@@ -51,11 +51,15 @@ public class GreetingsPresenter
     @Override
     public void onBind()
     {
-        recordViewRegistration( view.greetButton().addClickHandler( new ClickHandler()
+        System.out.println( view );
+        System.out.println( view.greetButton() );
+        System.out.println( view.nameInput() );
+        System.out.println( greetService );
+        recordViewRegistration( view.greetButton().addClickHandler( new ClickHandler<Void>()
         {
 
             @Override
-            public void onClick( ClickNotification notification )
+            public void onClick( ClickNotification<Void> notification )
             {
                 view.busy();
                 greetService.greet( view.nameInput().getValue(), new Callback<String>()
@@ -64,14 +68,18 @@ public class GreetingsPresenter
                     @Override
                     public void onSuccess( String value )
                     {
+                        view.doSomethingLongInEDT();
                         view.messageDisplay().setValue( value );
                         view.done();
                     }
 
                     @Override
+                    @SuppressWarnings( "CallToThreadDumpStack" )
                     public void onError( String message, Throwable cause )
                     {
-                        cause.printStackTrace();
+                        if ( cause != null ) {
+                            cause.printStackTrace();
+                        }
                         view.messageDisplay().setValue( "Unable to greet, see logs for details." );
                         view.done();
                     }
@@ -80,11 +88,11 @@ public class GreetingsPresenter
             }
 
         } ) );
-        recordViewRegistration( view.closeButton().addClickHandler( new ClickHandler()
+        recordViewRegistration( view.closeButton().addClickHandler( new ClickHandler<Void>()
         {
 
             @Override
-            public void onClick( ClickNotification notification )
+            public void onClick( ClickNotification<Void> notification )
             {
                 view.hide();
             }

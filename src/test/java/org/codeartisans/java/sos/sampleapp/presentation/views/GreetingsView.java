@@ -37,4 +37,6 @@ public interface GreetingsView
 
     HasClickHandlers<Void> closeButton();
 
+    void doSomethingLongInEDT();
+
 }

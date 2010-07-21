@@ -25,14 +25,20 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
+import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
 
+import org.codeartisans.java.sos.sampleapp.domain.DefaultGreetService;
+import org.codeartisans.java.sos.sampleapp.domain.GreetService;
 import org.codeartisans.java.sos.sampleapp.presentation.presenters.GreetingsPresenter;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
 import org.codeartisans.java.sos.sampleapp.presentation.views.swing.SwingGreetingsView;
 import org.codeartisans.java.sos.threading.DefaultWorkQueue;
 import org.codeartisans.java.sos.threading.WorkQueue;
 import org.codeartisans.java.sos.views.swing.SwingWrappersFactory;
+import org.codeartisans.java.sos.views.swing.annotations.EventDispatchThread;
+import org.codeartisans.java.sos.views.swing.annotations.EventDispatchThreadInterceptor;
+import org.codeartisans.java.sos.views.swing.helpers.SwingHelper;
 import org.codeartisans.java.toolbox.guice.GuiceHelper;
 
 public final class SampleGuiceApp
@@ -40,6 +46,7 @@ public final class SampleGuiceApp
 
     public static void main( String[] args )
     {
+        SwingHelper.initSafeSwing();
         GuiceHelper.enableDebugOutput();
         Injector injector = Guice.createInjector( new AbstractModule()
         {
@@ -52,7 +59,9 @@ public final class SampleGuiceApp
                 bind( WorkQueue.class ).to( DefaultWorkQueue.class ).in( Singleton.class );
                 bind( SwingWrappersFactory.class );
                 bind( GreetingsView.class ).to( SwingGreetingsView.class );
+                bind( GreetService.class ).to( DefaultGreetService.class ).in( Singleton.class );
                 bind( GreetingsPresenter.class );
+                bindInterceptor( Matchers.any(), Matchers.annotatedWith( EventDispatchThread.class ), new EventDispatchThreadInterceptor() );
             }
 
         } );

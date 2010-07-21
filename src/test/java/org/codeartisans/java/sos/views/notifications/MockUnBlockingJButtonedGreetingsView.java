@@ -97,4 +97,9 @@ class MockUnBlockingJButtonedGreetingsView
         return button;
     }
 
+    @Override
+    public void doSomethingLongInEDT()
+    {
+    }
+
 }
