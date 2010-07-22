@@ -109,7 +109,7 @@ public class SwingWizardView<M extends WizardModel>
     @Override
     public void setSteps( final Iterable<String> titles )
     {
-        EventQueue.invokeLater( new Runnable()
+        SwingHelper.invokeAndWait( new Runnable()
         {
 
             @Override
@@ -129,7 +129,7 @@ public class SwingWizardView<M extends WizardModel>
     @Override
     public void addStep( final String title )
     {
-        EventQueue.invokeLater( new Runnable()
+        SwingHelper.invokeAndWait( new Runnable()
         {
 
             @Override
@@ -147,7 +147,7 @@ public class SwingWizardView<M extends WizardModel>
     @Override
     public void setCurrentStep( final String title )
     {
-        EventQueue.invokeLater( new Runnable()
+        SwingHelper.invokeAndWait( new Runnable()
         {
 
             @Override
@@ -166,7 +166,7 @@ public class SwingWizardView<M extends WizardModel>
     @Override
     public void addPageView( final WizardPageID wizardPageID, final WizardPageView pageView )
     {
-        EventQueue.invokeLater( new Runnable()
+        SwingHelper.invokeAndWait( new Runnable()
         {
 
             @Override
@@ -185,7 +185,7 @@ public class SwingWizardView<M extends WizardModel>
     @Override
     public void showPage( final WizardPageID wizardPageID )
     {
-        EventQueue.invokeLater( new Runnable()
+        SwingHelper.invokeAndWait( new Runnable()
         {
 
             @Override
