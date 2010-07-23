@@ -178,12 +178,6 @@ public class DefaultWizardPresenter<M extends WizardModel>
     }
 
     @Override
-    public void goToNextPage() {
-        WizardPageID nextPageID = nextPageID();
-        moveToWizardPage( nextPageID, true, true, true );
-    }
-
-    @Override
     protected final void moveToWizardPage( WizardPageID pageID, boolean fireBeforeNext, boolean fireAfterNext, boolean fireBeforeShow )
     {
         if ( LOGGER.isTraceEnabled() ) {
