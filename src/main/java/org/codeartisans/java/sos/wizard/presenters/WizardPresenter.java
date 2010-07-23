@@ -46,6 +46,8 @@ public interface WizardPresenter<M extends WizardModel>
 
     void clickButton( WizardButton button );
 
+    void goToNextPage();
+
     void setButtonVisible( WizardButton button, boolean visible );
 
     void setButtonEnabled( WizardButton button, boolean enabled );

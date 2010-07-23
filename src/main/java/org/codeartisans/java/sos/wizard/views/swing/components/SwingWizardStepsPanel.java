@@ -44,6 +44,7 @@ public class SwingWizardStepsPanel
     private static final long serialVersionUID = 1L;
     private final JLabel arrow;
     private int count = 0;
+    private Color foreground;
 
     public SwingWizardStepsPanel()
     {
@@ -65,9 +66,19 @@ public class SwingWizardStepsPanel
         validate();
     }
 
+    @Override
+    public void setForeground(Color foreground) {
+        super.setForeground( foreground );
+        this.foreground = foreground;
+    }
+
     public void addStep( String title )
     {
-        add( new JLabel( title ), "cell 1 " + count );
+        JLabel label = new JLabel( title );
+        if(foreground != null) {
+            label.setForeground( foreground );
+        }
+        add( label, "cell 1 " + count );
         count++;
     }
 

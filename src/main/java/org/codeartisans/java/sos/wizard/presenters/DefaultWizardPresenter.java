@@ -77,7 +77,6 @@ public class DefaultWizardPresenter<M extends WizardModel>
         LOGGER.trace( "afterBind" );
         LOGGER.trace( "Graph {}", graph.toString() );
         moveToWizardPage( graph.startPageVertex().wizardPageID(), true, true, true );
-        autoAdjustPreviousNextButtonStates();
     }
 
     @Override
@@ -179,6 +178,12 @@ public class DefaultWizardPresenter<M extends WizardModel>
     }
 
     @Override
+    public void goToNextPage() {
+        WizardPageID nextPageID = nextPageID();
+        moveToWizardPage( nextPageID, true, true, true );
+    }
+
+    @Override
     protected final void moveToWizardPage( WizardPageID pageID, boolean fireBeforeNext, boolean fireAfterNext, boolean fireBeforeShow )
     {
         if ( LOGGER.isTraceEnabled() ) {
@@ -191,6 +196,9 @@ public class DefaultWizardPresenter<M extends WizardModel>
         PageVertex<M> nextVertex = graph.nextPageVertex(); // Is null when the wizard ends
         PageVertex<M> targetVertex = graph.getPageVertex( pageID );
 
+        if(previousVertex == null) {
+            setButtonEnabled( WizardButton.previous, false );
+        }
 
         if ( ( previousVertex != null && !pageID.equals( previousVertex.wizardPageID() ) )
                 && ( nextVertex != null && !pageID.equals( nextVertex.wizardPageID() ) ) ) {
