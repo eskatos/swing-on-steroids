@@ -41,6 +41,7 @@ import org.codeartisans.java.sos.wizard.views.WelcomePageView;
 import org.codeartisans.java.sos.wizard.views.WizardView;
 import org.codeartisans.java.sos.wizard.views.swing.SwingWizardView;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -50,6 +51,7 @@ public class WizardTest
 {
 
     @Test
+    @Ignore
     public void testWithoutGuice()
             throws InterruptedException
     {
