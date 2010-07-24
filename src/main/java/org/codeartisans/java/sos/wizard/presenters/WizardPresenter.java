@@ -61,4 +61,8 @@ public interface WizardPresenter<M extends WizardModel>
 
     WizardBlockingRegistration blockWizard( WizardBlockingView blockingView );
 
+    void previous();
+
+    void next();
+
 }

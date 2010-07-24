@@ -190,7 +190,7 @@ public class DefaultWizardPresenter<M extends WizardModel>
         PageVertex<M> nextVertex = graph.nextPageVertex(); // Is null when the wizard ends
         PageVertex<M> targetVertex = graph.getPageVertex( pageID );
 
-        if(previousVertex == null) {
+        if ( previousVertex == null ) {
             setButtonEnabled( WizardButton.previous, false );
         }
 

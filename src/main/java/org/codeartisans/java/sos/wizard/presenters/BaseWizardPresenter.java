@@ -152,6 +152,18 @@ abstract class BaseWizardPresenter<M extends WizardModel>
         automaticButtonsDisabled = true;
     }
 
+    @Override
+    public void previous()
+    {
+        moveToWizardPage( nextPageID(), false, false, true );
+    }
+
+    @Override
+    public void next()
+    {
+        moveToWizardPage( nextPageID(), true, true, true );
+    }
+
     /**
      * If the target page was never shown before, call beforeFirstShow() and addPageView it to the list of previously
      * shown pages so we don't call it a second time.
