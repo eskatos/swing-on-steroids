@@ -19,8 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.wizard.graph;
+package org.codeartisans.java.sos.wizard;
 
+import org.codeartisans.java.sos.wizard.presenters.WizardGraph;
+import org.codeartisans.java.sos.wizard.presenters.DefaultWizardGraph;
+import org.codeartisans.java.sos.wizard.presenters.PageVertex;
 import java.util.Arrays;
 
 import org.codeartisans.java.sos.threading.DefaultWorkQueue;

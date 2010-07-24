@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.wizard.graph;
+package org.codeartisans.java.sos.wizard.presenters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,8 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.codeartisans.java.sos.wizard.model.WizardPageID;
 import org.codeartisans.java.sos.wizard.model.WizardModel;
-import org.codeartisans.java.sos.wizard.presenters.WizardPageID;
 import org.codeartisans.java.toolbox.CollectionUtils;
 import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
 

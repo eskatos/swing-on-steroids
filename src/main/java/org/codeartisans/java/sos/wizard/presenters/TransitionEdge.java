@@ -19,9 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.wizard.graph;
+package org.codeartisans.java.sos.wizard.presenters;
 
 import org.codeartisans.java.sos.wizard.model.WizardModel;
+
 import org.jgrapht.graph.DefaultEdge;
 
 /**

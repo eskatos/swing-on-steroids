@@ -21,6 +21,7 @@
  */
 package org.codeartisans.java.sos.wizard.presenters;
 
+import org.codeartisans.java.sos.wizard.model.WizardPageID;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -155,7 +156,7 @@ abstract class BaseWizardPresenter<M extends WizardModel>
     @Override
     public void previous()
     {
-        moveToWizardPage( nextPageID(), false, false, true );
+        moveToWizardPage( previousPageID(), false, false, true );
     }
 
     @Override

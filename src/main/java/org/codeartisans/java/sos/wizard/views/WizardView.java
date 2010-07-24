@@ -25,7 +25,7 @@ import org.codeartisans.java.sos.views.View;
 import org.codeartisans.java.sos.views.handlers.HasButtonBehavior;
 import org.codeartisans.java.sos.views.values.HasValue;
 import org.codeartisans.java.sos.wizard.model.WizardModel;
-import org.codeartisans.java.sos.wizard.presenters.WizardPageID;
+import org.codeartisans.java.sos.wizard.model.WizardPageID;
 
 /**
  * @author Paul Merlin

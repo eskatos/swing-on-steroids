@@ -19,42 +19,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.wizard.graph;
+package org.codeartisans.java.sos.wizard.presenters;
 
+import java.util.Arrays;
 import java.util.List;
-import org.codeartisans.java.sos.wizard.model.WizardModel;
-import org.codeartisans.java.sos.wizard.presenters.WizardPageID;
+import java.util.Set;
 
 /**
- * A graph representing the wizard flow.
- *
- * FIXME Support only wizard graphs with one and only one enabled path at a time.
- *
  * @author Paul Merlin
  */
-public interface WizardGraph<M extends WizardModel>
+class WizardGraphIsNotStronglyConnected
+        extends RuntimeException
 {
 
-    PageVertex<M> startPageVertex();
+    private static final long serialVersionUID = 1L;
+    private final List<Set<?>> stronglyConnectedSets;
 
-    void addTransitionEdge( PageVertex<M> previous, PageVertex<M> next, Boolean enabled );
+    WizardGraphIsNotStronglyConnected( List<Set<?>> stronglyConnectedSets )
+    {
+        this.stronglyConnectedSets = stronglyConnectedSets;
+    }
 
-    void setTransitionEdgeEnabled( PageVertex<M> previous, PageVertex<M> next, Boolean enabled );
-
-    void applyTransitionChanges( Iterable<TransitionChange> changes );
-
-    PageVertex<M> previousPageVertex();
-
-    PageVertex<M> currentPageVertex();
-
-    void setCurrentPageVertex( PageVertex<M> pageVertex );
-
-    PageVertex<M> nextPageVertex();
-
-    PageVertex<M> getPageVertex( WizardPageID pageID );
-
-    List<PageVertex<M>> currentWizardStepsPath();
-
-    void assertStepsPathUnicity();
+    @Override
+    public String getMessage()
+    {
+        return Arrays.toString( stronglyConnectedSets.toArray() );
+    }
 
 }

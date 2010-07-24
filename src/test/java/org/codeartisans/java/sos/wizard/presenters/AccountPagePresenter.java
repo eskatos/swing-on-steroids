@@ -21,6 +21,7 @@
  */
 package org.codeartisans.java.sos.wizard.presenters;
 
+import org.codeartisans.java.sos.wizard.model.WizardPageID;
 import com.google.inject.Inject;
 
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ import org.codeartisans.java.sos.views.handlers.ClickHandler;
 import org.codeartisans.java.sos.views.notifications.ClickNotification;
 import org.codeartisans.java.sos.views.values.ValueChangeHandler;
 import org.codeartisans.java.sos.views.values.ValueChangeNotification;
-import org.codeartisans.java.sos.wizard.graph.TransitionChange;
 import org.codeartisans.java.sos.wizard.model.SignupWizardModel;
 import org.codeartisans.java.sos.wizard.model.PlanType;
 import org.codeartisans.java.sos.wizard.views.AccountPageView;

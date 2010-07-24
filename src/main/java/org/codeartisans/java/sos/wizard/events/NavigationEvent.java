@@ -21,7 +21,7 @@
  */
 package org.codeartisans.java.sos.wizard.events;
 
-import org.codeartisans.java.sos.wizard.presenters.WizardPageID;
+import org.codeartisans.java.sos.wizard.model.WizardPageID;
 
 /**
  * An event passed to the {@link WizardPagePresenter} callbacks.

@@ -21,6 +21,7 @@
  */
 package org.codeartisans.java.sos.wizard.presenters;
 
+import org.codeartisans.java.sos.wizard.model.WizardPageID;
 import org.codeartisans.java.sos.wizard.model.SignupWizardModel;
 import org.codeartisans.java.sos.wizard.views.CongratsPageView;
 

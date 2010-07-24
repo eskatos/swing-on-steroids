@@ -24,6 +24,7 @@ package org.codeartisans.java.sos.wizard.presenters;
 import org.codeartisans.java.sos.presenters.BasePresenter;
 import org.codeartisans.java.sos.wizard.events.NavigationEvent;
 import org.codeartisans.java.sos.wizard.model.WizardModel;
+import org.codeartisans.java.sos.wizard.model.WizardPageID;
 import org.codeartisans.java.sos.wizard.views.WizardPageView;
 
 /**

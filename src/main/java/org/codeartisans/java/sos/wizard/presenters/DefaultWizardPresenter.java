@@ -27,11 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.codeartisans.java.sos.wizard.events.NavigationEvent;
-import org.codeartisans.java.sos.wizard.graph.DefaultWizardGraph;
-import org.codeartisans.java.sos.wizard.graph.PageVertex;
-import org.codeartisans.java.sos.wizard.graph.TransitionChange;
-import org.codeartisans.java.sos.wizard.graph.WizardGraph;
 import org.codeartisans.java.sos.wizard.model.WizardModel;
+import org.codeartisans.java.sos.wizard.model.WizardPageID;
 import org.codeartisans.java.sos.wizard.views.WizardPageView;
 import org.codeartisans.java.sos.wizard.views.WizardView;
 import org.codeartisans.java.toolbox.StringUtils;

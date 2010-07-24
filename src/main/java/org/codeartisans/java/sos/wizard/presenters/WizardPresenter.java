@@ -22,7 +22,6 @@
 package org.codeartisans.java.sos.wizard.presenters;
 
 import org.codeartisans.java.sos.presenters.Presenter;
-import org.codeartisans.java.sos.wizard.graph.TransitionChange;
 import org.codeartisans.java.sos.wizard.model.WizardModel;
 import org.codeartisans.java.sos.wizard.views.WizardBlockingView;
 import org.codeartisans.java.sos.wizard.views.WizardPageView;

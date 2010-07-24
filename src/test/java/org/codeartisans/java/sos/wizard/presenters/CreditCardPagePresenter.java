@@ -21,6 +21,7 @@
  */
 package org.codeartisans.java.sos.wizard.presenters;
 
+import org.codeartisans.java.sos.wizard.model.WizardPageID;
 import org.codeartisans.java.sos.views.values.ValueChangeHandler;
 import org.codeartisans.java.sos.views.values.ValueChangeNotification;
 import org.codeartisans.java.sos.wizard.model.CreditCardType;

@@ -38,7 +38,7 @@ import org.codeartisans.java.sos.views.swing.helpers.SwingHelper;
 import org.codeartisans.java.sos.views.swing.notifications.FrameTitleHasStringValue;
 import org.codeartisans.java.sos.views.values.HasValue;
 import org.codeartisans.java.sos.wizard.model.WizardModel;
-import org.codeartisans.java.sos.wizard.presenters.WizardPageID;
+import org.codeartisans.java.sos.wizard.model.WizardPageID;
 import org.codeartisans.java.sos.wizard.views.WizardBlockingView;
 import org.codeartisans.java.sos.wizard.views.WizardPageView;
 import org.codeartisans.java.sos.wizard.views.WizardView;

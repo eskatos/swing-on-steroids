@@ -19,30 +19,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.wizard.graph;
+package org.codeartisans.java.sos.wizard.presenters;
 
-import java.util.Arrays;
-import java.util.Set;
+import org.codeartisans.java.sos.wizard.model.WizardPageID;
 
 /**
  * @author Paul Merlin
  */
-class WizardGraphHasCyclesException
-        extends RuntimeException
+public final class TransitionChange
 {
 
-    private static final long serialVersionUID = 1L;
-    private final Set<?> cycles;
+    private final WizardPageID previousID;
+    private final WizardPageID nextID;
+    private final boolean enabled;
 
-    WizardGraphHasCyclesException( Set<?> cycles )
+    public TransitionChange( WizardPageID previousID, WizardPageID nextID, boolean enabled )
     {
-        this.cycles = cycles;
+        this.previousID = previousID;
+        this.nextID = nextID;
+        this.enabled = enabled;
     }
 
-    @Override
-    public String getMessage()
+    boolean isEnabled()
     {
-        return Arrays.toString( cycles.toArray() );
+        return enabled;
+    }
+
+    WizardPageID getNextID()
+    {
+        return nextID;
+    }
+
+    WizardPageID getPreviousID()
+    {
+        return previousID;
     }
 
 }

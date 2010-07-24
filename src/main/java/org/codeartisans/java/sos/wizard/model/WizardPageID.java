@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.codeartisans.java.sos.wizard.presenters;
+package org.codeartisans.java.sos.wizard.model;
 
 /**
  * WizardPageID is a class used to identify a page.
