@@ -22,6 +22,7 @@
 package org.codeartisans.java.sos.views.swing.annotations;
 
 import java.awt.EventQueue;
+import javax.swing.SwingUtilities;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -46,31 +47,34 @@ public class EventDispatchThreadInterceptor
         if ( !Void.TYPE.equals( invocation.getMethod().getReturnType() ) ) {
             throw new IllegalStateException( "EventDispatchThread allowed only on methods returning void" );
         }
-        Runnable runnable = new Runnable()
-        {
-
-            @Override
-            public void run()
+        if ( SwingUtilities.isEventDispatchThread() ) {
+            invocation.proceed();
+        } else {
+            Runnable runnable = new Runnable()
             {
-                try {
-                    invocation.proceed();
-                } catch ( Throwable ex ) {
-                    throw new SOSFailure( ex.getMessage(), ex );
+
+                @Override
+                public void run()
+                {
+                    try {
+                        invocation.proceed();
+                    } catch ( Throwable ex ) {
+                        throw new SOSFailure( ex.getMessage(), ex );
+                    }
                 }
+
+            };
+            EventDispatchThread annotation = invocation.getMethod().getAnnotation( EventDispatchThread.class );
+            switch ( annotation.value() ) {
+                case invokeLater:
+                    EventQueue.invokeLater( runnable );
+                    break;
+                case invokeAndWait:
+                default:
+                    EventQueue.invokeAndWait( runnable );
+                    break;
             }
-
-        };
-        EventDispatchThread annotation = invocation.getMethod().getAnnotation( EventDispatchThread.class );
-        switch ( annotation.value() ) {
-            case invokeLater:
-                EventQueue.invokeLater( runnable );
-                break;
-            case invokeAndWait:
-            default:
-                EventQueue.invokeAndWait( runnable );
-                break;
         }
-
         return null;
     }
 
