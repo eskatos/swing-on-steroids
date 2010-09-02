@@ -27,7 +27,7 @@ public interface MessageBus
     /**
      * Publish given message to all instances of Subscriber.
      * @param <S>           Subscriber mark type, for type safety
-     * @param message       Message
+     * @param message       Message, must not be null
      */
     <S extends Subscriber> void publish( Message<S> message );
 
