@@ -31,10 +31,24 @@ public final class DirectDeliveryMessageBus
     @Override
     public <S extends Subscriber> void publish( Message<S> message )
     {
+        publish( message, null );
+    }
+
+    @Override
+    public <S extends Subscriber> void publish( Message<S> message, DeliveryCallback callback )
+    {
+        boolean someSubscriberRefusedTheDelivery = false;
         if ( !vetoed( message ) ) {
             for ( S eachSubscriber : subscribers( message.getMessageType() ) ) {
-                message.deliver( eachSubscriber );
+                try {
+                    message.deliver( eachSubscriber );
+                } catch ( DeliveryRefusalException refusal ) {
+                    someSubscriberRefusedTheDelivery = true;
+                }
             }
+        }
+        if ( callback != null ) {
+            callback.afterDelivery( someSubscriberRefusedTheDelivery );
         }
     }
 

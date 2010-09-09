@@ -21,40 +21,16 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
-/**
- * MessageBus Mixin that deliver Messages to Subscribers sequentially in the current thread.
- */
-public abstract class DirectDeliveryMixin
-        extends BaseMessageBus
-        implements MessageBusComposite
+public class DeliveryRefusalException
+        extends RuntimeException
 {
 
-    @Override
-    public <S extends Subscriber> void publish( Message<S> message )
-    {
-        if ( !vetoed( message ) ) {
-            for ( S eachSubscriber : subscribers( message.getMessageType() ) ) {
-                message.deliver( eachSubscriber );
-            }
-        }
-    }
+    private static final long serialVersionUID = 1L;
+    private static final String MSG = "Delivery refused";
 
-    @Override
-    public <S extends Subscriber> void publish( Message<S> message, DeliveryCallback callback )
+    public DeliveryRefusalException()
     {
-        boolean someSubscriberRefusedTheDelivery = false;
-        if ( !vetoed( message ) ) {
-            for ( S eachSubscriber : subscribers( message.getMessageType() ) ) {
-                try {
-                    message.deliver( eachSubscriber );
-                } catch ( DeliveryRefusalException refusal ) {
-                    someSubscriberRefusedTheDelivery = true;
-                }
-            }
-        }
-        if ( callback != null ) {
-            callback.afterDelivery( someSubscriberRefusedTheDelivery );
-        }
+        super( MSG );
     }
 
 }

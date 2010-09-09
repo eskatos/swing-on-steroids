@@ -23,7 +23,10 @@ package org.codeartisans.java.sos.messagebus;
 
 import com.google.inject.Inject;
 
+import java.util.concurrent.CountDownLatch;
+
 import org.codeartisans.java.sos.threading.WorkQueue;
+import org.codeartisans.java.toolbox.ObjectHolder;
 
 /**
  * MessageBus Implementation that use a thread to iterate over Subscribers and a thread per Message delivery.
@@ -44,23 +47,11 @@ public final class MultiThreadDeliveryMessageBus
     @Override
     public <S extends Subscriber> void publish( final Message<S> message )
     {
-        workQueue.enqueue( new Runnable()
-        {
-
-            @Override
-            public void run()
-            {
-                if ( !vetoed( message ) ) {
-                    for ( final S eachSubscriber : subscribers( message.getMessageType() ) ) {
-                        deliver( message, eachSubscriber );
-                    }
-                }
-            }
-
-        } );
+        publish( message, null );
     }
 
-    private <S extends Subscriber> void deliver( final Message<S> message, final S subscriber )
+    @Override
+    public <S extends Subscriber> void publish( final Message<S> message, final DeliveryCallback callback )
     {
         workQueue.enqueue( new Runnable()
         {
@@ -68,7 +59,34 @@ public final class MultiThreadDeliveryMessageBus
             @Override
             public void run()
             {
-                message.deliver( subscriber );
+                final ObjectHolder<Boolean> someSubscriberRefusedTheDelivery = new ObjectHolder<Boolean>( false );
+                final CountDownLatch latch = new CountDownLatch( subscribers( message.getMessageType() ).size() );
+                if ( !vetoed( message ) ) {
+                    for ( final S eachSubscriber : subscribers( message.getMessageType() ) ) {
+                        workQueue.enqueue( new Runnable()
+                        {
+
+                            @Override
+                            public void run()
+                            {
+                                try {
+                                    message.deliver( eachSubscriber );
+                                } catch ( DeliveryRefusalException refusal ) {
+                                    someSubscriberRefusedTheDelivery.setHolded( true );
+                                }
+                                latch.countDown();
+                            }
+
+                        } );
+                    }
+                }
+                try {
+                    latch.await();
+                } catch ( InterruptedException ignored ) {
+                }
+                if ( callback != null ) {
+                    callback.afterDelivery( someSubscriberRefusedTheDelivery.getHolded() );
+                }
             }
 
         } );

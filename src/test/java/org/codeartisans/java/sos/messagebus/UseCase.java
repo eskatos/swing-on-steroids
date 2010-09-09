@@ -21,6 +21,8 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
+import java.util.concurrent.CountDownLatch;
+import org.codeartisans.java.toolbox.ObjectHolder;
 import org.junit.Assert;
 
 /**
@@ -79,6 +81,28 @@ public interface UseCase
 
             s2.unsubscribe();
             Assert.assertEquals( 0, msgBus.countSubscribers( TestMessage.TYPE ) );
+
+
+            // Test refusals
+            msgBus.subscribe( TestMessage.TYPE, new TestRefuserMessageHandlerImpl() );
+
+            final CountDownLatch latch = new CountDownLatch( 1 );
+            final ObjectHolder<Boolean> refused = new ObjectHolder<Boolean>( false );
+
+            msgBus.publish( new TestMessage(), new DeliveryCallback()
+            {
+
+                @Override
+                public void afterDelivery( boolean someSubscriberRefusedTheDelivery )
+                {
+                    refused.setHolded( someSubscriberRefusedTheDelivery );
+                    latch.countDown();
+                }
+
+            } );
+
+            latch.await();
+            Assert.assertEquals( true, refused.getHolded() );
         }
 
     }
@@ -122,6 +146,18 @@ public interface UseCase
         public void onProut( TestMessage prout )
         {
             calls++;
+        }
+
+    }
+
+    class TestRefuserMessageHandlerImpl
+            implements TestMessageHandler
+    {
+
+        @Override
+        public void onProut( TestMessage prout )
+        {
+            throw new DeliveryRefusalException();
         }
 
     }
