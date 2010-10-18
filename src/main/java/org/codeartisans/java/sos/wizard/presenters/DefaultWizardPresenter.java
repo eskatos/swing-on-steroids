@@ -73,7 +73,7 @@ public class DefaultWizardPresenter<M extends WizardModel>
     {
         LOGGER.trace( "afterBind" );
         LOGGER.trace( "Graph {}", graph.toString() );
-        moveToWizardPage( graph.startPageVertex().wizardPageID(), true, true, true );
+        moveToWizardPage( graph.startPageVertex().wizardPageID(), false, false, false );
     }
 
     @Override
