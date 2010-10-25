@@ -28,6 +28,7 @@ import java.awt.RenderingHints;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.LookAndFeel;
 import javax.swing.RepaintManager;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -80,6 +81,32 @@ public final class SwingHelper
                         JFrame.setDefaultLookAndFeelDecorated( true );
                         JDialog.setDefaultLookAndFeelDecorated( true );
                         UIManager.setLookAndFeel( className );
+                    } catch ( Exception ex ) {
+                        throw new SwingFault( ex.getMessage(), ex );
+                    }
+                }
+
+            } );
+        } catch ( InterruptedException ex ) {
+            throw new SwingFault( ex.getMessage(), ex );
+        } catch ( InvocationTargetException ex ) {
+            throw new SwingFault( ex.getMessage(), ex );
+        }
+    }
+
+    public static void initLookAndFeel( final LookAndFeel lookAndFeel )
+    {
+        try {
+            SwingUtilities.invokeAndWait( new Runnable()
+            {
+
+                @Override
+                public void run()
+                {
+                    try {
+                        JFrame.setDefaultLookAndFeelDecorated( true );
+                        JDialog.setDefaultLookAndFeelDecorated( true );
+                        UIManager.setLookAndFeel( lookAndFeel );
                     } catch ( Exception ex ) {
                         throw new SwingFault( ex.getMessage(), ex );
                     }
