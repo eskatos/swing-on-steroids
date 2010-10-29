@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.codeartisans</groupId>
         <artifactId>codeartisans-parent</artifactId>
-        <version>4</version>
+        <version>5</version>
     </parent>
 
     <groupId>org.codeartisans.java</groupId>
@@ -16,18 +16,23 @@
 
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
+    <url>http://github.com/Codeartisans/swing-on-steroids</url>
 
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
+            <comments>Copyrights retained by each developer.</comments>
         </license>
     </licenses>
 
     <scm>
-        <developerConnection>scm:git:ssh://gitosis@codebox.codeartisans.org/${project.artifactId}.git</developerConnection>
+        <url>scm:git:git@github.com:Codeartisans/swing-on-steroids.git</url>
+        <connection>scm:git:git@github.com:Codeartisans/swing-on-steroids.git</connection>
+        <developerConnection>scm:git:git@github.com:Codeartisans/swing-on-steroids.git</developerConnection>
     </scm>
+
 
     <developers>
         <developer>
@@ -66,12 +71,12 @@
         <dependency>
             <groupId>org.codeartisans.java</groupId>
             <artifactId>java-toolbox</artifactId>
-            <version>1.1</version>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>jgrapht</groupId>
-            <artifactId>jgrapht</artifactId>
+            <groupId>org.jgrapht</groupId>
+            <artifactId>jgrapht-jdk1.5</artifactId>
             <version>0.7.3</version>
         </dependency>
 
@@ -81,9 +86,19 @@
             <version>3.7.3.1</version>
         </dependency>
         <dependency>
-            <groupId>org.pushingpixels</groupId>
+            <groupId>org.pushing-pixels</groupId>
             <artifactId>trident</artifactId>
             <version>1.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.android</groupId>
+                    <artifactId>android</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.swt.win32.win32</groupId>
+                    <artifactId>x86</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.java.dev.swinghelper</groupId>
@@ -148,12 +163,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.seventytwomiles</groupId>
-            <artifactId>architecture-rules</artifactId>
-            <version>2.1.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.qi4j.core</groupId>
             <artifactId>qi4j-core-runtime</artifactId>
             <version>${qi4j.version}</version>
@@ -163,6 +172,13 @@
             <groupId>org.qi4j.core</groupId>
             <artifactId>qi4j-core-testsupport</artifactId>
             <version>${qi4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.seventytwomiles</groupId>
+            <artifactId>architecture-rules</artifactId>
+            <version>2.1.1</version>
             <scope>test</scope>
         </dependency>
 
