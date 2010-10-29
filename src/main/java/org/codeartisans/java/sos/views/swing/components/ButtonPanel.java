@@ -102,7 +102,7 @@ import java.awt.*;
  * https://swinghelper.dev.java.net/
  * http://weblogs.java.net/blog/alexfromsun/ 
  */
-public final class ButtonPanel
+final class ButtonPanel
         extends JPanel
 {
 

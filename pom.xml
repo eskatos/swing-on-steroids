@@ -17,10 +17,6 @@
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
 
-    <scm>
-        <developerConnection>scm:git:ssh://gitosis@codebox.codeartisans.org/${project.artifactId}.git</developerConnection>
-    </scm>
-
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -29,8 +25,40 @@
         </license>
     </licenses>
 
+    <scm>
+        <developerConnection>scm:git:ssh://gitosis@codebox.codeartisans.org/${project.artifactId}.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>paul@nosphere.org</id>
+            <name>Paul Merlin</name>
+            <email>paul@nosphere.org</email>
+        </developer>
+        <developer>
+            <id>barsifedron@gmail.com</id>
+            <name>Jean-Michel Tonneau</name>
+            <email>barsifedron@gmail.com</email>
+        </developer>
+        <developer>
+            <id>fabien.barbero@hotmail.fr</id>
+            <name>Fabien Barbero</name>
+            <email>fabien.barbero@hotmail.fr</email>
+        </developer>
+        <developer>
+            <id>momaison@yahoo.fr</id>
+            <name>Laurent Morel</name>
+            <email>momaison@yahoo.fr</email>
+        </developer>
+        <developer>
+            <id>emo.dav@gmail.com</id>
+            <name>David Emo</name>
+            <email>emo.dav@gmail.com</email>
+        </developer>
+    </developers>
+
     <properties>
-        <qi4j.version>1.1</qi4j.version>
+        <qi4j.version>1.2</qi4j.version>
     </properties>
 
     <dependencies>
@@ -41,11 +69,11 @@
             <version>1.1</version>
         </dependency>
 
-<dependency>
-  <groupId>jgrapht</groupId>
-  <artifactId>jgrapht</artifactId>
-  <version>0.7.3</version>
-</dependency>
+        <dependency>
+            <groupId>jgrapht</groupId>
+            <artifactId>jgrapht</artifactId>
+            <version>0.7.3</version>
+        </dependency>
 
         <dependency>
             <groupId>com.miglayout</groupId>
@@ -80,6 +108,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.google.inject</groupId>
@@ -100,20 +134,13 @@
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.6.1</version>
-        </dependency>
+        <!-- Test -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>0.9.25</version>
-            <optional>true</optional>
+            <scope>test</scope>
         </dependency>
-
-        <!-- test -->
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -126,25 +153,12 @@
             <version>2.1.1</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.qi4j.core</groupId>
             <artifactId>qi4j-core-runtime</artifactId>
             <version>${qi4j.version}</version>
             <scope>test</scope>
         </dependency>
-        <!--dependency>
-            <groupId>org.qi4j.library</groupId>
-            <artifactId>qi4j-lib-rdf</artifactId>
-            <version>${qi4j.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.qi4j.extension</groupId>
-            <artifactId>qi4j-indexing-rdf</artifactId>
-            <version>${qi4j.version}</version>
-            <scope>test</scope>
-        </dependency-->
         <dependency>
             <groupId>org.qi4j.core</groupId>
             <artifactId>qi4j-core-testsupport</artifactId>
@@ -158,10 +172,6 @@
         <repository>
             <id>ops4j-repository</id>
             <url>http://repository.ops4j.org/maven2</url>
-        </repository>
-        <repository>
-            <id>ops4j-snapshots-repository</id>
-            <url>http://repository.ops4j.org/mvn-snapshots</url>
         </repository>
         <repository>
             <id>architect-rules-repo</id>

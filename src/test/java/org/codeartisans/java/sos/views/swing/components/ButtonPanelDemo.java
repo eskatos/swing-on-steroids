@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
  * https://swinghelper.dev.java.net/
  * http://weblogs.java.net/blog/alexfromsun/ 
  */
-public class ButtonPanelDemo
+class ButtonPanelDemo
         extends JFrame
 {
 
