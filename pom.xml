@@ -69,7 +69,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.codeartisans.java</groupId>
+            <groupId>org.codeartisans</groupId>
             <artifactId>java-toolbox</artifactId>
             <version>1.2</version>
         </dependency>
