@@ -10,9 +10,9 @@
         <version>5</version>
     </parent>
 
-    <groupId>org.codeartisans.java</groupId>
+    <groupId>org.codeartisans</groupId>
     <artifactId>swing-on-steroids</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
