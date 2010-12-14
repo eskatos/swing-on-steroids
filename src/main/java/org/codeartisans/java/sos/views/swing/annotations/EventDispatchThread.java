@@ -18,6 +18,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import static org.codeartisans.java.sos.views.swing.annotations.EventDispatchThreadPolicy.invokeAndWait;
+
 /**
  * @author Paul Merlin
  */
@@ -26,6 +28,6 @@ import java.lang.annotation.Target;
 public @interface EventDispatchThread
 {
 
-    EventDispatchThreadPolicy value();
+    EventDispatchThreadPolicy value() default invokeAndWait;
 
 }
