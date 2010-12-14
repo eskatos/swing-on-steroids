@@ -20,6 +20,7 @@ import com.google.inject.Singleton;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
 
+import org.codeartisans.java.sos.guice.GuiceHelper;
 import org.codeartisans.java.sos.sampleapp.domain.DefaultGreetService;
 import org.codeartisans.java.sos.sampleapp.domain.GreetService;
 import org.codeartisans.java.sos.sampleapp.presentation.presenters.GreetingsPresenter;
@@ -31,7 +32,6 @@ import org.codeartisans.java.sos.views.swing.SwingWrappersFactory;
 import org.codeartisans.java.sos.views.swing.annotations.EventDispatchThread;
 import org.codeartisans.java.sos.views.swing.annotations.EventDispatchThreadInterceptor;
 import org.codeartisans.java.sos.views.swing.helpers.SwingHelper;
-import org.codeartisans.java.toolbox.guice.GuiceHelper;
 
 public final class SampleGuiceApp
 {

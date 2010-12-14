@@ -17,11 +17,11 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import org.codeartisans.java.sos.guice.GuiceHelper;
 import org.codeartisans.java.sos.sampleapp.domain.DefaultGreetService;
 import org.codeartisans.java.sos.sampleapp.domain.GreetService;
 import org.codeartisans.java.sos.sampleapp.presentation.presenters.GreetingsPresenter;
 import org.codeartisans.java.sos.sampleapp.presentation.views.GreetingsView;
-import org.codeartisans.java.toolbox.guice.GuiceHelper;
 
 import org.junit.After;
 import org.junit.Assert;
