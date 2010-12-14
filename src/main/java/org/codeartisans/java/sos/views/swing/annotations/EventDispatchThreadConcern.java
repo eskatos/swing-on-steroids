@@ -14,29 +14,35 @@
 package org.codeartisans.java.sos.views.swing.annotations;
 
 import java.awt.EventQueue;
+import java.lang.reflect.Method;
 import javax.swing.SwingUtilities;
 
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-
 import org.codeartisans.java.sos.SOSFailure;
+
+import org.qi4j.api.common.AppliesTo;
+import org.qi4j.api.concern.GenericConcern;
+import org.qi4j.api.injection.scope.Invocation;
 
 /**
  * @author Paul Merlin
  */
-public class EventDispatchThreadInterceptor
-        implements MethodInterceptor
+@AppliesTo( EventDispatchThread.class )
+public class EventDispatchThreadConcern
+        extends GenericConcern
 {
 
+    @Invocation
+    private EventDispatchThread annotation;
+
     @Override
-    public Object invoke( final MethodInvocation invocation )
+    public Object invoke( final Object proxy, final Method method, final Object[] args )
             throws Throwable
     {
-        if ( !Void.TYPE.equals( invocation.getMethod().getReturnType() ) ) {
+        if ( !Void.TYPE.equals( method.getReturnType() ) ) {
             throw new IllegalStateException( "EventDispatchThread allowed only on methods returning void" );
         }
         if ( SwingUtilities.isEventDispatchThread() ) {
-            invocation.proceed();
+            next.invoke( proxy, method, args );
         } else {
             Runnable runnable = new Runnable()
             {
@@ -45,14 +51,13 @@ public class EventDispatchThreadInterceptor
                 public void run()
                 {
                     try {
-                        invocation.proceed();
+                        next.invoke( proxy, method, args );
                     } catch ( Throwable ex ) {
                         throw new SOSFailure( ex.getMessage(), ex );
                     }
                 }
 
             };
-            EventDispatchThread annotation = invocation.getMethod().getAnnotation( EventDispatchThread.class );
             switch ( annotation.value() ) {
                 case invokeLater:
                     EventQueue.invokeLater( runnable );
