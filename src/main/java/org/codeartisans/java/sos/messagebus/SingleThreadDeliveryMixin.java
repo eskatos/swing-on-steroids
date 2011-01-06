@@ -62,38 +62,4 @@ public abstract class SingleThreadDeliveryMixin
         } );
     }
 
-    @Override
-    public <S extends Subscriber> void publish( final Message<S> message, final DeliveryCallback callback )
-    {
-        workQueue.enqueue( new Runnable()
-        {
-
-            @Override
-            public void run()
-            {
-                boolean someSubscriberRefusedTheDelivery = false;
-                if ( !vetoed( message ) ) {
-                    final UnitOfWork uow = uowf.newUnitOfWork();
-                    for ( S eachSubscriber : subscribers( message.getMessageType() ) ) {
-                        try {
-                            try {
-                                message.deliver( eachSubscriber );
-                            } catch ( DeliveryRefusalException refusal ) {
-                                someSubscriberRefusedTheDelivery = true;
-                            }
-                            uow.complete();
-                        } catch ( UnitOfWorkCompletionException ex ) {
-                            uow.discard();
-                            throw new SOSFailure( "Error during message delivery", ex );
-                        }
-                    }
-                }
-                if ( callback != null ) {
-                    callback.afterDelivery( someSubscriberRefusedTheDelivery );
-                }
-            }
-
-        } );
-    }
-
 }

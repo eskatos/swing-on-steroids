@@ -13,11 +13,9 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
-import java.util.concurrent.CountDownLatch;
 
 import org.codeartisans.java.sos.SOSFailure;
 import org.codeartisans.java.sos.threading.WorkQueueComposite;
-import org.codeartisans.java.toolbox.ObjectHolder;
 
 import org.qi4j.api.injection.scope.Service;
 import org.qi4j.api.injection.scope.Structure;
@@ -68,56 +66,6 @@ public abstract class MultiThreadDeliveryMixin
 
                         } );
                     }
-                }
-            }
-
-        } );
-    }
-
-    @Override
-    public <S extends Subscriber> void publish( final Message<S> message, final DeliveryCallback callback )
-    {
-        workQueue.enqueue( new Runnable()
-        {
-
-            @Override
-            public void run()
-            {
-                final ObjectHolder<Boolean> someSubscriberRefusedTheDelivery = new ObjectHolder<Boolean>( false );
-                final CountDownLatch latch = new CountDownLatch( subscribers( message.getMessageType() ).size() );
-                if ( !vetoed( message ) ) {
-                    for ( final S eachSubscriber : subscribers( message.getMessageType() ) ) {
-                        workQueue.enqueue( new Runnable()
-                        {
-
-                            @Override
-                            public void run()
-                            {
-                                final UnitOfWork uow = uowf.newUnitOfWork();
-                                try {
-                                    try {
-                                        message.deliver( eachSubscriber );
-                                    } catch ( DeliveryRefusalException refusal ) {
-                                        someSubscriberRefusedTheDelivery.setHolded( true );
-                                    }
-                                    uow.complete();
-                                } catch ( UnitOfWorkCompletionException ex ) {
-                                    uow.discard();
-                                    throw new SOSFailure( "Error during message delivery", ex );
-                                } finally {
-                                    latch.countDown();
-                                }
-                            }
-
-                        } );
-                    }
-                }
-                try {
-                    latch.await();
-                } catch ( InterruptedException ignored ) {
-                }
-                if ( callback != null ) {
-                    callback.afterDelivery( someSubscriberRefusedTheDelivery.getHolded() );
                 }
             }
 

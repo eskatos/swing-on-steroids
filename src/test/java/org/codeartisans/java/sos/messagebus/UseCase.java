@@ -13,7 +13,6 @@
  */
 package org.codeartisans.java.sos.messagebus;
 
-import java.util.concurrent.CountDownLatch;
 import org.codeartisans.java.toolbox.ObjectHolder;
 import org.junit.Assert;
 
@@ -77,24 +76,7 @@ public interface UseCase
 
             // Test refusals
             msgBus.subscribe( TestMessage.TYPE, new TestRefuserMessageHandlerImpl() );
-
-            final CountDownLatch latch = new CountDownLatch( 1 );
-            final ObjectHolder<Boolean> refused = new ObjectHolder<Boolean>( false );
-
-            msgBus.publish( new TestMessage(), new DeliveryCallback()
-            {
-
-                @Override
-                public void afterDelivery( boolean someSubscriberRefusedTheDelivery )
-                {
-                    refused.setHolded( someSubscriberRefusedTheDelivery );
-                    latch.countDown();
-                }
-
-            } );
-
-            latch.await();
-            Assert.assertEquals( true, refused.getHolded() );
+            msgBus.publish( new TestMessage() );
         }
 
     }

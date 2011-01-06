@@ -36,30 +36,19 @@ public final class SingleThreadDeliveryMessageBus
     @Override
     public <S extends Subscriber> void publish( final Message<S> message )
     {
-        publish( message, null );
-    }
-
-    @Override
-    public <S extends Subscriber> void publish( final Message<S> message, final DeliveryCallback callback )
-    {
         workQueue.enqueue( new Runnable()
         {
 
             @Override
             public void run()
             {
-                boolean someSubscriberRefusedTheDelivery = false;
                 if ( !vetoed( message ) ) {
                     for ( S eachSubscriber : subscribers( message.getMessageType() ) ) {
                         try {
                             message.deliver( eachSubscriber );
                         } catch ( DeliveryRefusalException refusal ) {
-                            someSubscriberRefusedTheDelivery = true;
                         }
                     }
-                }
-                if ( callback != null ) {
-                    callback.afterDelivery( someSubscriberRefusedTheDelivery );
                 }
             }
 

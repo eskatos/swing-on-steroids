@@ -71,7 +71,7 @@ public class ThreadedHasClickHandlersTest
         unblockingView.name.setValue( "Bob" );
         unblockingView.getButton().doClick();
         Assert.assertNull( unblockingView.message.getValue() );
-        Thread.sleep( 550 );
+        Thread.sleep( 2000 );
         Assert.assertEquals( "Hello Bob!", unblockingView.message.getValue() );
 
 

@@ -24,14 +24,6 @@ public interface MessageBus
     <S extends Subscriber> void publish( Message<S> message );
 
     /**
-     * Publish given message to all instances of Subscriber.
-     * @param <S>           Subscriber mark type, for type safety
-     * @param message       Message, must not be null
-     * @param callback      Callback invoked after message delivery
-     */
-    <S extends Subscriber> void publish( Message<S> message, DeliveryCallback callback );
-
-    /**
      * @param <S>           Subscriber mark type, for type safety
      * @param messageType   MessageType
      * @param subscriber    Subscriber
