@@ -1,7 +1,7 @@
 swing-on-steroids
 =================
 
-swing-on-steroids bring Swing development on steroïds with [Supervising Presenters](http://martinfowler.com/eaaDev/SupervisingPresenter.html) and [Passive Views](http://martinfowler.com/eaaDev/PassiveScreen.html) (aka. MVP), a [MessageBus](http://martinfowler.com/eaaDev/EventCollaboration.html) and optionaly [Guice](http://code.google.com/p/google-guice/) or [Qi4j](http://qi4j.org).
+swing-on-steroids bring Swing development on steroïds with [Supervising Presenters](http://martinfowler.com/eaaDev/SupervisingPresenter.html) and [Passive Views](http://martinfowler.com/eaaDev/PassiveScreen.html) (aka. [MVP](http://en.wikipedia.org/wiki/Model-view-presenter)), a [MessageBus](http://martinfowler.com/eaaDev/EventCollaboration.html) and optionaly [Guice](http://code.google.com/p/google-guice/) or [Qi4j](http://qi4j.org).
 
 A versatile wizard api using the patterns cited above plus a graph model with commodities such as BlockingView easing in and out smoothly thanks to [Trident](http://kenai.com/projects/trident).
 
