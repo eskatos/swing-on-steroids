@@ -8,13 +8,25 @@
         <version>5</version>
     </parent>
 
-    <groupId>org.codeartisans</groupId>
-    <artifactId>swing-on-steroids</artifactId>
+    <groupId>org.codeartisans.swing-on-steroids</groupId>
+    <artifactId>sos-parent</artifactId>
     <version>1.2-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <url>http://github.com/Codeartisans/swing-on-steroids</url>
+
+    <properties>
+        <qi4j.version>1.2</qi4j.version>
+    </properties>
+
+    <modules>
+        <module>core</module>
+        <module>test-support</module>
+        <module>ui</module>
+        <module>ui-swing</module>
+        <module>wizard</module>
+    </modules>
 
     <licenses>
         <license>
@@ -59,128 +71,6 @@
             <email>emo.dav@gmail.com</email>
         </developer>
     </developers>
-
-    <properties>
-        <qi4j.version>1.2</qi4j.version>
-    </properties>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>org.codeartisans</groupId>
-            <artifactId>java-toolbox</artifactId>
-            <version>1.4</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jgrapht</groupId>
-            <artifactId>jgrapht-jdk1.5</artifactId>
-            <version>0.7.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.miglayout</groupId>
-            <artifactId>miglayout</artifactId>
-            <version>3.7.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pushing-pixels</groupId>
-            <artifactId>trident</artifactId>
-            <version>1.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.android</groupId>
-                    <artifactId>android</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.swt.win32.win32</groupId>
-                    <artifactId>x86</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>net.java.dev.swinghelper</groupId>
-            <artifactId>swinghelper-debug</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.swinglabs</groupId>
-            <artifactId>jxlayer</artifactId>
-            <version>3.0.4</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.swinglabs</groupId>
-            <artifactId>swingx</artifactId>
-            <version>1.6.1</version>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.swinglabs</groupId>
-                    <artifactId>swing-worker</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <version>2.0</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.qi4j.core</groupId>
-            <artifactId>qi4j-core-api</artifactId>
-            <version>${qi4j.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.qi4j.library</groupId>
-            <artifactId>qi4j-lib-constraints</artifactId>
-            <version>${qi4j.version}</version>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- Test -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>0.9.25</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.qi4j.core</groupId>
-            <artifactId>qi4j-core-runtime</artifactId>
-            <version>${qi4j.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.qi4j.core</groupId>
-            <artifactId>qi4j-core-testsupport</artifactId>
-            <version>${qi4j.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.seventytwomiles</groupId>
-            <artifactId>architecture-rules</artifactId>
-            <version>2.1.1</version>
-            <scope>test</scope>
-        </dependency>
-
-    </dependencies>
 
     <repositories>
         <repository>

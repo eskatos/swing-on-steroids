@@ -1,1 +1,6 @@
 target
+core/target
+test-support/target
+ui/target
+ui-swing/target
+wizard/target
