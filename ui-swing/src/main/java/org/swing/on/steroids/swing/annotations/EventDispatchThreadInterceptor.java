@@ -22,7 +22,11 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.swing.on.steroids.SOSFailure;
 
 /**
- * @author Paul Merlin
+ * Add this to your Guice module :
+ * 
+ *  bindInterceptor( Matchers.any(), Matchers.annotatedWith( EventDispatchTread.class ), new EventDispatchThreadInterceptor() );
+ * 
+ * @see http://code.google.com/p/google-guice/wiki/AOP
  */
 public class EventDispatchThreadInterceptor
         implements MethodInterceptor
