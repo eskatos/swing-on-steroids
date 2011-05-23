@@ -16,6 +16,7 @@ Changelog
 ### swing-on-steroids-1.2 - To Be Released
 
 - Splitted the codebase in modules so that you can depend on non-ui-related code easily
+- Added the ability to set environment variables per forked process in the Fork API
 
 ### swing-on-steroids-1.1 - Released 2011/02/04
 
