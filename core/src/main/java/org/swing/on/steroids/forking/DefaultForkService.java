@@ -14,6 +14,7 @@
 package org.swing.on.steroids.forking;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -49,6 +50,10 @@ public final class DefaultForkService
             final String forkUuid = UUID.randomUUID().toString();
             final ProcessBuilder builder = new ProcessBuilder( forkable.command() );
             builder.directory( forkable.workingDirectory() );
+            final Map<String, String> environment = forkable.environment();
+            if(environment != null) {
+                builder.environment().putAll( environment );
+            }
             final Process proc = builder.start();
             final StreamGobbler stderr = new StreamGobbler( proc.getErrorStream(), threadGroup, forkUuid + "-STDERR-Gobbler" );
             final StreamGobbler stdout = new StreamGobbler( proc.getInputStream(), threadGroup, forkUuid + "-STDOUT-Gobbler" );
