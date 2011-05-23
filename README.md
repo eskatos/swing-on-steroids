@@ -6,19 +6,20 @@ swing-on-steroids bring Swing development on steroïds with [Supervising Present
 A versatile wizard api using the patterns cited above plus a graph model with commodities such as BlockingView easing in and out smoothly thanks to [Trident](http://kenai.com/projects/trident).
 
 The project is hosted in maven central.
-[here](http://mavencentral.sonatype.com/#search|ga|1|swing-on-steroids) you'll find a quick copy/paste for the dependency.
+[here](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.codeartisans.swing-on-steroids%22) you'll find copy/paste dependency snippets.
 
-**WARNING:** MessageBus API is not fully backward compatible between 1.1 and 1.0, read the Changelog below.
 
 Changelog
 ---------
 
-### swing-on-steroids-1.2 - To Be Released
+### swing-on-steroids-1.2 - Released 2011/05/23
 
 - Splitted the codebase in modules so that you can depend on non-ui-related code easily
 - Added the ability to set environment variables per forked process in the Fork API
 
 ### swing-on-steroids-1.1 - Released 2011/02/04
+
+**WARNING:** MessageBus API is not fully backward compatible between 1.1 and 1.0, read the Changelog below.
 
 - Removed callbacks on message publication in MessageBus
 - Added EventDispatchThreadConcern for Qi4j
