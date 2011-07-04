@@ -20,12 +20,15 @@ import java.awt.TrayIcon;
 import java.awt.MenuItem;
 import java.awt.Image;
 import java.util.Collection;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JToggleButton;
 import javax.swing.JTree;
 
 import org.swing.on.steroids.threading.WorkQueue;
@@ -38,6 +41,7 @@ import org.swing.on.steroids.swing.notifications.EnhancedLabelHasImageValueChang
 import org.swing.on.steroids.swing.notifications.JButtonHasButtonBehavior;
 import org.swing.on.steroids.swing.notifications.WindowHasFocusHandlers;
 import org.swing.on.steroids.swing.notifications.JButtonHasClickHandlers;
+import org.swing.on.steroids.swing.notifications.JCheckBoxHasValueChangeHandlers;
 import org.swing.on.steroids.swing.notifications.MenuItemHasClickHandlers;
 import org.swing.on.steroids.swing.notifications.TrayIconHasClickHandlers;
 import org.swing.on.steroids.swing.notifications.JFrameHasCloseClickHandlers;
@@ -45,6 +49,7 @@ import org.swing.on.steroids.swing.notifications.JComboBoxHasValueChangeHandlers
 import org.swing.on.steroids.swing.notifications.JPaneHasClickHandlers;
 import org.swing.on.steroids.swing.notifications.JPasswordFieldHasCharsValueChangeHandlers;
 import org.swing.on.steroids.swing.notifications.JTextComponentHasStringValueChangeHandlers;
+import org.swing.on.steroids.swing.notifications.JToggleButtonGroupHasValueChangeHandlers;
 import org.swing.on.steroids.swing.notifications.JTreeHasValueChangeHandlers;
 
 /**
@@ -123,6 +128,16 @@ public final class SwingWrappersFactory
     public HasValueChangeHandlers<Image> createEnhancedLabelHasImageValueChangeHandlers( EnhancedLabel enhancedLabel )
     {
         return new EnhancedLabelHasImageValueChangeHandlers( workQueue, enhancedLabel );
+    }
+
+    public HasValueChangeHandlers<Boolean> createJCheckBoxHasValueChangeHandlers( JCheckBox checkBox )
+    {
+        return new JCheckBoxHasValueChangeHandlers( workQueue, checkBox );
+    }
+
+    public <T> HasValueChangeHandlers<T> createJToggleButtonGroupHasValueChangeHandlers( Map<JToggleButton, T> toggleButtons )
+    {
+        return new JToggleButtonGroupHasValueChangeHandlers<T>( workQueue, toggleButtons );
     }
 
 }
