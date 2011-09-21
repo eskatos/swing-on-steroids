@@ -46,7 +46,7 @@ public abstract class BasePresenter<V extends View>
     }
 
     @Override
-    public final void bind()
+    public synchronized final void bind()
     {
         if ( !bound ) {
             onBind();
@@ -55,7 +55,7 @@ public abstract class BasePresenter<V extends View>
     }
 
     @Override
-    public final void unbind()
+    public synchronized final void unbind()
     {
         if ( bound ) {
             onUnbind();
