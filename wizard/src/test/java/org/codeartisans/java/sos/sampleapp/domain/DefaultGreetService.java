@@ -13,7 +13,7 @@
  */
 package org.codeartisans.java.sos.sampleapp.domain;
 
-import org.codeartisans.java.toolbox.StringUtils;
+import org.codeartisans.java.toolbox.Strings;
 import org.codeartisans.java.toolbox.async.Callback;
 
 /**
@@ -26,7 +26,7 @@ public class DefaultGreetService
     @Override
     public void greet( String name, Callback<String> callback )
     {
-        if ( StringUtils.isEmpty( name ) ) {
+        if ( Strings.isEmpty( name ) ) {
             callback.onError( "name was empty", new IllegalArgumentException( "name was empty" ) );
         }
         callback.onSuccess( "Hello " + name + "!" );

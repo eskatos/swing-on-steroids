@@ -13,28 +13,20 @@
  */
 package org.swing.on.steroids.wizard.presenters;
 
-import org.swing.on.steroids.wizard.presenters.WizardPagePresenter;
-import org.swing.on.steroids.wizard.presenters.TransitionChange;
-import org.swing.on.steroids.wizard.presenters.WizardPageHelper;
-import org.swing.on.steroids.wizard.presenters.WizardBlockingRegistration;
-import org.swing.on.steroids.wizard.presenters.WizardPresenter;
-import org.swing.on.steroids.wizard.presenters.WizardButton;
-import org.swing.on.steroids.wizard.model.WizardPageID;
 import com.google.inject.Inject;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+import org.codeartisans.java.toolbox.Strings;
 import org.swing.on.steroids.views.handlers.ClickHandler;
 import org.swing.on.steroids.views.notifications.ClickNotification;
 import org.swing.on.steroids.views.values.ValueChangeHandler;
 import org.swing.on.steroids.views.values.ValueChangeNotification;
-import org.swing.on.steroids.wizard.model.SignupWizardModel;
 import org.swing.on.steroids.wizard.model.PlanType;
+import org.swing.on.steroids.wizard.model.SignupWizardModel;
+import org.swing.on.steroids.wizard.model.WizardPageID;
 import org.swing.on.steroids.wizard.views.AccountPageView;
 import org.swing.on.steroids.wizard.views.PlanTypeConfirmBlockingView;
-import org.codeartisans.java.toolbox.StringUtils;
 
 /**
  * @author Paul Merlin
@@ -136,7 +128,7 @@ public class AccountPagePresenter
                 if ( Arrays.equals( notification.getNewValue(), view.confirmation().getValue() ) ) {
                     wizardModel.setPassword( notification.getNewValue() );
                 } else {
-                    wizardModel.setPassword( StringUtils.EMPTY_CHAR_ARRAY );
+                    wizardModel.setPassword( Strings.EMPTY_CHAR_ARRAY );
                 }
                 handleButtons();
             }
@@ -151,7 +143,7 @@ public class AccountPagePresenter
                 if ( Arrays.equals( notification.getNewValue(), view.password().getValue() ) ) {
                     wizardModel.setPassword( notification.getNewValue() );
                 } else {
-                    wizardModel.setPassword( StringUtils.EMPTY_CHAR_ARRAY );
+                    wizardModel.setPassword( Strings.EMPTY_CHAR_ARRAY );
                 }
                 handleButtons();
             }

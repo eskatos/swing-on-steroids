@@ -16,10 +16,6 @@
     <packaging>pom</packaging>
     <url>http://github.com/Codeartisans/swing-on-steroids</url>
 
-    <properties>
-        <qi4j.version>1.2</qi4j.version>
-    </properties>
-
     <modules>
         <module>core</module>
         <module>test-support</module>
@@ -27,6 +23,23 @@
         <module>ui-swing</module>
         <module>wizard</module>
     </modules>
+    
+    <properties>
+        <qi4j.version>1.4</qi4j.version>
+        <version.java-toolbox>1.5-SNAPSHOT</version.java-toolbox>
+        
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.codeartisans</groupId>
+                <artifactId>java-toolbox</artifactId>
+                <version>${version.java-toolbox}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
 
     <licenses>
         <license>

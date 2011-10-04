@@ -14,20 +14,17 @@
 package org.swing.on.steroids.wizard.presenters;
 
 import com.google.inject.Inject;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import org.codeartisans.java.toolbox.Strings;
+import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.swing.on.steroids.wizard.events.NavigationEvent;
 import org.swing.on.steroids.wizard.model.WizardModel;
 import org.swing.on.steroids.wizard.model.WizardPageID;
 import org.swing.on.steroids.wizard.views.WizardPageView;
 import org.swing.on.steroids.wizard.views.WizardView;
-import org.codeartisans.java.toolbox.StringUtils;
-import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * FIXME Merge {@link BaseWizardPresenter} and {@link DefaultWizardPresenter} and provide hooks to Wizards implementors.
@@ -138,7 +135,7 @@ public class DefaultWizardPresenter<M extends WizardModel>
         String previousTitle = null;
         for ( PageVertex<M> eachStep : currentWizardStepsPath ) {
             String eachTitle = eachStep.presenter().title();
-            if ( !StringUtils.isEmpty( eachTitle ) && ( previousTitle == null || !previousTitle.equals( eachTitle ) ) ) {
+            if ( !Strings.isEmpty( eachTitle ) && ( previousTitle == null || !previousTitle.equals( eachTitle ) ) ) {
                 steps.add( eachStep.presenter().title() );
             }
         }

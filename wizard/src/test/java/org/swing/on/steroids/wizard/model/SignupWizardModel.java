@@ -13,9 +13,7 @@
  */
 package org.swing.on.steroids.wizard.model;
 
-import org.swing.on.steroids.wizard.model.WizardModel;
-import org.codeartisans.java.toolbox.StringUtils;
-
+import org.codeartisans.java.toolbox.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,11 +36,11 @@ public class SignupWizardModel
     @Override
     public final void reset()
     {
-        setUsername( StringUtils.EMPTY );
-        setPassword( StringUtils.EMPTY_CHAR_ARRAY );
+        setUsername( Strings.EMPTY );
+        setPassword( Strings.EMPTY_CHAR_ARRAY );
         setPlan( null );
         setCreditCardType( null );
-        setCreditCardNumber( StringUtils.EMPTY );
+        setCreditCardNumber( Strings.EMPTY );
         LOGGER.debug( "Wizard Model Reseted" );
     }
 
@@ -62,12 +60,12 @@ public class SignupWizardModel
 
     public boolean isAccountComplete()
     {
-        return !StringUtils.isEmpty( username ) && password.length > 6 && plan != null;
+        return !Strings.isEmpty( username ) && password.length > 6 && plan != null;
     }
 
     public boolean isCreditCardComplete()
     {
-        return creditCardType != null && !StringUtils.isEmpty( creditCardNumber );
+        return creditCardType != null && !Strings.isEmpty( creditCardNumber );
     }
 
     public void setUsername( String username )

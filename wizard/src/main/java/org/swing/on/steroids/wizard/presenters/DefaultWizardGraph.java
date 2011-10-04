@@ -1,37 +1,25 @@
 /*
  * Copyright (c) 2009, Paul Merlin. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+ * applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  *
  */
 package org.swing.on.steroids.wizard.presenters;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.swing.on.steroids.wizard.model.WizardPageID;
-import org.swing.on.steroids.wizard.model.WizardModel;
-import org.codeartisans.java.toolbox.CollectionUtils;
+import java.util.*;
+import org.codeartisans.java.toolbox.Collections;
 import org.codeartisans.java.toolbox.exceptions.NullArgumentException;
-
 import org.jgrapht.alg.CycleDetector;
 import org.jgrapht.alg.DirectedNeighborIndex;
-import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.ClassBasedEdgeFactory;
+import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.ListenableDirectedGraph;
+import org.swing.on.steroids.wizard.model.WizardModel;
+import org.swing.on.steroids.wizard.model.WizardPageID;
 
 /**
  * Default WizardGraph implementation based on {@link DefaultDirectedGraph}.
@@ -50,8 +38,12 @@ public class DefaultWizardGraph<M extends WizardModel>
     private static final long serialVersionUID = 1L;
     private final ListenableDirectedGraph<PageVertex<M>, TransitionEdge> listenableDecorator;
     private final DirectedNeighborIndex<PageVertex<M>, TransitionEdge> neighborsIndex;
-    /* package */ PageVertex<M> startPageVertex;
-    /* package */ PageVertex<M> currentPageVertex;
+    /*
+     * package
+     */ PageVertex<M> startPageVertex;
+    /*
+     * package
+     */ PageVertex<M> currentPageVertex;
 
     public DefaultWizardGraph()
     {
@@ -78,7 +70,7 @@ public class DefaultWizardGraph<M extends WizardModel>
         if ( predecessors.isEmpty() ) {
             return null;
         }
-        return CollectionUtils.firstElementOrNull( predecessors );
+        return Collections.firstElementOrNull( predecessors );
     }
 
     @Override
@@ -110,7 +102,7 @@ public class DefaultWizardGraph<M extends WizardModel>
         if ( successors.isEmpty() ) {
             return null;
         }
-        return CollectionUtils.firstElementOrNull( successors );
+        return Collections.firstElementOrNull( successors );
     }
 
     @Override
@@ -176,7 +168,7 @@ public class DefaultWizardGraph<M extends WizardModel>
         Set<PageVertex<M>> vertexSet = vertexSet();
         if ( !vertexSet.isEmpty() ) {
             if ( vertexSet.size() == 2 ) {
-                startPageVertex = CollectionUtils.firstElementOrNull( vertexSet );
+                startPageVertex = Collections.firstElementOrNull( vertexSet );
                 currentPageVertex = startPageVertex;
             } else {
                 List<PageVertex<M>> currentWizardStepsPath = currentWizardStepsPath();
@@ -208,7 +200,7 @@ public class DefaultWizardGraph<M extends WizardModel>
                 eachPageVertex = assertOneEnabledSuccessorOrNullIfNone( eachPageVertex );
             }
 
-            Collections.reverse( previouses );
+            java.util.Collections.reverse( previouses );
             stepsPath.addAll( previouses );
             stepsPath.add( currentPageVertex );
             stepsPath.addAll( nexts );
@@ -237,7 +229,7 @@ public class DefaultWizardGraph<M extends WizardModel>
         if ( !predecessors.isEmpty() && predecessors.size() > 1 ) {
             throw new RuntimeException();
         }
-        return CollectionUtils.firstElementOrNull( predecessors );
+        return Collections.firstElementOrNull( predecessors );
     }
 
     private Set<PageVertex<M>> filterEnabledPredecessors( PageVertex<M> pivot, Set<PageVertex<M>> predecessors, boolean enabled )
@@ -259,7 +251,7 @@ public class DefaultWizardGraph<M extends WizardModel>
         if ( !successors.isEmpty() && successors.size() > 1 ) {
             throw new RuntimeException();
         }
-        return CollectionUtils.firstElementOrNull( successors );
+        return Collections.firstElementOrNull( successors );
     }
 
     private Set<PageVertex<M>> filterEnabledSuccessors( PageVertex<M> pivot, Set<PageVertex<M>> successors, boolean enabled )
