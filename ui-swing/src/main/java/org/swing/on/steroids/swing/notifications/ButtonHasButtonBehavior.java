@@ -14,21 +14,20 @@
 package org.swing.on.steroids.swing.notifications;
 
 
-import javax.swing.JButton;
+import javax.swing.AbstractButton;
+
 import org.swing.on.steroids.threading.WorkQueue;
 import org.swing.on.steroids.views.handlers.HasButtonBehavior;
 import org.swing.on.steroids.swing.helpers.SwingHelper;
 
-@Deprecated
-public class JButtonHasButtonBehavior
-        extends JButtonHasClickHandlers
+public class ButtonHasButtonBehavior
+        extends ButtonHasClickHandlers
         implements HasButtonBehavior
 {
 
     private static final long serialVersionUID = 1L;
 
-    @Deprecated
-    public JButtonHasButtonBehavior( WorkQueue workQueue, JButton button )
+    public ButtonHasButtonBehavior( WorkQueue workQueue, AbstractButton button )
     {
         super( workQueue, button );
     }

@@ -13,67 +13,21 @@
  */
 package org.swing.on.steroids.swing.notifications;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import org.swing.on.steroids.threading.WorkQueue;
-import org.swing.on.steroids.views.notifications.ClickNotification;
-import org.swing.on.steroids.views.handlers.ClickHandler;
-import org.swing.on.steroids.views.handlers.HandlerRegistration;
 import org.swing.on.steroids.views.handlers.HasClickHandlers;
 
+@Deprecated
 public class JButtonHasClickHandlers
+        extends ButtonHasClickHandlers
         implements HasClickHandlers<Void>
 {
 
-    private final WorkQueue workQueue;
-    private final JButton button;
-
+    @Deprecated
     public JButtonHasClickHandlers( WorkQueue workQueue, JButton button )
     {
-        this.workQueue = workQueue;
-        this.button = button;
-    }
-
-    @Override
-    public final HandlerRegistration addClickHandler( final ClickHandler<Void> handler )
-    {
-        final ActionListener listener = new ActionListener()
-        {
-
-            @Override
-            public void actionPerformed( ActionEvent e )
-            {
-                workQueue.enqueue( new Runnable()
-                {
-
-                    @Override
-                    public void run()
-                    {
-                        handler.onClick( new ClickNotification<Void>() );
-                    }
-
-                } );
-            }
-
-        };
-        button.addActionListener( listener );
-        return new HandlerRegistration()
-        {
-
-            @Override
-            public void removeHandler()
-            {
-                button.removeActionListener( listener );
-            }
-
-        };
-    }
-
-    public final JButton getJButton()
-    {
-        return button;
+        super( workQueue, button );
     }
 
 }

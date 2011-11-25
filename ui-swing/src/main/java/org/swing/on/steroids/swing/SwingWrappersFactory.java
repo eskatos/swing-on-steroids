@@ -21,8 +21,9 @@ import java.awt.MenuItem;
 import java.awt.Image;
 import java.util.Collection;
 import java.util.Map;
-import javax.swing.JFrame;
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -37,10 +38,10 @@ import org.swing.on.steroids.views.values.HasValueChangeHandlers;
 import org.swing.on.steroids.views.handlers.HasClickHandlers;
 import org.swing.on.steroids.views.handlers.HasFocusHandlers;
 import org.swing.on.steroids.swing.components.EnhancedLabel;
+import org.swing.on.steroids.swing.notifications.ButtonHasButtonBehavior;
+import org.swing.on.steroids.swing.notifications.ButtonHasClickHandlers;
 import org.swing.on.steroids.swing.notifications.EnhancedLabelHasImageValueChangeHandlers;
-import org.swing.on.steroids.swing.notifications.JButtonHasButtonBehavior;
 import org.swing.on.steroids.swing.notifications.WindowHasFocusHandlers;
-import org.swing.on.steroids.swing.notifications.JButtonHasClickHandlers;
 import org.swing.on.steroids.swing.notifications.JCheckBoxHasValueChangeHandlers;
 import org.swing.on.steroids.swing.notifications.MenuItemHasClickHandlers;
 import org.swing.on.steroids.swing.notifications.TrayIconHasClickHandlers;
@@ -58,10 +59,10 @@ import org.swing.on.steroids.swing.notifications.JTreeHasValueChangeHandlers;
  * @author Fabien Barbero
  * @author David Emo
  */
-public final class SwingWrappersFactory
+public class SwingWrappersFactory
 {
 
-    private final WorkQueue workQueue;
+    protected final WorkQueue workQueue;
 
     @Inject
     public SwingWrappersFactory( WorkQueue workQueue )
@@ -69,73 +70,85 @@ public final class SwingWrappersFactory
         this.workQueue = workQueue;
     }
 
-    public HasFocusHandlers createWindowHasFocusHandlers( Window window )
+    public final HasFocusHandlers createWindowHasFocusHandlers( Window window )
     {
         return new WindowHasFocusHandlers( workQueue, window );
     }
 
-    public HasClickHandlers<Void> createJButtonHasClickHandler( JButton button )
+    @Deprecated
+    public final HasClickHandlers<Void> createJButtonHasClickHandler( JButton button )
     {
-        return new JButtonHasClickHandlers( workQueue, button );
+        return createButtonHasClickHandler( button );
+    }
+    
+    public final HasClickHandlers<Void> createButtonHasClickHandler( AbstractButton button )
+    {
+        return new ButtonHasClickHandlers( workQueue, button );
     }
 
-    public HasButtonBehavior createJButtonHasButtonBehavior( JButton button )
+    @Deprecated
+    public final HasButtonBehavior createJButtonHasButtonBehavior( JButton button )
     {
-        return new JButtonHasButtonBehavior( workQueue, button );
+        return createButtonHasButtonBehavior( button );
+    }
+    
+    public final HasButtonBehavior createButtonHasButtonBehavior( AbstractButton button )
+    {
+        return new ButtonHasButtonBehavior( workQueue, button );
     }
 
-    public HasClickHandlers<Void> createPanelHasClickHandlers( JPanel glassPane )
+    public final HasClickHandlers<Void> createPanelHasClickHandlers( JPanel glassPane )
     {
         return new JPaneHasClickHandlers( workQueue, glassPane );
     }
 
-    public HasClickHandlers<Void> createJFrameHasCloseClickHandlers( JFrame frame )
+    public final HasClickHandlers<Void> createJFrameHasCloseClickHandlers( JFrame frame )
     {
         return new JFrameHasCloseClickHandlers( workQueue, frame );
     }
 
-    public HasClickHandlers<Void> createTrayIconHasClickHandlers( TrayIcon trayIcon )
+    public final HasClickHandlers<Void> createTrayIconHasClickHandlers( TrayIcon trayIcon )
     {
         return new TrayIconHasClickHandlers( workQueue, trayIcon );
     }
 
-    public HasClickHandlers<Void> createMenuItemHasClickHandlers( MenuItem menuItem )
+    public final HasClickHandlers<Void> createMenuItemHasClickHandlers( MenuItem menuItem )
     {
         return new MenuItemHasClickHandlers( workQueue, menuItem );
     }
 
-    public <V> HasValueChangeHandlers<V> createJComboBoxHasValueChangeHandlers( JComboBox jComboBox )
+    public final <V> HasValueChangeHandlers<V> createJComboBoxHasValueChangeHandlers( JComboBox jComboBox )
     {
         return new JComboBoxHasValueChangeHandlers<V>( workQueue, jComboBox );
     }
 
     // FIXME : use generics to box type of collection elements
-    public HasValueChangeHandlers<Collection<?>> createJTreeHasTreePathValueChangeHandlers( JTree tree )
+    public final HasValueChangeHandlers<Collection<?>> createJTreeHasTreePathValueChangeHandlers( JTree tree )
     {
         return new JTreeHasValueChangeHandlers( workQueue, tree );
     }
 
-    public HasValueChangeHandlers<String> createJTextComponentHasStringValueChangeHandlers( JTextField textField )
+    public final HasValueChangeHandlers<String> createJTextComponentHasStringValueChangeHandlers( JTextField textField )
     {
         return new JTextComponentHasStringValueChangeHandlers( workQueue, textField );
     }
 
-    public HasValueChangeHandlers<char[]> createJPasswordFieldHasCharsValueChangeHandlers( JPasswordField passwordField )
+    public final HasValueChangeHandlers<char[]> createJPasswordFieldHasCharsValueChangeHandlers( JPasswordField passwordField )
     {
         return new JPasswordFieldHasCharsValueChangeHandlers( workQueue, passwordField );
     }
 
-    public HasValueChangeHandlers<Image> createEnhancedLabelHasImageValueChangeHandlers( EnhancedLabel enhancedLabel )
+    public final HasValueChangeHandlers<Image> createEnhancedLabelHasImageValueChangeHandlers( EnhancedLabel enhancedLabel )
     {
         return new EnhancedLabelHasImageValueChangeHandlers( workQueue, enhancedLabel );
     }
 
-    public HasValueChangeHandlers<Boolean> createJCheckBoxHasValueChangeHandlers( JCheckBox checkBox )
+    public final HasValueChangeHandlers<Boolean> createJCheckBoxHasValueChangeHandlers( JCheckBox checkBox )
     {
         return new JCheckBoxHasValueChangeHandlers( workQueue, checkBox );
     }
 
-    public <T> HasValueChangeHandlers<T> createJToggleButtonGroupHasValueChangeHandlers( Map<JToggleButton, T> toggleButtons )
+    public final <T> HasValueChangeHandlers<T> createJToggleButtonGroupHasValueChangeHandlers( Map<JToggleButton, T> toggleButtons )
     {
         return new JToggleButtonGroupHasValueChangeHandlers<T>( workQueue, toggleButtons );
     }
