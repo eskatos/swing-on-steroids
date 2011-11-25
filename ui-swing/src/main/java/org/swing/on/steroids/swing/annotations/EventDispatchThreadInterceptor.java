@@ -36,38 +36,91 @@ public class EventDispatchThreadInterceptor
     public Object invoke( final MethodInvocation invocation )
             throws Throwable
     {
-        if ( !Void.TYPE.equals( invocation.getMethod().getReturnType() ) ) {
-            throw new IllegalStateException( "EventDispatchThread allowed only on methods returning void" );
-        }
-        if ( SwingUtilities.isEventDispatchThread() ) {
-            invocation.proceed();
-        } else {
-            Runnable runnable = new Runnable()
-            {
-
-                @Override
-                public void run()
+        // Void method
+        if ( Void.TYPE.equals( invocation.getMethod().getReturnType() ) ) {
+            if ( SwingUtilities.isEventDispatchThread() ) {
+                invocation.proceed();
+            } else {
+                Runnable runnable = new Runnable()
                 {
-                    try {
-                        invocation.proceed();
-                    } catch ( Throwable ex ) {
-                        throw new SOSFailure( ex.getMessage(), ex );
-                    }
-                }
 
-            };
-            EventDispatchThread annotation = invocation.getMethod().getAnnotation( EventDispatchThread.class );
-            switch ( annotation.value() ) {
-                case invokeLater:
-                    EventQueue.invokeLater( runnable );
-                    break;
-                case invokeAndWait:
-                default:
-                    EventQueue.invokeAndWait( runnable );
-                    break;
+                    @Override
+                    public void run()
+                    {
+                        try {
+                            invocation.proceed();
+                        } catch ( Throwable ex ) {
+                            throw new SOSFailure( ex.getMessage(), ex );
+                        }
+                    }
+
+                };
+                EventDispatchThread annotation = invocation.getMethod().getAnnotation( EventDispatchThread.class );
+                invokeEDT( annotation, runnable );
+            }
+            return null;
+
+            // Method which return an object
+        } else {
+            if ( SwingUtilities.isEventDispatchThread() ) {
+                return invocation.proceed();
+
+            } else {
+                final LovalVariable var = new LovalVariable();
+                Runnable runnable = new Runnable()
+                {
+
+                    @Override
+                    public void run()
+                    {
+                        try {
+                            var.set( invocation.proceed() );
+                        } catch ( Throwable ex ) {
+                            throw new SOSFailure( ex.getMessage(), ex );
+                        }
+                    }
+
+                };
+                EventDispatchThread annotation = invocation.getMethod().getAnnotation( EventDispatchThread.class );
+                if ( annotation.value() == EventDispatchThreadPolicy.invokeLater ) {
+                    throw new IllegalArgumentException( "The methods which return an object must be called using the policy 'invokeAndWait'" );
+                }
+                invokeEDT( annotation, runnable );
+                return var.get();
             }
         }
-        return null;
+    }
+
+    private void invokeEDT( EventDispatchThread annotation, Runnable runnable )
+            throws Throwable
+    {
+
+        switch ( annotation.value() ) {
+            case invokeLater:
+                EventQueue.invokeLater( runnable );
+                break;
+            case invokeAndWait:
+            default:
+                EventQueue.invokeAndWait( runnable );
+                break;
+        }
+    }
+
+    private static class LovalVariable
+    {
+
+        private Object obj;
+
+        public void set( Object obj )
+        {
+            this.obj = obj;
+        }
+
+        public Object get()
+        {
+            return obj;
+        }
+
     }
 
 }
