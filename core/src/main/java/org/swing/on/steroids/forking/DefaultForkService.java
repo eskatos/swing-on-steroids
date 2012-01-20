@@ -14,8 +14,8 @@
 package org.swing.on.steroids.forking;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.codeartisans.java.toolbox.async.CallbackWithE;
@@ -40,28 +40,51 @@ public final class DefaultForkService
     @Override
     public void fork( Forkable forkable, ShutdownAction shutdownAction )
     {
-        fork( forkable, null, shutdownAction );
+        fork( forkable, null, shutdownAction, null, null );
     }
 
     @Override
-    public void fork( Forkable forkable, final CallbackWithE<Void, ForkFault> exitCallback, final ShutdownAction shutdownAction )
+    public void fork( Forkable forkable, ShutdownAction shutdownAction, OutputStream output )
+    {
+        fork( forkable, null, shutdownAction, output, output );
+    }
+
+    @Override
+    public void fork( Forkable forkable, ShutdownAction shutdownAction, OutputStream stdOut, OutputStream errOut )
+    {
+        fork( forkable, null, shutdownAction, stdOut, errOut );
+    }
+
+    @Override
+    public void fork( Forkable forkable, CallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction )
+    {
+        fork( forkable, exitCallback, shutdownAction, null, null );
+    }
+
+    @Override
+    public void fork( Forkable forkable, CallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction, OutputStream output )
+    {
+        fork( forkable, exitCallback, shutdownAction, output, output );
+    }
+
+    @Override
+    public void fork( final Forkable forkable, final CallbackWithE<Void, ForkFault> exitCallback, final ShutdownAction shutdownAction, OutputStream stdOut, OutputStream errOut )
     {
         try {
-            final String forkUuid = UUID.randomUUID().toString();
             final ProcessBuilder builder = new ProcessBuilder( forkable.command() );
             builder.directory( forkable.workingDirectory() );
             final Map<String, String> environment = forkable.environment();
-            if(environment != null) {
+            if ( environment != null ) {
                 builder.environment().putAll( environment );
             }
             final Process proc = builder.start();
-            final StreamGobbler stderr = new StreamGobbler( proc.getErrorStream(), threadGroup, forkUuid + "-STDERR-Gobbler" );
-            final StreamGobbler stdout = new StreamGobbler( proc.getInputStream(), threadGroup, forkUuid + "-STDOUT-Gobbler" );
+            final StreamGobbler stderr = new StreamGobbler( proc.getErrorStream(), threadGroup, forkable.name() + "-STDERR", errOut );
+            final StreamGobbler stdout = new StreamGobbler( proc.getInputStream(), threadGroup, forkable.name() + "-STDOUT", stdOut );
             stderr.setDaemon( true );
             stdout.setDaemon( true );
             stderr.start();
             stdout.start();
-            final Thread watcher = new Thread( threadGroup, forkUuid + "-Watcher" )
+            final Thread watcher = new Thread( threadGroup, forkable.name() + "-Watcher" )
             {
 
                 @Override
@@ -74,7 +97,7 @@ public final class DefaultForkService
                         callback();
                         interrupt();
                     } catch ( InterruptedException iex ) {
-                        ForkFault ex = new ForkFault( "Fork Watcher " + forkUuid + "interrupted!", iex );
+                        ForkFault ex = new ForkFault( "Fork Watcher " + forkable.name() + "interrupted!", iex );
                         if ( exitCallback != null ) {
                             exitCallback.onError( ex.getMessage(), ex );
                         } else {
@@ -109,7 +132,7 @@ public final class DefaultForkService
                         }
                     } else {
                         if ( exitCallback != null ) {
-                            exitCallback.onError( "Fork " + forkUuid + " exited with error, status was: " + status, null );
+                            exitCallback.onError( "Fork " + forkable.name() + " exited with error, status was: " + status, null );
                         }
                     }
                 }

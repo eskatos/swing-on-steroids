@@ -17,8 +17,12 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-public interface Forkable
-{
+public interface Forkable {
+
+    /**
+     * @return Name used for logging purpose.
+     */
+    String name();
 
     /**
      * @return Forkable command as a collection of String.
@@ -29,10 +33,9 @@ public interface Forkable
      * @return Wanted working directory. This can be null, in this case, the current working directory will be used.
      */
     File workingDirectory();
-    
+
     /**
      * @return The additional environment variables to user.
      */
     Map<String, String> environment();
-
 }

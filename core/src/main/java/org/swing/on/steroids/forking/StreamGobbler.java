@@ -58,7 +58,8 @@ public final class StreamGobbler
             String line = null;
             while ( ( line = br.readLine() ) != null ) {
                 if ( pw != null ) {
-                    pw.println( line );
+                    pw.println( getName() + " " + line );
+                    pw.flush();
                 }
             }
             if ( pw != null ) {

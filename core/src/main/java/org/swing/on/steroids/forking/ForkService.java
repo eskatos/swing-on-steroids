@@ -13,6 +13,7 @@
  */
 package org.swing.on.steroids.forking;
 
+import java.io.OutputStream;
 import org.codeartisans.java.toolbox.async.CallbackWithE;
 
 @SuppressWarnings( "PublicInnerClass" )
@@ -33,6 +34,10 @@ public interface ForkService
      */
     void fork( Forkable forkable, ShutdownAction shutdownAction );
 
+    void fork( Forkable forkable, ShutdownAction shutdownAction, OutputStream allOutput );
+
+    void fork( Forkable forkable, ShutdownAction shutdownAction, OutputStream stdOut, OutputStream errOut );
+
     /**
      * Run a Forkable as a background process with given callback and ShutdownAction.
      *
@@ -41,5 +46,9 @@ public interface ForkService
      * @param shutdownAction    What should the ForkService do when the JVM shuts down
      */
     void fork( Forkable forkable, CallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction );
+
+    void fork( Forkable forkable, CallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction, OutputStream allOutput );
+
+    void fork( Forkable forkable, CallbackWithE<Void, ForkFault> exitCallback, ShutdownAction shutdownAction, OutputStream stdOut, OutputStream errOut );
 
 }
